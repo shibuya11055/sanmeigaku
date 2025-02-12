@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  birthday: 2025-02-13
+  sexagenary_cycle_year: one
+  sexagenary_cycle_month: one
+  sexagenary_cycle_day: one
+  sexagenary_cycle_hour: one
+
+two:
+  birthday: 2025-02-13
+  sexagenary_cycle_year: two
+  sexagenary_cycle_month: two
+  sexagenary_cycle_day: two
+  sexagenary_cycle_hour: two

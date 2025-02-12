@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  name: MyString
+  heavenly_stem: one
+  earthly_branch: one
+  heavenly_void: 1
+
+two:
+  number: 1
+  name: MyString
+  heavenly_stem: two
+  earthly_branch: two
+  heavenly_void: 1
