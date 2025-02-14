@@ -15,18 +15,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162037) do
   enable_extension "pg_catalog.plpgsql"
 
   create_table "earthly_branches", force: :cascade do |t|
-    t.string "name"
-    t.integer "yin_yang"
-    t.integer "season"
+    t.string "name", null: false
+    t.integer "yin_yang", null: false
     t.text "description"
     t.bigint "element_id", null: false
+    t.bigint "first_stem_id"
+    t.integer "first_stem_period_day"
+    t.bigint "second_stem_id"
+    t.integer "second_stem_period_day"
+    t.bigint "third_stem_id"
+    t.integer "third_stem_period_day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["element_id"], name: "index_earthly_branches_on_element_id"
+    t.index ["first_stem_id"], name: "index_earthly_branches_on_first_stem_id"
+    t.index ["second_stem_id"], name: "index_earthly_branches_on_second_stem_id"
+    t.index ["third_stem_id"], name: "index_earthly_branches_on_third_stem_id"
   end
 
   create_table "elements", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -46,8 +54,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162037) do
   end
 
   create_table "heavenly_stems", force: :cascade do |t|
-    t.string "name"
-    t.integer "yin_yang"
+    t.string "name", null: false
+    t.integer "yin_yang", null: false
     t.text "description"
     t.bigint "element_id", null: false
     t.datetime "created_at", null: false
@@ -56,11 +64,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162037) do
   end
 
   create_table "sexagenary_cycles", force: :cascade do |t|
-    t.integer "number"
-    t.string "name"
+    t.integer "number", null: false
+    t.string "name", null: false
     t.bigint "heavenly_stem_id", null: false
     t.bigint "earthly_branch_id", null: false
-    t.integer "heavenly_void"
+    t.integer "heavenly_void", null: false, comment: "0: 戌亥天中殺, 1: 申酉天中殺, 2: 午未天中殺, 3: 辰已天中殺, 4: 寅卯天中殺, 5: 子丑天中殺"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["earthly_branch_id"], name: "index_sexagenary_cycles_on_earthly_branch_id"
@@ -68,9 +76,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162037) do
   end
 
   create_table "ten_major_stars", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
-    t.integer "yin_yang"
+    t.integer "yin_yang", null: false
     t.bigint "element_id", null: false
     t.string "compatibility"
     t.datetime "created_at", null: false
@@ -79,6 +87,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162037) do
   end
 
   add_foreign_key "earthly_branches", "elements"
+  add_foreign_key "earthly_branches", "heavenly_stems", column: "first_stem_id"
+  add_foreign_key "earthly_branches", "heavenly_stems", column: "second_stem_id"
+  add_foreign_key "earthly_branches", "heavenly_stems", column: "third_stem_id"
   add_foreign_key "fortune_analyses", "sexagenary_cycles", column: "sexagenary_cycle_day_id"
   add_foreign_key "fortune_analyses", "sexagenary_cycles", column: "sexagenary_cycle_month_id"
   add_foreign_key "fortune_analyses", "sexagenary_cycles", column: "sexagenary_cycle_year_id"
