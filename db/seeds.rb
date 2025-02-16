@@ -120,3 +120,11 @@ sexagenary_cycles = [
 
 SexagenaryCycle.create(sexagenary_cycles)
 
+require 'date'
+
+start_date = Date.new(1925, 1, 1)
+end_date = Date.new(2044, 12, 31)
+
+(start_date..end_date).each do |date|
+  FortuneAnalysisCalculator.call(date)
+end

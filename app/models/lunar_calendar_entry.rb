@@ -1,4 +1,5 @@
 class LunarCalendarEntry < ActiveHash::Base
+  # 干支歴における月入日のデータ
   self.data = [
     { year: 1925, entries: [6,4,6,5,6,6,8,8,8,9,8,7] },
     { year: 1926, entries: [6,4,6,5,6,6,8,8,8,9,8,8] },
@@ -121,4 +122,23 @@ class LunarCalendarEntry < ActiveHash::Base
     { year: 2043, entries: [5,4,6,5,5,6,7,7,8,8,7,7] },
     { year: 2044, entries: [6,4,5,4,5,5,6,7,7,8,7,6] },
   ]
+
+  # 誕生月の始まりの日を返す
+  def self.lunar_birth_day(birth_date)
+    self.find_by(year: birth_date.year).entries[birth_date.month - 1]
+  end
+
+  def self.current_year?(birth_date)
+    year = birth_date.year 
+    boundary_date = Date.new(year, 2, 7)
+
+    # 2月7日以降であれば干支歴で今年であることが確定する（2044年までのデータで）
+    return true if birth_date >= boundary_date
+    
+    # 1月であれば干支歴で去年であることが確定する
+    return false if birth_date.month == 1
+
+    # 誕生日が2月の初日以降であれば今年である
+    birth_date.day <= self.find_by(year: year).entries[1]
+  end
 end
