@@ -38,22 +38,22 @@ heavenly_stems = [
 
 Stem.create(heavenly_stems)
 
-earthly_branches = [
-  { id: 1, name: '子', yin_yang: 1, element_id: 5, description: '冬の始まりを示し、知恵と適応力を象徴する。', third_stem_id: 10 },
+branches = [
+  { id: 1, name: '子', yin_yang: 0, element_id: 5, description: '冬の始まりを示し、知恵と適応力を象徴する。', third_stem_id: 10 },
   { id: 2, name: '丑', yin_yang: 0, element_id: 3, description: '冬の終わりを示し、忍耐と安定を象徴する。', first_stem_id: 10, first_stem_period_day: 9, second_stem_id: 8, second_stem_period_day: 12, third_stem_id: 2},
   { id: 3, name: '寅', yin_yang: 1, element_id: 1, description: '春の始まりを示し、成長と活力を象徴する。', first_stem_id:5, first_stem_period_day: 7, second_stem_id: 3, second_stem_period_day: 14, third_stem_id: 1 },
   { id: 4, name: '卯', yin_yang: 0, element_id: 1, description: '春の盛りを示し、強い生命力と希望を象徴する。', third_stem_id: 2 },
   { id: 5, name: '辰', yin_yang: 1, element_id: 3, description: '春の終わりを示し、変化と適応を象徴する。', first_stem_id: 2, first_stem_period_day: 9, second_stem_id: 10, second_stem_period_day: 12, third_stem_id: 5 },
-  { id: 6, name: '巳', yin_yang: 0, element_id: 2, description: '夏の始まりを示し、情熱と創造力を象徴する。', first_stem_id: 5, first_stem_period_day: 5, second_stem_id: 7, second_stem_period_day: 14, third_stem_id: 3 },
-  { id: 7, name: '午', yin_yang: 1, element_id: 2, description: '夏の盛りを示し、エネルギーと決断力を象徴する。', second_stem_id: 6, second_stem_period_day: 19, third_stem_id: 4 },
+  { id: 6, name: '巳', yin_yang: 1, element_id: 2, description: '夏の始まりを示し、情熱と創造力を象徴する。', first_stem_id: 5, first_stem_period_day: 5, second_stem_id: 7, second_stem_period_day: 14, third_stem_id: 3 },
+  { id: 7, name: '午', yin_yang: 0, element_id: 2, description: '夏の盛りを示し、エネルギーと決断力を象徴する。', second_stem_id: 6, second_stem_period_day: 19, third_stem_id: 4 },
   { id: 8, name: '未', yin_yang: 0, element_id: 3, description: '夏の終わりを示し、穏やかさと調和を象徴する。', first_stem_id: 4, first_stem_period_day: 9, second_stem_id: 2, second_stem_period_day: 12, third_stem_id: 6 },
   { id: 9, name: '申', yin_yang: 1, element_id: 4, description: '秋の始まりを示し、知性と戦略を象徴する。', first_stem_id: 5, first_stem_period_day: 10, second_stem_id: 9, second_stem_period_day: 13, third_stem_id: 7 },
   { id: 10, name: '酉', yin_yang: 0, element_id: 4, description: '秋の盛りを示し、収穫と完成を象徴する。', first_stem_id: 8 },
   { id: 11, name: '戌', yin_yang: 1, element_id: 3, description: '秋の終わりを示し、誠実と忠誠を象徴する。', first_stem_id: 8, first_stem_period_day: 9, second_stem_id: 4, second_stem_period_day: 12, third_stem_id: 5 },
-  { id: 12, name: '亥', yin_yang: 0, element_id: 5, description: '冬の盛りを示し、静寂と再生を象徴する。', second_stem_id: 1, second_stem_period_day: 12, third_stem_id: 9 }
+  { id: 12, name: '亥', yin_yang: 1, element_id: 5, description: '冬の盛りを示し、静寂と再生を象徴する。', second_stem_id: 1, second_stem_period_day: 12, third_stem_id: 9 }
 ]
 
-Branch.create(earthly_branches)
+Branch.create(branches)
 
 sexagenary_cycles = [
   { id: 1, name: '甲子', stem_id: 1, branch_id: 1, heavenly_void: 0  },
