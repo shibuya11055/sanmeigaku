@@ -1,0 +1,33 @@
+.submit-button {
+  margin-top: 12px;
+}
+
+.result-table {
+  margin-top: 20px;
+}
+
+.table-bordered {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid black;
+  padding: 30px;
+  text-align: center;
+}
+
+.table-bordered th {
+  font-size: 16px;
+  background-color: ghostwhite;
+}
+
+.table-bordered td {
+  font-size: 16px;
+}
+
+.branch-stem th,
+.branch-stem td {
+  border-top: 2px solid blueviolet;
+}

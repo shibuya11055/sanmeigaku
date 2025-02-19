@@ -1,0 +1,13 @@
+<%= turbo_stream.replace "fortune_analysis" do %>
+  <div>
+    <% if @result %>
+      <h2>宿命図の結果</h2>
+      <p>日付: <%= @date %></p>
+      <p>年干支: <%= @result.sexagenary_cycle_year.stem_and_branch %></p>
+      <p>月干支: <%= @result.sexagenary_cycle_month.stem_and_branch %></p>
+      <p>日干支: <%= @result.sexagenary_cycle_day.stem_and_branch %></p>
+    <% else %>
+      <p>結果が見つかりませんでした。</p>
+    <% end %>
+  </div>
+<% end %>
