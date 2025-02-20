@@ -31,3 +31,8 @@
 .branch-stem td {
   border-top: 2px solid blueviolet;
 }
+
+.qi-stem th,
+.qi-stem td {
+  border-top: 2px solid darkorange;
+}

@@ -13,10 +13,6 @@
 <div class="result-table">
   <% if @result %>
     <table class="table-bordered">
-      <% day_branch = @result.sexagenary_cycle_day.branch %>
-      <% month_branch = @result.sexagenary_cycle_month.branch %>
-      <% year_branch = @result.sexagenary_cycle_year.branch %>
-
       <tr>
         <th>日<br/>(<%= @result.sexagenary_cycle_day_id %>)</th>
         <th>月<br/>(<%= @result.sexagenary_cycle_month_id %>)</th>
@@ -30,27 +26,33 @@
         <th>干</th>
       </tr>
       <tr>
-        <td><%= day_branch.name %><br/>（西・結果）</td>
-        <td><%= month_branch.name %><br/>（中央・交点・経過）</td>
-        <td><%= year_branch.name %><br/>（東・未来）</td>
+        <td><%= @day_branch.name %><br/>（西・結果）</td>
+        <td><%= @month_branch.name %><br/>（中央・交点・経過）</td>
+        <td><%= @year_branch.name %><br/>（東・未来）</td>
         <th>支</th>
       </tr>
       <tr class="branch-stem">
-        <td><%= day_branch.first_stem&.name || '-' %></td>
-        <td><%= month_branch.first_stem&.name || '-' %></td>
-        <td><%= year_branch.first_stem&.name || '-' %></td>
+        <td><%= @day_branch.first_stem&.name || '-' %></td>
+        <td><%= @month_branch.first_stem&.name || '-' %></td>
+        <td><%= @year_branch.first_stem&.name || '-' %></td>
         <th></th>
       </tr>
       <tr>
-        <td><%= day_branch.second_stem&.name || '-' %></td>
-        <td><%= month_branch.second_stem&.name || '-' %></td>
-        <td><%= year_branch.second_stem&.name || '-' %></td>
+        <td><%= @day_branch.second_stem&.name || '-' %></td>
+        <td><%= @month_branch.second_stem&.name || '-' %></td>
+        <td><%= @year_branch.second_stem&.name || '-' %></td>
         <th></th>
       </tr>
       <tr>
-        <td><%= day_branch.third_stem&.name || '-' %></td>
-        <td><%= month_branch.third_stem&.name || '-' %></td>
-        <td><%= year_branch.third_stem&.name || '-' %></td>
+        <td><%= @day_branch.third_stem&.name || '-' %></td>
+        <td><%= @month_branch.third_stem&.name || '-' %></td>
+        <td><%= @year_branch.third_stem&.name || '-' %></td>
+        <th></th>
+      </tr>
+      <tr class="qi-stem">
+        <td><%= @day_qi_stem.name %></td>
+        <td><%= @month_qi_stem.name %></td>
+        <td><%= @year_qi_stem.name %></td>
         <th></th>
       </tr>
     </table>

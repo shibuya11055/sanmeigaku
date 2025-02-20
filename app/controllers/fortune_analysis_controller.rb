@@ -11,6 +11,43 @@ class FortuneAnalysisController < ApplicationController
       sexagenary_cycle_day: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } }
     ).find_by(birthday: @date)
 
+    @day_branch = @result.sexagenary_cycle_day.branch
+    @month_branch = @result.sexagenary_cycle_month.branch
+    @year_branch = @result.sexagenary_cycle_year.branch
+
+    @year_qi_stem, @month_qi_stem, @day_qi_stem = birth_qi
+
     render :index
+  end
+
+  private
+
+  def birth_qi
+    days = qi_days
+    year_qi_stem = calculate_qi(days, @year_branch)
+    month_qi_stem = calculate_qi(days, @month_branch)
+    day_qi_stem = calculate_qi(days, @day_branch)
+
+    return year_qi_stem, month_qi_stem, day_qi_stem
+  end
+
+  def calculate_qi(days, branch)
+    if branch.first_stem.present? && branch.first_stem_period_day >= days
+      branch.first_stem
+    elsif branch.second_stem.present? && branch.second_stem_period_day >=  days
+      branch.second_stem
+    else
+      branch.third_stem
+    end
+  end
+
+  def qi_days
+    day = @date.day
+    entry_day = LunarCalendarEntry.lunar_birth_day(@date)
+    if day >= entry_day
+      day - entry_day
+    else
+      LunarCalendarEntry.lunar_birth_day_previous_month(@date) - LunarCalendarEntry.lunar_birth_day_previous_month(@date) + day
+    end
   end
 end
