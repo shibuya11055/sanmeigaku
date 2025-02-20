@@ -14,7 +14,7 @@
 .table-bordered th,
 .table-bordered td {
   border: 1px solid black;
-  padding: 30px;
+  padding: 10px;
   text-align: center;
 }
 

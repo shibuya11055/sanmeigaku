@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_12_162037) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_20_161650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -64,6 +64,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162037) do
     t.index ["stem_id"], name: "index_sexagenary_cycles_on_stem_id"
   end
 
+  create_table "stem_ten_star_mappings", id: :serial, comment: "日干気、他気、十大主星の関係", force: :cascade do |t|
+    t.bigint "main_stem_id", null: false, comment: "日干気"
+    t.bigint "sub_stem_id", null: false, comment: "他気"
+    t.bigint "ten_major_star_id", null: false, comment: "十大主星"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["main_stem_id"], name: "index_stem_ten_star_mappings_on_main_stem_id"
+    t.index ["sub_stem_id"], name: "index_stem_ten_star_mappings_on_sub_stem_id"
+    t.index ["ten_major_star_id"], name: "index_stem_ten_star_mappings_on_ten_major_star_id"
+  end
+
   create_table "stems", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.integer "yin_yang", null: false
@@ -93,6 +104,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_162037) do
   add_foreign_key "fortune_analyses", "sexagenary_cycles", column: "sexagenary_cycle_year_id"
   add_foreign_key "sexagenary_cycles", "branches"
   add_foreign_key "sexagenary_cycles", "stems"
+  add_foreign_key "stem_ten_star_mappings", "stems", column: "main_stem_id"
+  add_foreign_key "stem_ten_star_mappings", "stems", column: "sub_stem_id"
+  add_foreign_key "stem_ten_star_mappings", "ten_major_stars"
   add_foreign_key "stems", "elements"
   add_foreign_key "ten_major_stars", "elements"
 end
