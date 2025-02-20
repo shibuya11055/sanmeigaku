@@ -48,7 +48,7 @@ branches = [
   { id: 7, name: '午', yin_yang: 0, element_id: 2, description: '夏の盛りを示し、エネルギーと決断力を象徴する。', second_stem_id: 6, second_stem_period_day: 19, third_stem_id: 4 },
   { id: 8, name: '未', yin_yang: 0, element_id: 3, description: '夏の終わりを示し、穏やかさと調和を象徴する。', first_stem_id: 4, first_stem_period_day: 9, second_stem_id: 2, second_stem_period_day: 12, third_stem_id: 6 },
   { id: 9, name: '申', yin_yang: 1, element_id: 4, description: '秋の始まりを示し、知性と戦略を象徴する。', first_stem_id: 5, first_stem_period_day: 10, second_stem_id: 9, second_stem_period_day: 13, third_stem_id: 7 },
-  { id: 10, name: '酉', yin_yang: 0, element_id: 4, description: '秋の盛りを示し、収穫と完成を象徴する。', first_stem_id: 8 },
+  { id: 10, name: '酉', yin_yang: 0, element_id: 4, description: '秋の盛りを示し、収穫と完成を象徴する。', third_stem_id: 8 },
   { id: 11, name: '戌', yin_yang: 1, element_id: 3, description: '秋の終わりを示し、誠実と忠誠を象徴する。', first_stem_id: 8, first_stem_period_day: 9, second_stem_id: 4, second_stem_period_day: 12, third_stem_id: 5 },
   { id: 12, name: '亥', yin_yang: 1, element_id: 5, description: '冬の盛りを示し、静寂と再生を象徴する。', second_stem_id: 1, second_stem_period_day: 12, third_stem_id: 9 }
 ]

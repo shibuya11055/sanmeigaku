@@ -34,7 +34,7 @@ class FortuneAnalysisController < ApplicationController
   def calculate_qi(days, branch)
     if branch.first_stem.present? && branch.first_stem_period_day >= days
       branch.first_stem
-    elsif branch.second_stem.present? && branch.second_stem_period_day >=  days
+    elsif branch.second_stem.present? && branch.second_stem_period_day >= days
       branch.second_stem
     else
       branch.third_stem
