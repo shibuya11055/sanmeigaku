@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_20_161650) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_22_154634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -75,6 +75,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_20_161650) do
     t.index ["ten_major_star_id"], name: "index_stem_ten_star_mappings_on_ten_major_star_id"
   end
 
+  create_table "stem_twelve_star_mappings", id: :serial, comment: "日干、十二支の十二大従星の関係", force: :cascade do |t|
+    t.bigint "stem_id", null: false, comment: "日干"
+    t.bigint "branch_id", null: false, comment: "十二支"
+    t.bigint "twelve_sub_star_id", null: false, comment: "十二大従星"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_stem_twelve_star_mappings_on_branch_id"
+    t.index ["stem_id"], name: "index_stem_twelve_star_mappings_on_stem_id"
+    t.index ["twelve_sub_star_id"], name: "index_stem_twelve_star_mappings_on_twelve_sub_star_id"
+  end
+
   create_table "stems", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.integer "yin_yang", null: false
@@ -95,6 +106,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_20_161650) do
     t.index ["element_id"], name: "index_ten_major_stars_on_element_id"
   end
 
+  create_table "twelve_sub_stars", id: :serial, force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "branches", "elements"
   add_foreign_key "branches", "stems", column: "first_stem_id"
   add_foreign_key "branches", "stems", column: "second_stem_id"
@@ -107,6 +125,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_20_161650) do
   add_foreign_key "stem_ten_star_mappings", "stems", column: "main_stem_id"
   add_foreign_key "stem_ten_star_mappings", "stems", column: "sub_stem_id"
   add_foreign_key "stem_ten_star_mappings", "ten_major_stars"
+  add_foreign_key "stem_twelve_star_mappings", "branches"
+  add_foreign_key "stem_twelve_star_mappings", "stems"
+  add_foreign_key "stem_twelve_star_mappings", "twelve_sub_stars"
   add_foreign_key "stems", "elements"
   add_foreign_key "ten_major_stars", "elements"
 end

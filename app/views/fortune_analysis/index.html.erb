@@ -12,6 +12,7 @@
 
 <div class="result-table">
   <% if @result %>
+    <h2>陰占図</h2>
     <table class="table-bordered">
       <tr>
         <th>日<br/>(<%= @result.sexagenary_cycle_day_id %>)</th>
@@ -57,22 +58,23 @@
       </tr>
     </table>
 
+    <h2>陽占図</h2>
     <table class="yang-chart">
       <tbody>
         <tr>
           <td></td>
-          <td><%= @north_ten_star %></td>
-          <td></td>
+          <td><%= @ten_stars[:north].name %></td>
+          <td><%= @twelve_stars[:third].name %></td>
         </tr>
         <tr>
-          <td><%= @west_ten_star %></td>
-          <td><%= @center_ten_star %></td>
-          <td><%= @east_ten_star %></td>
+          <td><%= @ten_stars[:west].name %></td>
+          <td><%= @ten_stars[:center].name %></td>
+          <td><%= @ten_stars[:east].name %></td>
         </tr>
         <tr>
-          <td></td>
-          <td><%= @south_ten_star %></td>
-          <td></td>
+          <td><%= @twelve_stars[:first].name %></td>
+          <td><%= @ten_stars[:south].name %></td>
+          <td><%= @twelve_stars[:second].name %></td>
         </tr>
       </tbody>
     </table>

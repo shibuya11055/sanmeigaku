@@ -21,7 +21,7 @@ class FortuneAnalysisController < ApplicationController
 
     @year_qi_stem, @month_qi_stem, @day_qi_stem = birth_qi
 
-    @east_ten_star, @south_ten_star, @west_ten_star, @north_ten_star, @center_ten_star = calculate_yang_chart
+    @ten_stars, @twelve_stars = calculate_yang_chart
 
     render :index
   end
@@ -66,10 +66,22 @@ class FortuneAnalysisController < ApplicationController
       center: @month_qi_stem
     }
 
+    # 十大主星の取得
     ten_stars = stems.transform_values do |sub_stem|
-      StemTenStarMapping.find_by!(main_stem: @day_stem, sub_stem: sub_stem).ten_major_star.name
+      StemTenStarMapping.find_by!(main_stem: @day_stem, sub_stem: sub_stem).ten_major_star
     end
 
-    return ten_stars[:east], ten_stars[:south], ten_stars[:west], ten_stars[:north], ten_stars[:center]
+    # 十二大従星の取得
+    branches = {
+      first: @day_branch,
+      second: @month_branch,
+      third: @year_branch
+    }
+
+    twelve_stars = branches.transform_values do |branch|
+      StemTwelveStarMapping.find_by!(stem: @day_stem, branch: branch).twelve_sub_star
+    end
+
+    return ten_stars, twelve_stars
   end
 end
