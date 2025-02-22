@@ -40,7 +40,7 @@ Stem.create(heavenly_stems)
 
 branches = [
   { id: 1, name: '子', yin_yang: 0, element_id: 5, description: '冬の始まりを示し、知恵と適応力を象徴する。', third_stem_id: 10 },
-  { id: 2, name: '丑', yin_yang: 0, element_id: 3, description: '冬の終わりを示し、忍耐と安定を象徴する。', first_stem_id: 10, first_stem_period_day: 9, second_stem_id: 8, second_stem_period_day: 12, third_stem_id: 2},
+  { id: 2, name: '丑', yin_yang: 0, element_id: 3, description: '冬の終わりを示し、忍耐と安定を象徴する。', first_stem_id: 10, first_stem_period_day: 9, second_stem_id: 8, second_stem_period_day: 12, third_stem_id: 6},
   { id: 3, name: '寅', yin_yang: 1, element_id: 1, description: '春の始まりを示し、成長と活力を象徴する。', first_stem_id:5, first_stem_period_day: 7, second_stem_id: 3, second_stem_period_day: 14, third_stem_id: 1 },
   { id: 4, name: '卯', yin_yang: 0, element_id: 1, description: '春の盛りを示し、強い生命力と希望を象徴する。', third_stem_id: 2 },
   { id: 5, name: '辰', yin_yang: 1, element_id: 3, description: '春の終わりを示し、変化と適応を象徴する。', first_stem_id: 2, first_stem_period_day: 9, second_stem_id: 10, second_stem_period_day: 12, third_stem_id: 5 },

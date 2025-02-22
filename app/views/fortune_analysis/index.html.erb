@@ -20,9 +20,9 @@
         <th></th>
       </tr>
       <tr>
-        <td><%= @result.sexagenary_cycle_day.stem.name %><br/>（主気）</td>
-        <td><%= @result.sexagenary_cycle_month.stem.name %><br/>（精神気・未来・南）</td>
-        <td><%= @result.sexagenary_cycle_year.stem.name %><br/>（精神気・過去・北）</td>
+        <td><%= @day_stem.name %><br/>（主気）</td>
+        <td><%= @month_stem .name %><br/>（精神気・未来・南）</td>
+        <td><%= @year_stem.name %><br/>（精神気・過去・北）</td>
         <th>干</th>
       </tr>
       <tr>
@@ -55,6 +55,26 @@
         <td><%= @year_qi_stem.name %></td>
         <th></th>
       </tr>
+    </table>
+
+    <table class="yang-chart">
+      <tbody>
+        <tr>
+          <td></td>
+          <td><%= @north_ten_star %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= @west_ten_star %></td>
+          <td><%= @center_ten_star %></td>
+          <td><%= @east_ten_star %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= @south_ten_star %></td>
+          <td></td>
+        </tr>
+      </tbody>
     </table>
   <% end %>
 </div>

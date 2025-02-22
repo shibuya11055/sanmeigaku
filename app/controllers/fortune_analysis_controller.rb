@@ -11,11 +11,17 @@ class FortuneAnalysisController < ApplicationController
       sexagenary_cycle_day: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } }
     ).find_by(birthday: @date)
 
+    @day_stem = @result.sexagenary_cycle_day.stem
+    @month_stem = @result.sexagenary_cycle_month.stem
+    @year_stem = @result.sexagenary_cycle_year.stem
+
     @day_branch = @result.sexagenary_cycle_day.branch
     @month_branch = @result.sexagenary_cycle_month.branch
     @year_branch = @result.sexagenary_cycle_year.branch
 
     @year_qi_stem, @month_qi_stem, @day_qi_stem = birth_qi
+
+    @east_ten_star, @south_ten_star, @west_ten_star, @north_ten_star, @center_ten_star = calculate_yang_chart
 
     render :index
   end
@@ -47,7 +53,23 @@ class FortuneAnalysisController < ApplicationController
     if day >= entry_day
       day - entry_day
     else
-      LunarCalendarEntry.lunar_birth_day_previous_month(@date) - LunarCalendarEntry.lunar_birth_day_previous_month(@date) + day
+      LunarCalendarEntry.lunar_birth_last_day_previous_month(@date) - LunarCalendarEntry.lunar_birth_day_previous_month(@date) + day
     end
+  end
+
+  def calculate_yang_chart
+    stems = {
+      east: @year_qi_stem,
+      south: @month_stem,
+      west: @day_qi_stem,
+      north: @year_stem,
+      center: @month_qi_stem
+    }
+
+    ten_stars = stems.transform_values do |sub_stem|
+      StemTenStarMapping.find_by!(main_stem: @day_stem, sub_stem: sub_stem).ten_major_star.name
+    end
+
+    return ten_stars[:east], ten_stars[:south], ten_stars[:west], ten_stars[:north], ten_stars[:center]
   end
 end

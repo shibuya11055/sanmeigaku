@@ -129,7 +129,7 @@ class LunarCalendarEntry < ActiveHash::Base
   end
 
   # 誕生月の前月の終わりの日を返す
-  def self.lunar_birth_day_previous_month(birth_date)
+  def self.lunar_birth_last_day_previous_month(birth_date)
     if birth_date.month == 1
       # 前年の12月末の日付を返す
       previous_year = birth_date.year - 1
