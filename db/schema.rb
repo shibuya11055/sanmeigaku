@@ -108,6 +108,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_22_154634) do
 
   create_table "twelve_sub_stars", id: :serial, force: :cascade do |t|
     t.string "name", null: false
+    t.integer "energy", null: false, comment: "エネルギー値"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

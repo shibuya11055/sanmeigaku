@@ -3,6 +3,7 @@ class CreateTwelveSubStars < ActiveRecord::Migration[8.0]
     create_table :twelve_sub_stars, id: false do |t|
       t.integer :id, primary_key: true, null: false
       t.string :name, null: false
+      t.integer :energy, null: false, comment: 'エネルギー値'
       t.text :description
 
       t.timestamps

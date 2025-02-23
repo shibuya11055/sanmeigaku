@@ -24,21 +24,21 @@ ten_major_stars = [
 TenMajorStar.create(ten_major_stars)
 
 twelve_sub_stars = [
-  { id: 1, name: '天報星' },
-  { id: 2, name: '天印星' },
-  { id: 3, name: '天貴星' },
-  { id: 4, name: '天恍星' },
-  { id: 5, name: '天南星' },
-  { id: 6, name: '天禄星' },
-  { id: 7, name: '天将星' },
-  { id: 8, name: '天堂星' },
-  { id: 9, name: '天胡星' },
-  { id: 10, name: '天極星' },
-  { id: 11, name: '天庫星' },
-  { id: 12, name: '天馳星' }
+  { id: 1, name: '天報星', energy: 3 },
+  { id: 2, name: '天印星', energy: 6 },
+  { id: 3, name: '天貴星', energy: 9 },
+  { id: 4, name: '天恍星', energy: 7 },
+  { id: 5, name: '天南星', energy: 10 },
+  { id: 6, name: '天禄星', energy: 11 },
+  { id: 7, name: '天将星', energy: 12 },
+  { id: 8, name: '天堂星', energy: 8 },
+  { id: 9, name: '天胡星', energy: 4 },
+  { id: 10, name: '天極星', energy: 2 },
+  { id: 11, name: '天庫星', energy: 5 },
+  { id: 12, name: '天馳星', energy: 1 }
 ]
 
-TwelveSubStar.create(twelve_major_stars)
+TwelveSubStar.create(twelve_sub_stars)
 
 heavenly_stems = [
   { id: 1, name: "甲", yin_yang: 1, element_id: 1, description: "大樹のような性質。堅実で忍耐強い。" },

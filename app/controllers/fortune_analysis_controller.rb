@@ -23,6 +23,8 @@ class FortuneAnalysisController < ApplicationController
 
     @ten_stars, @twelve_stars = calculate_yang_chart
 
+    @youth_sub_star, @middle_age_sub_star, @old_age_sub_star = calculate_branch_and_stem_sub_star
+
     render :index
   end
 
@@ -83,5 +85,13 @@ class FortuneAnalysisController < ApplicationController
     end
 
     return ten_stars, twelve_stars
+  end
+
+  def calculate_branch_and_stem_sub_star
+    youth_sub_star = StemTwelveStarMapping.find_by!(stem: @year_stem, branch: @year_branch).twelve_sub_star
+    middle_age_sub_star = StemTwelveStarMapping.find_by!(stem: @month_stem, branch: @month_branch).twelve_sub_star
+    old_age_sub_star = StemTwelveStarMapping.find_by!(stem: @day_stem, branch: @day_branch).twelve_sub_star
+
+    return youth_sub_star, middle_age_sub_star, old_age_sub_star
   end
 end

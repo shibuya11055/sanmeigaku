@@ -13,50 +13,61 @@
 <div class="result-table">
   <% if @result %>
     <h2>陰占図</h2>
-    <table class="table-bordered">
-      <tr>
-        <th>日<br/>(<%= @result.sexagenary_cycle_day_id %>)</th>
-        <th>月<br/>(<%= @result.sexagenary_cycle_month_id %>)</th>
-        <th>年<br/>(<%= @result.sexagenary_cycle_year_id %>)</th>
-        <th></th>
-      </tr>
-      <tr>
-        <td><%= @day_stem.name %><br/>（主気）</td>
-        <td><%= @month_stem .name %><br/>（精神気・未来・南）</td>
-        <td><%= @year_stem.name %><br/>（精神気・過去・北）</td>
-        <th>干</th>
-      </tr>
-      <tr>
-        <td><%= @day_branch.name %><br/>（西・結果）</td>
-        <td><%= @month_branch.name %><br/>（中央・交点・経過）</td>
-        <td><%= @year_branch.name %><br/>（東・未来）</td>
-        <th>支</th>
-      </tr>
-      <tr class="branch-stem">
-        <td><%= @day_branch.first_stem&.name || '-' %></td>
-        <td><%= @month_branch.first_stem&.name || '-' %></td>
-        <td><%= @year_branch.first_stem&.name || '-' %></td>
-        <th></th>
-      </tr>
-      <tr>
-        <td><%= @day_branch.second_stem&.name || '-' %></td>
-        <td><%= @month_branch.second_stem&.name || '-' %></td>
-        <td><%= @year_branch.second_stem&.name || '-' %></td>
-        <th></th>
-      </tr>
-      <tr>
-        <td><%= @day_branch.third_stem&.name || '-' %></td>
-        <td><%= @month_branch.third_stem&.name || '-' %></td>
-        <td><%= @year_branch.third_stem&.name || '-' %></td>
-        <th></th>
-      </tr>
-      <tr class="qi-stem">
-        <td><%= @day_qi_stem.name %></td>
-        <td><%= @month_qi_stem.name %></td>
-        <td><%= @year_qi_stem.name %></td>
-        <th></th>
-      </tr>
-    </table>
+    <div class="yin-field">
+      <div class="yin-chart">
+        <table class="table-bordered">
+          <tr>
+            <th>日<br/>(<%= @result.sexagenary_cycle_day_id %>)</th>
+            <th>月<br/>(<%= @result.sexagenary_cycle_month_id %>)</th>
+            <th>年<br/>(<%= @result.sexagenary_cycle_year_id %>)</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td><%= @day_stem.name %><br/>（主気）</td>
+            <td><%= @month_stem .name %><br/>（精神気・未来・南）</td>
+            <td><%= @year_stem.name %><br/>（精神気・過去・北）</td>
+            <th>干</th>
+          </tr>
+          <tr>
+            <td><%= @day_branch.name %><br/>（西・結果）</td>
+            <td><%= @month_branch.name %><br/>（中央・交点・経過）</td>
+            <td><%= @year_branch.name %><br/>（東・未来）</td>
+            <th>支</th>
+          </tr>
+          <tr class="branch-stem">
+            <td><%= @day_branch.first_stem&.name || '-' %></td>
+            <td><%= @month_branch.first_stem&.name || '-' %></td>
+            <td><%= @year_branch.first_stem&.name || '-' %></td>
+            <th></th>
+          </tr>
+          <tr>
+            <td><%= @day_branch.second_stem&.name || '-' %></td>
+            <td><%= @month_branch.second_stem&.name || '-' %></td>
+            <td><%= @year_branch.second_stem&.name || '-' %></td>
+            <th></th>
+          </tr>
+          <tr>
+            <td><%= @day_branch.third_stem&.name || '-' %></td>
+            <td><%= @month_branch.third_stem&.name || '-' %></td>
+            <td><%= @year_branch.third_stem&.name || '-' %></td>
+            <th></th>
+          </tr>
+          <tr class="qi-stem">
+            <td><%= @day_qi_stem.name %></td>
+            <td><%= @month_qi_stem.name %></td>
+            <td><%= @year_qi_stem.name %></td>
+            <th></th>
+          </tr>
+        </table>
+      </div>
+
+      <div class="yin-detail">
+        若年期: <%= @youth_sub_star.name %>・<%= @youth_sub_star.energy %><br/>
+        中年期: <%= @middle_age_sub_star.name %>・<%= @middle_age_sub_star.energy %><br/>
+        晩年期: <%= @old_age_sub_star.name %>・<%= @old_age_sub_star.energy %><br/>
+      </div>
+
+    </div>
 
     <h2>陽占図</h2>
     <table class="yang-chart">
