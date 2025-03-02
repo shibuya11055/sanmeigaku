@@ -62,9 +62,14 @@
       </div>
 
       <div class="yin-detail">
-        若年期: <%= @youth_sub_star.name %>・<%= @youth_sub_star.energy %><br/>
-        中年期: <%= @middle_age_sub_star.name %>・<%= @middle_age_sub_star.energy %><br/>
-        晩年期: <%= @old_age_sub_star.name %>・<%= @old_age_sub_star.energy %><br/>
+        <div class="void">
+          <%= @result.sexagenary_cycle_day.heavenly_void %>
+        </div> 
+        <div class="energy">
+          若年期: <%= @youth_sub_star.name %>・<%= @youth_sub_star.energy %><br/>
+          中年期: <%= @middle_age_sub_star.name %>・<%= @middle_age_sub_star.energy %><br/>
+          晩年期: <%= @old_age_sub_star.name %>・<%= @old_age_sub_star.energy %><br/>
+        </div>
       </div>
 
     </div>
