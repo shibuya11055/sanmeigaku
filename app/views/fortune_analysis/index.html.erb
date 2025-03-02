@@ -94,5 +94,32 @@
         </tr>
       </tbody>
     </table>
+
+    <h2>宿命絵図</h2>
+    <table class="art-chart">
+      <thead>
+        <tr>
+          <th><%= image_tag(@day_stem.image_name) %></th>
+          <th><%= image_tag(@month_stem.image_name) %></th>
+          <th><%= image_tag(@year_stem.image_name) %></th>
+        </tr>
+      <tbody>
+        <tr>
+          <td><%= image_tag(@day_branch.first_stem.image_name) if @day_branch.first_stem.present? %></td>
+          <td><%= image_tag(@month_branch.first_stem.image_name) if @month_branch.first_stem.present? %></td>
+          <td><%= image_tag(@year_branch.first_stem.image_name) if @year_branch.first_stem.present? %></td>
+        </tr>
+        <tr>
+          <td><%= image_tag(@day_branch.second_stem.image_name) if @day_branch.second_stem.present? %></td>
+          <td><%= image_tag(@month_branch.second_stem.image_name) if @month_branch.second_stem.present? %></td>
+          <td><%= image_tag(@year_branch.second_stem.image_name) if @year_branch.second_stem.present? %></td>
+        </tr>
+        <tr>
+          <td><%= image_tag(@day_branch.third_stem.image_name) if @day_branch.third_stem.present? %></td>
+          <td><%= image_tag(@month_branch.third_stem.image_name) if @month_branch.third_stem.present? %></td>
+          <td><%= image_tag(@year_branch.third_stem.image_name) if @year_branch.third_stem.present? %></td>
+        </tr>
+      </tbody>
+    </table>
   <% end %>
 </div>
