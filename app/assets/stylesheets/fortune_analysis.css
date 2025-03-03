@@ -1,3 +1,7 @@
+.complete-void-color {
+  color: violet !important;
+}
+
 .submit-button {
   margin-top: 12px;
 }
@@ -8,10 +12,6 @@
 
 .yin-field {
   display: flex;
-}
-
-.yin-chart {
-  margin-right: 20px;
 }
 
 .table-bordered {
@@ -26,13 +26,13 @@
   text-align: center;
 }
 
-.table-bordered th {
-  font-size: 16px;
-  background-color: ghostwhite;
+.abnormal {
+  color: red;
+  font-weight: bold;
 }
 
-.table-bordered td {
-  font-size: 16px;
+.table-bordered th {
+  background-color: ghostwhite;
 }
 
 .branch-stem th,
@@ -55,16 +55,28 @@
   padding: 20px;
   text-align: center;
   border: 1px solid black;
-  font-size: 16px;
 }
 
 .yin-detail div {
   margin-bottom: 16px;
 }
 
-.yin-detail .void {
+.void {
   font-weight: bold;
   font-size: 20px;
+  writing-mode: tb;
+  margin: 0 16px 0 16px;
+}
+
+ul {
+  margin: 0;
+}
+
+.birth-void {
+  .void-list {
+    display: list-item;
+    padding: 0;
+  }
 }
 
 .art-chart {

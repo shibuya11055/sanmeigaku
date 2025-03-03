@@ -11,6 +11,9 @@ class FortuneAnalysisController < ApplicationController
       sexagenary_cycle_day: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } }
     ).find_by(birthday: @date)
 
+    @year_heavenly_void = @result.sexagenary_cycle_year.heavenly_void
+    @day_heavenly_void = @result.sexagenary_cycle_day.heavenly_void
+
     @day_stem = @result.sexagenary_cycle_day.stem
     @month_stem = @result.sexagenary_cycle_month.stem
     @year_stem = @result.sexagenary_cycle_year.stem
@@ -24,6 +27,10 @@ class FortuneAnalysisController < ApplicationController
     @ten_stars, @twelve_stars = calculate_yang_chart
 
     @youth_sub_star, @middle_age_sub_star, @old_age_sub_star = calculate_branch_and_stem_sub_star
+
+    @abnormals = abnormals
+
+    @birth_voids = birth_voids
 
     render :index
   end
@@ -93,5 +100,52 @@ class FortuneAnalysisController < ApplicationController
     old_age_sub_star = StemTwelveStarMapping.find_by!(stem: @day_stem, branch: @day_branch).twelve_sub_star
 
     return youth_sub_star, middle_age_sub_star, old_age_sub_star
+  end
+
+  # 異常干支を配列で取得
+  def abnormals
+    [
+      @result.sexagenary_cycle_day.abnormal_stem_and_branch_name,
+      @result.sexagenary_cycle_month.abnormal_stem_and_branch_name,
+      @result.sexagenary_cycle_year.abnormal_stem_and_branch_name
+    ].compact
+  end
+
+  # 生日中殺などをオブジェクトで持つ
+  def birth_voids
+    {
+      birth_day_void: birth_day_void? ? '生日中殺' : nil,
+      birth_month_void: birth_month_void? ? '生月中殺' : nil,
+      birth_year_void: birth_year_void? ? '生年中殺' : nil,
+      compatible_void: compatible_void? ? '互換中殺' : nil,
+      day_position_void: @result.sexagenary_cycle_day.day_position_void? ? '日座天中殺' : nil,
+      day_residence_void: @result.sexagenary_cycle_day.day_residence_void? ? '日居天中殺' : nil,
+      double_birth_void: double_birth_void? ? '宿命二中殺' : nil,
+      complete_void: complete_void? ? '全天中殺' : nil
+    }
+  end
+
+  def birth_day_void?
+    @year_heavenly_void.chars.include?(@day_branch.name)
+  end
+
+  def birth_month_void?
+    @day_heavenly_void.chars.include?(@month_branch.name)
+  end
+
+  def birth_year_void?
+    @day_heavenly_void.chars.include?(@year_branch.name)
+  end
+
+  def compatible_void?
+    birth_day_void? && birth_year_void?
+  end
+
+  def double_birth_void?
+    birth_month_void? && birth_year_void?
+  end
+
+  def complete_void?
+    @result.sexagenary_cycle_day.day_position_void? && birth_month_void? && birth_year_void?
   end
 end

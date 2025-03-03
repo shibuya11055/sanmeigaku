@@ -14,64 +14,164 @@
   <% if @result %>
     <h2>陰占図</h2>
     <div class="yin-field">
+      <div class="void">
+        <%= @day_heavenly_void %>
+      </div>
       <div class="yin-chart">
         <table class="table-bordered">
           <tr>
             <th>日<br/>(<%= @result.sexagenary_cycle_day_id %>)</th>
             <th>月<br/>(<%= @result.sexagenary_cycle_month_id %>)</th>
             <th>年<br/>(<%= @result.sexagenary_cycle_year_id %>)</th>
-            <th></th>
+          </tr>
+
+          <%  
+            has_birth_day_void = @birth_voids[:birth_day_void].present? ||
+                                  @birth_voids[:day_position_void].present? ||
+                                  @birth_voids[:day_residence_void].present?
+            has_birth_month_void = @birth_voids[:birth_month_void].present?
+            has_birth_year_void = @birth_voids[:birth_year_void].present?
+            has_compatible_void = @birth_voids[:compatible_void].present?
+            has_double_birth_void = @birth_voids[:double_birth_void].present?
+            has_complete_void = @birth_voids[:complete_void].present?
+          %>
+          <tr>
+            <td>
+              <p 
+                class="<%= 'color-red' if has_birth_day_void %>"
+              >
+                <%= @day_stem.name %>
+              </p>
+              <p>（主気）</p>
+            </td>
+            <td>
+              <p
+                class="<%= 'color-red' if has_birth_month_void %>"
+              >
+                <%= @month_stem .name %>
+              </p>
+              <p>（精神気・未来・南）</p>
+            </td>
+            <td>
+              <p
+                class="<%= 'color-red' if has_birth_year_void %>"
+              >
+                <%= @year_stem.name %>
+              </p>
+              <p>（精神気・過去・北）</p>
+            </td>
           </tr>
           <tr>
-            <td><%= @day_stem.name %><br/>（主気）</td>
-            <td><%= @month_stem .name %><br/>（精神気・未来・南）</td>
-            <td><%= @year_stem.name %><br/>（精神気・過去・北）</td>
-            <th>干</th>
-          </tr>
-          <tr>
-            <td><%= @day_branch.name %><br/>（西・結果）</td>
-            <td><%= @month_branch.name %><br/>（中央・交点・経過）</td>
-            <td><%= @year_branch.name %><br/>（東・未来）</td>
-            <th>支</th>
+            <td>
+              <p
+                class="<%= css_classes({
+                  'shape-wrapper': true,
+                  'color-red': has_birth_day_void,
+                  'green-circle': has_compatible_void,
+                  'complete-void-color': has_complete_void
+                }) %>"
+              >
+                <%= @day_branch.name %>
+              </p>
+              <p>（西・結果）</p>
+            </td>
+            <td>
+              <p 
+                class="<%= css_classes({
+                  'shape-wrapper': true,
+                  'color-red': has_birth_month_void,
+                  'blue-square': has_double_birth_void,
+                  'complete-void-color': has_complete_void
+                }) %>"
+              >
+                <%= @month_branch.name %>
+              </p>
+              <p>（中央・交点・経過）</p>
+            </td>
+            <td>
+              <p
+                class="<%= css_classes({
+                  'shape-wrapper': true,
+                  'color-red': has_birth_year_void,
+                  'green-circle': has_compatible_void,
+                  'blue-square': has_double_birth_void,
+                  'complete-void-color': has_complete_void
+                }) %>"
+              >
+                <%= @year_branch.name %>
+              </p>
+              <p>（東・未来）</p>
+            </td>
           </tr>
           <tr class="branch-stem">
-            <td><%= @day_branch.first_stem&.name || '-' %></td>
-            <td><%= @month_branch.first_stem&.name || '-' %></td>
-            <td><%= @year_branch.first_stem&.name || '-' %></td>
-            <th></th>
+            <td class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.first_stem&.name || '-' %></td>
+            <td class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.first_stem&.name || '-' %></td>
+            <td class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.first_stem&.name || '-' %></td>
           </tr>
           <tr>
-            <td><%= @day_branch.second_stem&.name || '-' %></td>
-            <td><%= @month_branch.second_stem&.name || '-' %></td>
-            <td><%= @year_branch.second_stem&.name || '-' %></td>
-            <th></th>
+            <td class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.second_stem&.name || '-' %></td>
+            <td class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.second_stem&.name || '-' %></td>
+            <td class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.second_stem&.name || '-' %></td>
           </tr>
           <tr>
-            <td><%= @day_branch.third_stem&.name || '-' %></td>
-            <td><%= @month_branch.third_stem&.name || '-' %></td>
-            <td><%= @year_branch.third_stem&.name || '-' %></td>
-            <th></th>
+            <td class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.third_stem&.name || '-' %></td>
+            <td class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.third_stem&.name || '-' %></td>
+            <td class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.third_stem&.name || '-' %></td>
           </tr>
           <tr class="qi-stem">
-            <td><%= @day_qi_stem.name %></td>
-            <td><%= @month_qi_stem.name %></td>
-            <td><%= @year_qi_stem.name %></td>
-            <th></th>
+            <td class="<%= 'color-red' if has_birth_day_void %>"><%= @day_qi_stem.name %></td>
+            <td class="<%= 'color-red' if has_birth_month_void %>"><%= @month_qi_stem.name %></td>
+            <td class="<%= 'color-red' if has_birth_year_void %>"><%= @year_qi_stem.name %></td>
           </tr>
         </table>
       </div>
 
+      <div class="void">
+        <%= @year_heavenly_void %>
+      </div>
+
       <div class="yin-detail">
-        <div class="void">
-          <%= @result.sexagenary_cycle_day.heavenly_void %>
-        </div> 
         <div class="energy">
           若年期: <%= @youth_sub_star.name %>・<%= @youth_sub_star.energy %><br/>
           中年期: <%= @middle_age_sub_star.name %>・<%= @middle_age_sub_star.energy %><br/>
           晩年期: <%= @old_age_sub_star.name %>・<%= @old_age_sub_star.energy %><br/>
         </div>
-      </div>
 
+        <% if @abnormals.present? %>
+          <div class="abnormals">
+            異常干支
+            <ul>
+              <% @abnormals.each do |abnormal| %>
+                <li><%= abnormal %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% birth_void_values = @birth_voids.values.compact %>
+        <% if birth_void_values.present? %>
+          <div class="birth-void">
+            宿命天中殺
+            <ul>
+              <% birth_void_values.each do |value| %>
+                <li
+                  class="<%= css_classes({
+                  'void-list': true,
+                  'shape-wrapper': true,
+                  'text-center': has_compatible_void || has_double_birth_void || has_complete_void,
+                  'color-red': value == '生日中殺' || value == '生月中殺' || value == '生年中殺' || value == '日座天中殺' || value == '日居天中殺',
+                  'green-circle': value == '互換中殺',
+                  'blue-square': value == '宿命二中殺',
+                  'complete-void-color': value == '全天中殺'
+                }) %>"
+                >
+                  <%= value %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
     </div>
 
     <h2>陽占図</h2>
@@ -79,18 +179,18 @@
       <tbody>
         <tr>
           <td></td>
-          <td><%= @ten_stars[:north].name %></td>
-          <td><%= @twelve_stars[:third].name %></td>
+          <td class="<%= 'color-red' if has_birth_year_void %>"><%= @ten_stars[:north].name %><br>（精神の帰結）</td>
+          <td class="<%= 'color-red' if has_birth_year_void %>"><%= @twelve_stars[:third].name %></td>
         </tr>
         <tr>
-          <td><%= @ten_stars[:west].name %></td>
-          <td><%= @ten_stars[:center].name %></td>
-          <td><%= @ten_stars[:east].name %></td>
+          <td class="<%= 'color-red' if has_birth_day_void %>"><%= @ten_stars[:west].name %><br>（家庭の場所・行動の結果）</td>
+          <td class="<%= 'color-red' if has_birth_month_void %>"><%= @ten_stars[:center].name %><br>（心の場所・通過点）</td>
+          <td class="<%= 'color-red' if has_birth_year_void %>"><%= @ten_stars[:east].name %><br>（社会の場所・行動のスタート）</td>
         </tr>
         <tr>
-          <td><%= @twelve_stars[:first].name %></td>
-          <td><%= @ten_stars[:south].name %></td>
-          <td><%= @twelve_stars[:second].name %></td>
+          <td class="<%= 'color-red' if has_birth_day_void %>"><%= @twelve_stars[:first].name %></td>
+          <td class="<%= 'color-red' if has_birth_month_void %>"><%= @ten_stars[:south].name %><br>（精神のスタート）</td>
+          <td class="<%= 'color-red' if has_birth_month_void %>"><%= @twelve_stars[:second].name %></td>
         </tr>
       </tbody>
     </table>
