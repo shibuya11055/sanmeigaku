@@ -104,24 +104,48 @@
             </td>
           </tr>
           <tr class="branch-stem">
-            <td class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.first_stem&.name || '-' %></td>
-            <td class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.first_stem&.name || '-' %></td>
-            <td class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.first_stem&.name || '-' %></td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.first_stem&.name || '-' %></p>
+            </td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.first_stem&.name || '-' %></p>
+            </td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.first_stem&.name || '-' %></p>
+            </td>
           </tr>
           <tr>
-            <td class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.second_stem&.name || '-' %></td>
-            <td class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.second_stem&.name || '-' %></td>
-            <td class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.second_stem&.name || '-' %></td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.second_stem&.name || '-' %></p>
+            </td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.second_stem&.name || '-' %></p>
+            </td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.second_stem&.name || '-' %></p>
+            </td>
           </tr>
           <tr>
-            <td class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.third_stem&.name || '-' %></td>
-            <td class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.third_stem&.name || '-' %></td>
-            <td class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.third_stem&.name || '-' %></td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.third_stem&.name || '-' %></p>
+            </td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.third_stem&.name || '-' %></p>
+            </td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.third_stem&.name || '-' %></p>
+            </td>
           </tr>
           <tr class="qi-stem">
-            <td class="<%= 'color-red' if has_birth_day_void %>"><%= @day_qi_stem.name %></td>
-            <td class="<%= 'color-red' if has_birth_month_void %>"><%= @month_qi_stem.name %></td>
-            <td class="<%= 'color-red' if has_birth_year_void %>"><%= @year_qi_stem.name %></td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_day_void %>"><%= @day_qi_stem.name %></p>
+            </td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_month_void %>"><%= @month_qi_stem.name %></p>
+            </td>
+            <td>
+              <p class="<%= 'color-red' if has_birth_year_void %>"><%= @year_qi_stem.name %></p>
+            </td>
           </tr>
         </table>
       </div>
@@ -179,18 +203,39 @@
       <tbody>
         <tr>
           <td></td>
-          <td class="<%= 'color-red' if has_birth_year_void %>"><%= @ten_stars[:north].name %><br>（精神の帰結）</td>
-          <td class="<%= 'color-red' if has_birth_year_void %>"><%= @twelve_stars[:third].name %></td>
+          <td>
+            <p class="<%= 'color-red' if has_birth_year_void %>"><%= @ten_stars[:north].name %></p>
+            <p>（精神の帰結）</p>
+          </td>
+          <td>
+            <p class="<%= 'color-red' if has_birth_year_void %>"><%= @twelve_stars[:third].name %></p>
+          </td>
         </tr>
         <tr>
-          <td class="<%= 'color-red' if has_birth_day_void %>"><%= @ten_stars[:west].name %><br>（家庭の場所・行動の結果）</td>
-          <td class="<%= 'color-red' if has_birth_month_void %>"><%= @ten_stars[:center].name %><br>（心の場所・通過点）</td>
-          <td class="<%= 'color-red' if has_birth_year_void %>"><%= @ten_stars[:east].name %><br>（社会の場所・行動のスタート）</td>
+          <td>
+            <p class="<%= 'color-red' if has_birth_day_void %>"><%= @ten_stars[:west].name %></p>
+            <p>（家庭の場所・行動の結果）</p>
+          </td>
+          <td>
+            <p class="<%= 'color-red' if has_birth_month_void %>"><%= @ten_stars[:center].name %></p>
+            <p>（心の場所・通過点）</p>
+          </td>
+          <td>
+            <p class="<%= 'color-red' if has_birth_year_void %>"><%= @ten_stars[:east].name %></p>
+            <p>（社会の場所・行動のスタート）</p>
+          </td>
         </tr>
         <tr>
-          <td class="<%= 'color-red' if has_birth_day_void %>"><%= @twelve_stars[:first].name %></td>
-          <td class="<%= 'color-red' if has_birth_month_void %>"><%= @ten_stars[:south].name %><br>（精神のスタート）</td>
-          <td class="<%= 'color-red' if has_birth_month_void %>"><%= @twelve_stars[:second].name %></td>
+          <td>
+            <p class="<%= 'color-red' if has_birth_day_void %>"><%= @twelve_stars[:first].name %></p>
+          </td>
+          <td>
+            <p class="<%= 'color-red' if has_birth_month_void %>"><%= @ten_stars[:south].name %></p>
+            <p>（精神のスタート）</p>
+          </td>
+          <td>
+            <p class="<%= 'color-red' if has_birth_month_void %>"><%= @twelve_stars[:second].name %></p>
+          </td>
         </tr>
       </tbody>
     </table>
