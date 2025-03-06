@@ -26,6 +26,8 @@ class FortuneAnalysisController < ApplicationController
 
     @ten_stars, @twelve_stars = calculate_yang_chart
 
+    @ten_stars_elm_relation_icon = ten_stars_elm_relation_icon
+
     @youth_sub_star, @middle_age_sub_star, @old_age_sub_star = calculate_branch_and_stem_sub_star
 
     @abnormals = abnormals
@@ -147,5 +149,16 @@ class FortuneAnalysisController < ApplicationController
 
   def complete_void?
     @result.sexagenary_cycle_day.day_position_void? && birth_month_void? && birth_year_void?
+  end
+
+  def ten_stars_elm_relation_icon
+    center_id = @ten_stars[:center].element_id
+
+    {
+      top: ElementRelation.top_icon(center_id, @ten_stars[:north].element_id),
+      right: ElementRelation.right_icon(center_id, @ten_stars[:east].element_id),
+      bottom: ElementRelation.bottom_icon(center_id, @ten_stars[:south].element_id),
+      left: ElementRelation.left_icon(center_id, @ten_stars[:west].element_id)
+    }
   end
 end

@@ -1,5 +1,6 @@
 html {
   font-size: 14px;
+  font-family: "Kokoro";
 }
 
 .color-red {
@@ -50,4 +51,12 @@ html {
 
 p {
   margin: 0;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.font-size-20 {
+  font-size: 20px;
 }

@@ -15,13 +15,13 @@
 }
 
 .table-bordered {
-  border: 1px solid black;
+  border: 1px solid lightgray;
   border-collapse: collapse;
 }
 
 .table-bordered th,
 .table-bordered td {
-  border: 1px solid black;
+  border: 1px solid lightgray;
   padding: 10px;
   text-align: center;
 }
@@ -32,29 +32,29 @@
 }
 
 .table-bordered th {
-  background-color: ghostwhite;
+  background-color: #F4EBDA;
 }
 
 .branch-stem th,
 .branch-stem td {
-  border-top: 2px solid blueviolet;
+  border-top: 2px solid #A6B5A5;
 }
 
 .qi-stem th,
 .qi-stem td {
-  border-top: 2px solid darkorange;
+  border-top: 2px solid #A6B5A5;
 }
 
 .yang-chart {
   margin-top: 20px;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   border-collapse: collapse;
 }
 
 .yang-chart td {
-  padding: 20px;
+  padding: 10px;
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid lightgray;
 }
 
 .yin-detail div {
@@ -80,11 +80,11 @@ ul {
 }
 
 .art-chart {
-  border: 1px solid #000;  
+  border: 1px solid lightgray;  
   border-collapse: collapse;
 
   th, td {
-    border-right: 1px solid #000; 
+    border-right: 1px solid lightgray; 
 
     &:last-child {
       border-right: none;
@@ -92,7 +92,7 @@ ul {
   }
 
   th {
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid lightgray;
     padding: 4px;
   }
 
@@ -125,10 +125,16 @@ ul {
     background-size: cover;
     /* width: 100px; */
     height: 100px;
-    background-color:rgba(255,255,255,0.8);
+    background-color:rgba(255,255,255,0.88);
     background-blend-mode:lighten;
   }
 }
 .default-relation {
   font-size: 1.5em; color: red;
+  padding: 4px;
+}
+
+.user-relation {
+  font-size: 1.5em; color: blue;
+  padding:0 4px 0 4px;
 }
