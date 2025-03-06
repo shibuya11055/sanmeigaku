@@ -108,3 +108,27 @@ ul {
     height: 100px;
   }
 }
+
+/* 背景画像 */
+.yang-chart {
+  .arrow-tr {
+    td {
+      height: 5px;
+    }
+  }
+  .arrow {
+    width: 5px;
+  }
+  td {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* width: 100px; */
+    height: 100px;
+    background-color:rgba(255,255,255,0.8);
+    background-blend-mode:lighten;
+  }
+}
+.default-relation {
+  font-size: 1.5em; color: red;
+}

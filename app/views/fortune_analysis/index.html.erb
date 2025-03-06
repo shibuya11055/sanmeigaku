@@ -203,36 +203,56 @@
       <tbody>
         <tr>
           <td></td>
-          <td>
+          <td class="arrow"></td>
+          <td style="background-image: url('<%= asset_path(@ten_stars[:north].image_name) %>');">
             <p class="<%= 'color-red' if has_birth_year_void %>"><%= @ten_stars[:north].name %></p>
             <p>（精神の帰結）</p>
           </td>
+          <td class="arrow"></td>
           <td>
             <p class="<%= 'color-red' if has_birth_year_void %>"><%= @twelve_stars[:third].name %></p>
           </td>
         </tr>
+        <tr class="arrow-tr">
+          <td></td>
+          <td></td>
+          <td><i class="fa-solid fa-person-walking-arrow-right default-relation"></i></td>
+          <td></td>
+          <td></td>
+        </tr>
         <tr>
-          <td>
+          <td style="background-image: url('<%= asset_path(@ten_stars[:west].image_name) %>');">
             <p class="<%= 'color-red' if has_birth_day_void %>"><%= @ten_stars[:west].name %></p>
             <p>（家庭の場所・行動の結果）</p>
           </td>
-          <td>
+          <td class="arrow"><i class="fa-solid fa-arrow-left default-relation"></i></td>
+          <td style="background-image: url('<%= asset_path(@ten_stars[:center].image_name) %>');">
             <p class="<%= 'color-red' if has_birth_month_void %>"><%= @ten_stars[:center].name %></p>
             <p>（心の場所・通過点）</p>
           </td>
-          <td>
+          <td class="arrow"><i class="fa-solid fa-person-walking-arrow-loop-left default-relation"></i></td>
+          <td style="background-image: url('<%= asset_path(@ten_stars[:east].image_name) %>');">
             <p class="<%= 'color-red' if has_birth_year_void %>"><%= @ten_stars[:east].name %></p>
             <p>（社会の場所・行動のスタート）</p>
           </td>
+        </tr>
+        <tr class="arrow-tr">
+          <td></td>
+          <td></td>
+          <td><i class="fa-solid fa-arrow-up default-relation"></i></td>
+          <td></td>
+          <td></td>
         </tr>
         <tr>
           <td>
             <p class="<%= 'color-red' if has_birth_day_void %>"><%= @twelve_stars[:first].name %></p>
           </td>
-          <td>
+          <td class="arrow"></td>
+          <td style="background-image: url('<%= asset_path(@ten_stars[:south].image_name) %>');">
             <p class="<%= 'color-red' if has_birth_month_void %>"><%= @ten_stars[:south].name %></p>
             <p>（精神のスタート）</p>
           </td>
+          <td class="arrow"></td>
           <td>
             <p class="<%= 'color-red' if has_birth_month_void %>"><%= @twelve_stars[:second].name %></p>
           </td>
