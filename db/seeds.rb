@@ -6,7 +6,10 @@ elements = [
   { id: 5, name: '水', description: '知恵、適応力、流れを象徴する。' }
 ]
 
-Element.create(elements)
+elements.each do |element|
+  next if Element.exists?(id: element[:id])
+  Element.create!(element)
+end
 
 ten_major_stars = [
   { id: 1, name: '貫索星', yin_yang: 1, element_id: 1 },
@@ -21,7 +24,10 @@ ten_major_stars = [
   { id: 10, name: '玉堂星', yin_yang: 0, element_id: 5 },
 ]
 
-TenMajorStar.create(ten_major_stars)
+ten_major_stars.each do |ten_major_star|
+  next if TenMajorStar.exists?(id: ten_major_star[:id])
+  TenMajorStar.create!(ten_major_star)
+end
 
 twelve_sub_stars = [
   { id: 1, name: '天報星', energy: 3 },
@@ -38,9 +44,12 @@ twelve_sub_stars = [
   { id: 12, name: '天馳星', energy: 1 }
 ]
 
-TwelveSubStar.create(twelve_sub_stars)
+twelve_sub_stars.each do |twelve_sub_star|
+  next if TwelveSubStar.exists?(id: twelve_sub_star[:id])
+  TwelveSubStar.create!(twelve_sub_star)
+end
 
-heavenly_stems = [
+stems = [
   { id: 1, name: "甲", yin_yang: 1, element_id: 1, description: "大樹のような性質。堅実で忍耐強い。" },
   { id: 2, name: "乙", yin_yang: 0, element_id: 1, description: "草花のように柔軟で繊細。" },
   { id: 3, name: "丙", yin_yang: 1, element_id: 2, description: "太陽のように明るく情熱的。" },
@@ -53,7 +62,10 @@ heavenly_stems = [
   { id: 10, name: "癸", yin_yang: 0, element_id: 5, description: "雨水のように繊細で柔軟。" }
 ]
 
-Stem.create(heavenly_stems)
+stems.each do |stem|
+  next if Stem.exists?(id: stem[:id])
+  Stem.create!(stem)
+end
 
 branches = [
   { id: 1, name: '子', yin_yang: 0, element_id: 5, description: '冬の始まりを示し、知恵と適応力を象徴する。', third_stem_id: 10 },
@@ -70,7 +82,10 @@ branches = [
   { id: 12, name: '亥', yin_yang: 1, element_id: 5, description: '冬の盛りを示し、静寂と再生を象徴する。', second_stem_id: 1, second_stem_period_day: 12, third_stem_id: 9 }
 ]
 
-Branch.create(branches)
+branches.each do |branch|
+  next if Branch.exists?(id: branch[:id])
+  Branch.create!(branch)
+end
 
 sexagenary_cycles = [
   { id: 1, name: '甲子', stem_id: 1, branch_id: 1, heavenly_void: 0  },
@@ -135,7 +150,10 @@ sexagenary_cycles = [
   { id: 60, name: '癸亥', stem_id: 10, branch_id: 12, heavenly_void: 5 }
 ]
 
-SexagenaryCycle.create(sexagenary_cycles)
+sexagenary_cycles.each do |sexagenary_cycle|
+  next if SexagenaryCycle.exists?(id: sexagenary_cycle[:id])
+  SexagenaryCycle.create!(sexagenary_cycle)
+end
 
 stem_ten_star_mappings = [
   {id: 1, main_stem_id: 1, sub_stem_id: 1, ten_major_star_id: 1},
@@ -240,7 +258,10 @@ stem_ten_star_mappings = [
   {id: 100, main_stem_id: 10, sub_stem_id: 7, ten_major_star_id: 10}
 ]
 
-StemTenStarMapping.create(stem_ten_star_mappings)
+stem_ten_star_mappings.each do |stem_ten_star_mapping|
+  next if StemTenStarMapping.exists?(id: stem_ten_star_mapping[:id])
+  StemTenStarMapping.create!(stem_ten_star_mapping)
+end
 
 stem_twelve_star_mappings = [
   {id: 1, stem_id: 1, branch_id: 10, twelve_sub_star_id: 1},
@@ -365,13 +386,18 @@ stem_twelve_star_mappings = [
   {id: 120, stem_id: 10, branch_id: 7, twelve_sub_star_id: 12}
 ]
 
-StemTwelveStarMapping.create(stem_twelve_star_mappings)
+stem_twelve_star_mappings.each do |stem_twelve_star_mapping|
+  next if StemTwelveStarMapping.exists?(id: stem_twelve_star_mapping[:id])
+  StemTwelveStarMapping.create!(stem_twelve_star_mapping)
+end
 
 require 'date'
 
-start_date = Date.new(1925, 1, 1)
-end_date = Date.new(2044, 12, 31)
+unless FortuneAnalysis.exists?
+  start_date = Date.new(1925, 1, 1)
+  end_date = Date.new(2044, 12, 31)
 
-(start_date..end_date).each do |date|
-  FortuneAnalysisCalculator.call(date)
+  (start_date..end_date).each do |date|
+    FortuneAnalysisCalculator.call(date)
+  end
 end
