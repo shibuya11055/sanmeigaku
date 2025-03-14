@@ -84,6 +84,7 @@ production:
     database: sanmeigaku_production
     username: sanmeigaku
     password: <%= ENV["SANMEIGAKU_DATABASE_PASSWORD"] %>
+    url: <%= ENV["SANMEIGAKU_DATABASE_URL"] %>
   cache:
     <<: *primary_production
     database: sanmeigaku_production_cache
