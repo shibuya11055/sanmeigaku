@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  allow_browser versions: :modern
-
   before_action :basic_auth, if: -> { Rails.env.production? }
 
   private
