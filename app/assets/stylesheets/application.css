@@ -1,6 +1,7 @@
 html {
   font-size: 14px;
   font-family: "Kokoro";
+  background-color: #fffdfa;
 }
 
 .color-red {
@@ -59,4 +60,48 @@ p {
 
 .font-size-20 {
   font-size: 20px;
+}
+
+/* カーソルを重ねる要素 */
+.tooltip {
+  position: relative; /* ツールチップの位置の基準に */
+  cursor: pointer; /* カーソルを当てたときにポインターに */
+}
+
+/* ツールチップのテキスト */
+.tooltip-text {
+  opacity: 0; /* はじめは隠しておく */
+  visibility: hidden; /* はじめは隠しておく */
+  position: absolute; /* 絶対配置 */
+  left: 100%; /* 親要素の右側に配置 */
+  transform: translate(10px, 50%); /* 余白を追加して右側にずらし、垂直方向を調整 */
+  bottom: 50%; /* 親要素の中央に配置 */
+  display: inline-block;
+  padding: 5px; /* 余白 */
+  white-space: nowrap; /* テキストを折り返さない */
+  font-size: 0.8rem; /* フォントサイズ */
+  line-height: 1.3; /* 行間 */
+  background: #333; /* 背景色 */
+  color: #fff; /* 文字色 */
+  border-radius: 3px; /* 角丸 */
+  transition: 0.1s ease-in; /* アニメーション */
+  margin-left: 4px; /* ツールチップを右側に 10px 離す */
+}
+
+/* ツールチップの矢印 */
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -10px; /* 位置を調整 */
+  transform: translateY(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #333; /* 右向きの矢印 */
+}
+
+/* ホバー時にツールチップの非表示を解除 */
+.tooltip:hover .tooltip-text {
+  opacity: 1;
+  visibility: visible;
 }
