@@ -218,9 +218,9 @@
           <td></td>
           <td class="tooltip">
             <i class="fa-solid fa-angles-up default-relation"></i>
-            <i class="user-relation <%= @ten_stars_elm_relation_icon[:top] %>">
+            <i class="user-relation <%= @ten_stars_relations[:top] %>">
               <span class="tooltip-text">
-                どうよ
+                <%= simple_format(@ten_stars_relations[:top_message]) %>
               </span>
             </i>
           </td>
@@ -232,17 +232,25 @@
             <p class="font-bold font-size-20 <%= 'color-red' if has_birth_day_void %>"><%= @ten_stars[:west].name %></p>
             <p>（家庭の場所・行動の結果）</p>
           </td>
-          <td class="arrow">
+          <td class="arrow tooltip">
             <i class="fa-solid fa-arrow-left default-relation"></i>
-            <i class="user-relation <%= @ten_stars_elm_relation_icon[:left] %>"></i>
+            <i class="user-relation <%= @ten_stars_relations[:left] %>">
+              <span class="tooltip-text">
+                <%= simple_format(@ten_stars_relations[:left_message]) %>
+              </span>
+            </i>
           </td>
           <td style="background-image: url('<%= asset_path(@ten_stars[:center].image_name) %>');">
             <p class="font-bold font-size-20 <%= 'color-red' if has_birth_month_void %>"><%= @ten_stars[:center].name %></p>
             <p>（心の場所・通過点）</p>
           </td>
-          <td class="arrow">
+          <td class="arrow tooltip">
             <i class="fa-solid fa-angles-left default-relation"></i>
-            <i class="user-relation <%= @ten_stars_elm_relation_icon[:right] %>"></i>
+            <i class="user-relation <%= @ten_stars_relations[:right] %>">
+              <span class="tooltip-text">
+                <%= simple_format(@ten_stars_relations[:right_message]) %>
+              </span>
+            </i>
           </td>
           <td style="background-image: url('<%= asset_path(@ten_stars[:east].image_name) %>');">
             <p class="font-bold font-size-20 <%= 'color-red' if has_birth_year_void %>"><%= @ten_stars[:east].name %></p>
@@ -252,9 +260,13 @@
         <tr class="arrow-tr">
           <td></td>
           <td></td>
-          <td>
+          <td class="tooltip">
             <i class="fa-solid fa-arrow-up default-relation"></i>
-            <i class="user-relation <%= @ten_stars_elm_relation_icon[:bottom] %>"></i>
+            <i class="user-relation <%= @ten_stars_relations[:bottom] %>">
+              <span class="tooltip-text">
+                <%= simple_format(@ten_stars_relations[:bottom_message]) %>
+              </span>
+            </i>
           </td>
           <td></td>
           <td></td>

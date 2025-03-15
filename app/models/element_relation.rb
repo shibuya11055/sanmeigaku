@@ -38,8 +38,8 @@ class ElementRelation < ActiveHash::Base
     self.find_by(main_element_id: main_elm_id, sub_element_id: sub_elm_id)
   end
 
-  def self.top_icon(main_elm_id, sub_elm_id)
-    case find_relation(main_elm_id, sub_elm_id).state
+  def self.top_icon(state)
+    case state
     when 'equal'
       'fa-solid fa-grip-lines-vertical'
     when 'generates'
@@ -53,8 +53,8 @@ class ElementRelation < ActiveHash::Base
     end
   end
 
-  def self.right_icon(main_elm_id, sub_elm_id)
-    case find_relation(main_elm_id, sub_elm_id).state
+  def self.right_icon(state)
+    case state
     when 'equal'
       'fa-solid fa-equals'
     when 'generates'
@@ -68,8 +68,8 @@ class ElementRelation < ActiveHash::Base
     end
   end
 
-  def self.left_icon(main_elm_id, sub_elm_id)
-    case find_relation(main_elm_id, sub_elm_id).state
+  def self.left_icon(state)
+    case state
     when 'equal'
       'fa-solid fa-equals'
     when 'generates'
@@ -83,8 +83,8 @@ class ElementRelation < ActiveHash::Base
     end
   end
 
-  def self.bottom_icon(main_elm_id, sub_elm_id)
-    case find_relation(main_elm_id, sub_elm_id).state
+  def self.bottom_icon(state)
+    case state
     when 'equal'
       'fa-solid fa-grip-lines-vertical'
     when 'generates'

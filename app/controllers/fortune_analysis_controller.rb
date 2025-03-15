@@ -26,7 +26,7 @@ class FortuneAnalysisController < ApplicationController
 
     @ten_stars, @twelve_stars = calculate_yang_chart
 
-    @ten_stars_elm_relation_icon = ten_stars_elm_relation_icon
+    @ten_stars_relations = ten_stars_relations
 
     @youth_sub_star, @middle_age_sub_star, @old_age_sub_star = calculate_branch_and_stem_sub_star
 
@@ -151,14 +151,29 @@ class FortuneAnalysisController < ApplicationController
     @result.sexagenary_cycle_day.day_position_void? && birth_month_void? && birth_year_void?
   end
 
-  def ten_stars_elm_relation_icon
+  def ten_stars_relations
     center_id = @ten_stars[:center].element_id
+    synergy = TenStarSynergy.new
+
+    top_relation = ElementRelation.find_relation(center_id, @ten_stars[:north].element_id)
+    right_relation = ElementRelation.find_relation(center_id, @ten_stars[:east].element_id)
+    bottom_relation = ElementRelation.find_relation(center_id, @ten_stars[:south].element_id)
+    left_relation = ElementRelation.find_relation(center_id, @ten_stars[:west].element_id)
+
+    top_state = top_relation.state
+    right_state = right_relation.state
+    bottom_state = bottom_relation.state
+    left_state = left_relation.state
 
     {
-      top: ElementRelation.top_icon(center_id, @ten_stars[:north].element_id),
-      right: ElementRelation.right_icon(center_id, @ten_stars[:east].element_id),
-      bottom: ElementRelation.bottom_icon(center_id, @ten_stars[:south].element_id),
-      left: ElementRelation.left_icon(center_id, @ten_stars[:west].element_id)
+      top: ElementRelation.top_icon(top_state),
+      right: ElementRelation.right_icon(right_state),
+      bottom: ElementRelation.bottom_icon(bottom_state),
+      left: ElementRelation.left_icon(left_state),
+      top_message: synergy.get_message("north.#{top_state}"),
+      right_message: synergy.get_message("east.#{right_state}"),
+      bottom_message: synergy.get_message("south.#{bottom_state}"),
+      left_message: synergy.get_message("west.#{left_state}")
     }
   end
 end
