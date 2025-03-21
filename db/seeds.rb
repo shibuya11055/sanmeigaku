@@ -67,6 +67,38 @@ stems.each do |stem|
   Stem.create!(stem)
 end
 
+# 原点六親
+stem_lineages = [
+  # 男性
+  { id: 1, gender: 0, day_stem_id: 1,  m_stem_id: 10, f_stem_id: 5,  m_grandmother_stem_id: 7,  m_grandfather_stem_id: 2,  f_grandmother_stem_id: 4,  f_grandfather_stem_id: 9,  spouse_stem_id: 6,  mother_in_law_stem_id: 3,  father_in_law_stem_id: 8, child_stem_id: 2 },
+  { id: 2, gender: 0, day_stem_id: 2,  m_stem_id: 9,  f_stem_id: 4,  m_grandmother_stem_id: 8,  m_grandfather_stem_id: 3,  f_grandmother_stem_id: 1,  f_grandfather_stem_id: 6,  spouse_stem_id: 7,  mother_in_law_stem_id: 6,  father_in_law_stem_id: 1, child_stem_id: 10 },
+  { id: 3, gender: 0, day_stem_id: 3,  m_stem_id: 2,  f_stem_id: 7,  m_grandmother_stem_id: 9,  m_grandfather_stem_id: 4,  f_grandmother_stem_id: 6,  f_grandfather_stem_id: 1,  spouse_stem_id: 8,  mother_in_law_stem_id: 5,  father_in_law_stem_id: 10, child_stem_id: 9 },
+  { id: 4, gender: 0, day_stem_id: 4,  m_stem_id: 1,  f_stem_id: 6,  m_grandmother_stem_id: 10, m_grandfather_stem_id: 5,  f_grandmother_stem_id: 3,  f_grandfather_stem_id: 8,  spouse_stem_id: 9,  mother_in_law_stem_id: 8,  father_in_law_stem_id: 3, child_stem_id: 2 },
+  { id: 5, gender: 0, day_stem_id: 5,  m_stem_id: 4,  f_stem_id: 9,  m_grandmother_stem_id: 1,  m_grandfather_stem_id: 6,  f_grandmother_stem_id: 8,  f_grandfather_stem_id: 3,  spouse_stem_id: 10, mother_in_law_stem_id: 7,  father_in_law_stem_id: 2, child_stem_id: 1 },
+  { id: 6, gender: 0, day_stem_id: 6,  m_stem_id: 3,  f_stem_id: 8,  m_grandmother_stem_id: 2,  m_grandfather_stem_id: 7,  f_grandmother_stem_id: 5,  f_grandfather_stem_id: 10, spouse_stem_id: 1,  mother_in_law_stem_id: 10, father_in_law_stem_id: 5, child_stem_id: 4 },
+  { id: 7, gender: 0, day_stem_id: 7,  m_stem_id: 6,  f_stem_id: 1,  m_grandmother_stem_id: 3,  m_grandfather_stem_id: 8,  f_grandmother_stem_id: 10, f_grandfather_stem_id: 5,  spouse_stem_id: 2,  mother_in_law_stem_id: 9,  father_in_law_stem_id: 4, child_stem_id: 3 },
+  { id: 8, gender: 0, day_stem_id: 8,  m_stem_id: 5,  f_stem_id: 10, m_grandmother_stem_id: 4,  m_grandfather_stem_id: 9,  f_grandmother_stem_id: 7,  f_grandfather_stem_id: 2,  spouse_stem_id: 3,  mother_in_law_stem_id: 2,  father_in_law_stem_id: 7, child_stem_id: 6 },
+  { id: 9, gender: 0, day_stem_id: 9,  m_stem_id: 8,  f_stem_id: 3,  m_grandmother_stem_id: 5,  m_grandfather_stem_id: 10, f_grandmother_stem_id: 2,  f_grandfather_stem_id: 7,  spouse_stem_id: 4,  mother_in_law_stem_id: 1,  father_in_law_stem_id: 6, child_stem_id: 5 },
+  { id: 10, gender: 0, day_stem_id: 10, m_stem_id: 7,  f_stem_id: 2,  m_grandmother_stem_id: 6,  m_grandfather_stem_id: 1,  f_grandmother_stem_id: 9,  f_grandfather_stem_id: 4,  spouse_stem_id: 5,  mother_in_law_stem_id: 4,  father_in_law_stem_id: 9, child_stem_id: 8 },
+  # 女性
+  { id: 11, gender: 1, day_stem_id: 1,  m_stem_id: 10, f_stem_id: 5,  m_grandmother_stem_id: 7,  m_grandfather_stem_id: 2,  f_grandmother_stem_id: 4,  f_grandfather_stem_id: 9,  spouse_stem_id: 6,  mother_in_law_stem_id: 3,  father_in_law_stem_id: 8, child_stem_id: 4 },
+  { id: 12, gender: 1, day_stem_id: 2,  m_stem_id: 9,  f_stem_id: 4,  m_grandmother_stem_id: 8,  m_grandfather_stem_id: 3,  f_grandmother_stem_id: 1,  f_grandfather_stem_id: 6,  spouse_stem_id: 7,  mother_in_law_stem_id: 6,  father_in_law_stem_id: 1, child_stem_id: 3 },
+  { id: 13, gender: 1, day_stem_id: 3,  m_stem_id: 2,  f_stem_id: 7,  m_grandmother_stem_id: 9,  m_grandfather_stem_id: 4,  f_grandmother_stem_id: 6,  f_grandfather_stem_id: 1,  spouse_stem_id: 8,  mother_in_law_stem_id: 5,  father_in_law_stem_id: 10, child_stem_id: 6 },
+  { id: 14, gender: 1, day_stem_id: 4,  m_stem_id: 1,  f_stem_id: 6,  m_grandmother_stem_id: 10, m_grandfather_stem_id: 5,  f_grandmother_stem_id: 3,  f_grandfather_stem_id: 8,  spouse_stem_id: 9,  mother_in_law_stem_id: 8,  father_in_law_stem_id: 3, child_stem_id: 5 },
+  { id: 15, gender: 1, day_stem_id: 5,  m_stem_id: 4,  f_stem_id: 9,  m_grandmother_stem_id: 1,  m_grandfather_stem_id: 6,  f_grandmother_stem_id: 8,  f_grandfather_stem_id: 3,  spouse_stem_id: 10, mother_in_law_stem_id: 7,  father_in_law_stem_id: 2, child_stem_id: 8 },
+  { id: 16, gender: 1, day_stem_id: 6,  m_stem_id: 3,  f_stem_id: 8,  m_grandmother_stem_id: 2,  m_grandfather_stem_id: 7,  f_grandmother_stem_id: 5,  f_grandfather_stem_id: 10, spouse_stem_id: 1,  mother_in_law_stem_id: 10, father_in_law_stem_id: 5, child_stem_id: 7 },
+  { id: 17, gender: 1, day_stem_id: 7,  m_stem_id: 6,  f_stem_id: 1,  m_grandmother_stem_id: 3,  m_grandfather_stem_id: 8,  f_grandmother_stem_id: 10, f_grandfather_stem_id: 5,  spouse_stem_id: 2,  mother_in_law_stem_id: 9,  father_in_law_stem_id: 4, child_stem_id: 10 },
+  { id: 18, gender: 1, day_stem_id: 8,  m_stem_id: 5,  f_stem_id: 10, m_grandmother_stem_id: 4,  m_grandfather_stem_id: 9,  f_grandmother_stem_id: 7,  f_grandfather_stem_id: 2,  spouse_stem_id: 3,  mother_in_law_stem_id: 2,  father_in_law_stem_id: 7, child_stem_id: 9 },
+  { id: 19, gender: 1, day_stem_id: 9,  m_stem_id: 8,  f_stem_id: 3,  m_grandmother_stem_id: 5,  m_grandfather_stem_id: 10, f_grandmother_stem_id: 2,  f_grandfather_stem_id: 7,  spouse_stem_id: 4,  mother_in_law_stem_id: 1,  father_in_law_stem_id: 6, child_stem_id: 2 },
+  { id: 20, gender: 1, day_stem_id: 10, m_stem_id: 7,  f_stem_id: 2,  m_grandmother_stem_id: 6,  m_grandfather_stem_id: 1,  f_grandmother_stem_id: 9,  f_grandfather_stem_id: 4,  spouse_stem_id: 5,  mother_in_law_stem_id: 4,  father_in_law_stem_id: 9, child_stem_id: 1 }
+]
+
+stem_lineages.each do |lineage|
+  next if StemLineage.exists?(id: lineage[:id])
+
+  StemLineage.create!(lineage)
+end
+
 branches = [
   { id: 1, name: '子', yin_yang: 0, element_id: 5, description: '冬の始まりを示し、知恵と適応力を象徴する。', third_stem_id: 10 },
   { id: 2, name: '丑', yin_yang: 0, element_id: 3, description: '冬の終わりを示し、忍耐と安定を象徴する。', first_stem_id: 10, first_stem_period_day: 9, second_stem_id: 8, second_stem_period_day: 12, third_stem_id: 6},

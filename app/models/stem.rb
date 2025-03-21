@@ -16,6 +16,19 @@ class Stem < ApplicationRecord
   has_many :stem_ten_star_mappings_as_sub_stem, class_name: 'StemTenStarMapping', foreign_key: 'sub_stem_id'
   has_many :stem_twelve_star_mappings, class_name: 'StemTwelveStarMapping'
 
+  # 原点六親
+  has_many :stem_lineages_as_day, class_name: 'StemLineage', foreign_key: :day_stem_id
+  has_many :stem_lineages_as_mother, class_name: 'StemLineage', foreign_key: :m_stem_id
+  has_many :stem_lineages_as_father, class_name: 'StemLineage', foreign_key: :f_stem_id
+  has_many :stem_lineages_as_m_gm, class_name: 'StemLineage', foreign_key: :m_grandmother_stem_id
+  has_many :stem_lineages_as_m_gf, class_name: 'StemLineage', foreign_key: :m_grandfather_stem_id
+  has_many :stem_lineages_as_f_gm, class_name: 'StemLineage', foreign_key: :f_grandmother_stem_id
+  has_many :stem_lineages_as_f_gf, class_name: 'StemLineage', foreign_key: :f_grandfather_stem_id
+  has_many :stem_lineages_as_spouse, class_name: 'StemLineage', foreign_key: :spouse_stem_id
+  has_many :stem_lineages_as_m_in_law, class_name: 'StemLineage', foreign_key: :mother_in_law_stem_id
+  has_many :stem_lineages_as_f_in_law, class_name: 'StemLineage', foreign_key: :father_in_law_stem_id
+  has_many :stem_lineages_as_child, class_name: 'StemLineage', foreign_key: :child_stem_id
+
   enum :yin_yang, {
     '陰': 0,
     '陽': 1
