@@ -1,4 +1,13 @@
 class Stem < ApplicationRecord
+  # 干合の組み合わせ
+  STEM_UNIONS = {
+    [1, 6].sort => [5, 6].sort,  # 甲己 <=> 戊己
+    [3, 8].sort => [9, 10].sort, # 丙辛 <=> 壬癸
+    [5, 10].sort => [3, 4].sort, # 戊癸 <=> 丙丁
+    [7, 2].sort => [7, 8].sort,  # 庚乙 <=> 庚辛
+    [9, 4].sort => [1, 2].sort   # 壬丁 <=> 甲乙
+  }.freeze
+
   belongs_to :element
   has_many :branches_as_first_stem, class_name: 'Branch', foreign_key: 'first_stem_id'
   has_many :branches_as_second_stem, class_name: 'Branch', foreign_key: 'second_stem_id'
@@ -11,6 +20,21 @@ class Stem < ApplicationRecord
     '陰': 0,
     '陽': 1
   }
+
+  # 干合
+  def union_ids(first_stem_id, second_stem_id)
+    input_pair = [first_stem_id, second_stem_id].sort
+    
+    STEM_UNIONS.each do |pair, result|
+      if pair == input_pair
+        return should_reverse?(result) ? result.reverse : result
+      elsif result == input_pair
+        return should_reverse?(pair) ? pair.reverse : pair
+      end
+    end
+    
+    nil
+  end
 
   def image_name
     case name
@@ -37,5 +61,11 @@ class Stem < ApplicationRecord
     else
       nil
     end
+  end
+
+  private
+
+  def should_reverse?(union)
+    union == [2, 7] || union == [4, 9]
   end
 end

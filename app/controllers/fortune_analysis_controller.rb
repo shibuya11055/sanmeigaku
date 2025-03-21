@@ -22,6 +22,8 @@ class FortuneAnalysisController < ApplicationController
     @month_branch = @result.sexagenary_cycle_month.branch
     @year_branch = @result.sexagenary_cycle_year.branch
 
+    @stem_unions = stem_unions
+
     @year_qi_stem, @month_qi_stem, @day_qi_stem = birth_qi
 
     @ten_stars, @twelve_stars = calculate_yang_chart
@@ -182,6 +184,35 @@ class FortuneAnalysisController < ApplicationController
       right_message: synergy.get_message("east.#{right_state}"),
       bottom_message: synergy.get_message("south.#{bottom_state}"),
       left_message: synergy.get_message("west.#{left_state}")
+    }
+  end
+
+  def stem_unions
+    stem = Stem.new
+    day_and_month_ids = stem.union_ids(@day_stem.id, @month_stem.id)
+    day_and_year_ids = stem.union_ids(@day_stem.id, @year_stem.id)
+    month_and_year_ids = stem.union_ids(@month_stem.id, @year_stem.id)
+
+    day_and_month_union_names = day_and_month_ids.present? ? Stem.find(day_and_month_ids).map(&:name) : nil
+    day_and_year_union_names = day_and_year_ids.present? ? Stem.find(day_and_year_ids).map(&:name) : nil
+    month_and_year_union_names = month_and_year_ids.present? ? Stem.find(month_and_year_ids).map(&:name) : nil
+
+    {
+      day_and_month: {
+        title: '日干・月干',
+        before: [@day_stem.name, @month_stem.name],
+        result: day_and_month_union_names,
+      },
+      day_and_year: {
+        title: '日干・年干',
+        before: [@day_stem.name, @year_stem.name],
+        result: day_and_year_union_names,
+      },
+      month_and_year: {
+        title: '月干・年干',
+        before: [@month_stem.name, @year_stem.name],
+        result: month_and_year_union_names,
+      }
     }
   end
 end
