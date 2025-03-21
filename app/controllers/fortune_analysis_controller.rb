@@ -82,6 +82,14 @@ class FortuneAnalysisController < ApplicationController
       StemTenStarMapping.find_by!(main_stem: @day_stem, sub_stem: sub_stem).ten_major_star
     end
 
+    # 方角ごとの意味
+    ten_star_direction = TenStarDirection.new
+    ten_stars[:east_message] = ten_star_direction.get_message("east.#{ten_stars[:east].name}")
+    ten_stars[:south_message] = ten_star_direction.get_message("south.#{ten_stars[:south].name}")
+    ten_stars[:west_message] = ten_star_direction.get_message("west.#{ten_stars[:west].name}")
+    ten_stars[:north_message] = ten_star_direction.get_message("north.#{ten_stars[:north].name}")
+    ten_stars[:center_message] = ten_star_direction.get_message("center.#{ten_stars[:center].name}")
+
     # 十二大従星の取得
     branches = {
       first: @day_branch,
