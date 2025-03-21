@@ -9,10 +9,8 @@ class StemLineage < ApplicationRecord
   belongs_to :spouse_stem, class_name: 'Stem'
   belongs_to :mother_in_law_stem, class_name: 'Stem'
   belongs_to :father_in_law_stem, class_name: 'Stem'
-  belongs_to :child_stem, class_name: 'Stem'
-
-  enum :gender, {
-    'male': 0,
-    'female': 1
-  }
+  belongs_to :male_child_stem, class_name: 'Stem'
+  belongs_to :female_child_stem, class_name: 'Stem'
+  belongs_to :male_child_spouse_stem, class_name: 'Stem'
+  belongs_to :female_child_spouse_stem, class_name: 'Stem'
 end

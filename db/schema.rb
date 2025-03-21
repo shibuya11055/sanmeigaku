@@ -65,7 +65,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_084926) do
   end
 
   create_table "stem_lineages", force: :cascade do |t|
-    t.integer "gender", null: false
     t.bigint "day_stem_id", null: false
     t.bigint "m_stem_id", null: false
     t.bigint "f_stem_id", null: false
@@ -76,18 +75,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_084926) do
     t.bigint "spouse_stem_id", null: false
     t.bigint "mother_in_law_stem_id", null: false
     t.bigint "father_in_law_stem_id", null: false
-    t.bigint "child_stem_id", null: false
+    t.bigint "male_child_stem_id", null: false
+    t.bigint "female_child_stem_id", null: false
+    t.bigint "male_child_spouse_stem_id", null: false
+    t.bigint "female_child_spouse_stem_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["child_stem_id"], name: "index_stem_lineages_on_child_stem_id"
     t.index ["day_stem_id"], name: "index_stem_lineages_on_day_stem_id"
     t.index ["f_grandfather_stem_id"], name: "index_stem_lineages_on_f_grandfather_stem_id"
     t.index ["f_grandmother_stem_id"], name: "index_stem_lineages_on_f_grandmother_stem_id"
     t.index ["f_stem_id"], name: "index_stem_lineages_on_f_stem_id"
     t.index ["father_in_law_stem_id"], name: "index_stem_lineages_on_father_in_law_stem_id"
+    t.index ["female_child_spouse_stem_id"], name: "index_stem_lineages_on_female_child_spouse_stem_id"
+    t.index ["female_child_stem_id"], name: "index_stem_lineages_on_female_child_stem_id"
     t.index ["m_grandfather_stem_id"], name: "index_stem_lineages_on_m_grandfather_stem_id"
     t.index ["m_grandmother_stem_id"], name: "index_stem_lineages_on_m_grandmother_stem_id"
     t.index ["m_stem_id"], name: "index_stem_lineages_on_m_stem_id"
+    t.index ["male_child_spouse_stem_id"], name: "index_stem_lineages_on_male_child_spouse_stem_id"
+    t.index ["male_child_stem_id"], name: "index_stem_lineages_on_male_child_stem_id"
     t.index ["mother_in_law_stem_id"], name: "index_stem_lineages_on_mother_in_law_stem_id"
     t.index ["spouse_stem_id"], name: "index_stem_lineages_on_spouse_stem_id"
   end
@@ -151,15 +156,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_21_084926) do
   add_foreign_key "fortune_analyses", "sexagenary_cycles", column: "sexagenary_cycle_year_id"
   add_foreign_key "sexagenary_cycles", "branches"
   add_foreign_key "sexagenary_cycles", "stems"
-  add_foreign_key "stem_lineages", "stems", column: "child_stem_id"
   add_foreign_key "stem_lineages", "stems", column: "day_stem_id"
   add_foreign_key "stem_lineages", "stems", column: "f_grandfather_stem_id"
   add_foreign_key "stem_lineages", "stems", column: "f_grandmother_stem_id"
   add_foreign_key "stem_lineages", "stems", column: "f_stem_id"
   add_foreign_key "stem_lineages", "stems", column: "father_in_law_stem_id"
+  add_foreign_key "stem_lineages", "stems", column: "female_child_spouse_stem_id"
+  add_foreign_key "stem_lineages", "stems", column: "female_child_stem_id"
   add_foreign_key "stem_lineages", "stems", column: "m_grandfather_stem_id"
   add_foreign_key "stem_lineages", "stems", column: "m_grandmother_stem_id"
   add_foreign_key "stem_lineages", "stems", column: "m_stem_id"
+  add_foreign_key "stem_lineages", "stems", column: "male_child_spouse_stem_id"
+  add_foreign_key "stem_lineages", "stems", column: "male_child_stem_id"
   add_foreign_key "stem_lineages", "stems", column: "mother_in_law_stem_id"
   add_foreign_key "stem_lineages", "stems", column: "spouse_stem_id"
   add_foreign_key "stem_ten_star_mappings", "stems", column: "main_stem_id"

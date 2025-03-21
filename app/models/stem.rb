@@ -27,7 +27,10 @@ class Stem < ApplicationRecord
   has_many :stem_lineages_as_spouse, class_name: 'StemLineage', foreign_key: :spouse_stem_id
   has_many :stem_lineages_as_m_in_law, class_name: 'StemLineage', foreign_key: :mother_in_law_stem_id
   has_many :stem_lineages_as_f_in_law, class_name: 'StemLineage', foreign_key: :father_in_law_stem_id
-  has_many :stem_lineages_as_child, class_name: 'StemLineage', foreign_key: :child_stem_id
+  has_many :stem_lineages_as_male_child, class_name: 'StemLineage', foreign_key: :male_child_stem_id
+  has_many :stem_lineages_as_female_child, class_name: 'StemLineage', foreign_key: :female_child_stem_id
+  has_many :stem_lineages_as_male_child_spouse, class_name: 'StemLineage', foreign_key: :male_child_spouse_stem_id
+  has_many :stem_lineages_as_female_child_spouse, class_name: 'StemLineage', foreign_key: :female_child_spouse_stem_id
 
   enum :yin_yang, {
     '陰': 0,
