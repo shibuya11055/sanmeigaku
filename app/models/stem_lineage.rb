@@ -13,4 +13,10 @@ class StemLineage < ApplicationRecord
   belongs_to :female_child_stem, class_name: 'Stem'
   belongs_to :male_child_spouse_stem, class_name: 'Stem'
   belongs_to :female_child_spouse_stem, class_name: 'Stem'
+
+  def self.eager_load_all_stems
+    eager_load(
+      self.reflect_on_all_associations(:belongs_to).map(&:name)
+    )
+  end
 end

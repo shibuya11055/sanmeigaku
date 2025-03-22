@@ -52,6 +52,38 @@ class Stem < ApplicationRecord
     nil
   end
 
+  # 六親図で利用する干合する十干を返す
+  def union_stem
+    case id
+    when 1, 6
+      self.class.find(id == 1 ? 6 : 1)
+    when 3, 8
+      self.class.find(id == 3 ? 8 : 3)
+    when 5, 10
+      self.class.find(id == 5 ? 10 : 5)
+    when 7, 2
+      self.class.find(id == 7 ? 2 : 7)
+    when 9, 4
+      self.class.find(id == 9 ? 4 : 9)
+    end
+  end
+
+  # 自分が生じる十干を返す
+  def generates_stem
+    target_element_id = element_id + 1
+    target_element_id = 1 if target_element_id > 5
+    target_yin_yang = yin_yang == '陽' ? '陰' : '陽'
+    self.class.find_by(element_id: target_element_id, yin_yang: target_yin_yang)
+  end
+
+  # 自分を生じさせる十干を返す
+  def generated_by_stem
+    target_element_id = element_id - 1
+    target_element_id = 5 if target_element_id.zero?
+    target_yin_yang = yin_yang == '陽' ? '陰' : '陽'
+    self.class.find_by(element_id: target_element_id, yin_yang: target_yin_yang)
+  end
+
   def image_name
     case name
     when '甲'
@@ -76,6 +108,21 @@ class Stem < ApplicationRecord
       '癸水陰.png'
     else
       nil
+    end
+  end
+
+  def yin_yang_convert
+    case id
+    when 1, 2
+      self.class.find(id == 1 ? 2 : 1)
+    when 3, 4
+      self.class.find(id == 3 ? 4 : 3)
+    when 5, 6
+      self.class.find(id == 5 ? 6 : 5)
+    when 7, 8
+      self.class.find(id == 7 ? 8 : 7)
+    when 9, 10
+      self.class.find(id == 9 ? 10 : 9)
     end
   end
 

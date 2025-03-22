@@ -36,6 +36,15 @@ class FortuneAnalysisController < ApplicationController
 
     @birth_voids = birth_voids
 
+    @stem_lineage = StemLineageCalculator.call(@day_stem,
+                                               @month_stem,
+                                               @year_stem,
+                                               @day_branch,
+                                               @month_branch,
+                                               @year_branch,
+                                               @year_qi_stem,
+                                               @day_qi_stem)
+
     render :index
   end
 

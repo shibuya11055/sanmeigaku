@@ -4,19 +4,19 @@
     <!-- 第一段（祖父母） -->
     <div>
       祖父（父方）
-      <div class="box">王</div>
+      <div class="box"><%= stem_lineage[:f_grandfather][:text]%></div>
     </div>
     <div>
       祖母（父方）
-      <div class="box">丁</div>
+      <div class="box"><%= stem_lineage[:f_grandmother][:text]%></div>
     </div>
     <div>
       祖父（母方）
-      <div class="box">庚</div>
+      <div class="box"><%= stem_lineage[:m_grandfather][:text]%></div>
     </div>
     <div>
       祖母（母方）
-      <div class="box">乙</div>
+      <div class="box"><%= stem_lineage[:m_grandmother][:text]%></div>
     </div>
     <div></div>
 
@@ -32,19 +32,19 @@
     <div></div>
     <div>
       父
-      <div class="box">戌</div>
+      <div class="box"><%= stem_lineage[:father][:text]%></div>
     </div>
     <div>
       母
-      <div class="box">癸</div>
+      <div class="box"><%= stem_lineage[:mother][:text]%></div>
     </div>
     <div>
       義母
-      <div class="box">丙</div>
+      <div class="box"><%= stem_lineage[:mother_in_law][:text]%></div>
     </div>
     <div>
       義父
-      <div class="box">辛</div>
+      <div class="box"><%= stem_lineage[:father_in_law][:text]%></div>
     </div>
     <div></div>
 
@@ -59,11 +59,11 @@
     <div></div>
     <div>
       自分
-      <div class="box">甲</div>
+      <div class="box"><%= day_stem.name%></div>
     </div>
     <div>
       配偶者
-      <div class="box">己</div>
+      <div class="box"><%= stem_lineage[:spouse][:text]%></div>
     </div>
     <div></div>
     <div></div>
@@ -77,12 +77,12 @@
 
     <!-- 第四段（子供とその配偶者） -->
     <div>
-      子供
-      <div class="box">王</div>
+      配偶者
+      <div class="box"><%= stem_lineage[:child_spouse][:text]%></div>
     </div>
     <div>
-      配偶者
-      <div class="box">丁</div>
+      子供
+      <div class="box"><%= stem_lineage[:child][:text]%></div>
     </div>
     <div></div>
     <div></div>
