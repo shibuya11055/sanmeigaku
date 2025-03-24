@@ -1,3 +1,9 @@
+.input-field {
+  div {
+    margin-top: 20px;
+  }
+}
+
 .complete-void-color {
   color: violet !important;
 }

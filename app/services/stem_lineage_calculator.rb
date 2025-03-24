@@ -7,9 +7,10 @@ class StemLineageCalculator
               :month_branch, 
               :year_branch, 
               :year_qi_stem,
-              :day_qi_stem
+              :day_qi_stem,
+              :gender
 
-  def initialize(day_stem, month_stem, year_stem, day_branch, month_branch, year_branch, year_qi_stem, day_qi_stem)
+  def initialize(day_stem, month_stem, year_stem, day_branch, month_branch, year_branch, year_qi_stem, day_qi_stem, gender)
     @day_stem = day_stem
     @month_stem = month_stem
     @year_stem = year_stem
@@ -18,11 +19,12 @@ class StemLineageCalculator
     @year_branch = year_branch
     @year_qi_stem = year_qi_stem
     @day_qi_stem = day_qi_stem
+    @gender = gender
     @original_linage = StemLineage.eager_load_all_stems.find_by(day_stem: day_stem)
   end
 
-  def self.call(day_stem, month_stem, year_stem, day_branch, month_branch, year_branch, year_qi_stem, day_qi_stem)
-    new(day_stem, month_stem, year_stem, day_branch, month_branch, year_branch, year_qi_stem, day_qi_stem).calculate
+  def self.call(day_stem, month_stem, year_stem, day_branch, month_branch, year_branch, year_qi_stem, day_qi_stem, gender)
+    new(day_stem, month_stem, year_stem, day_branch, month_branch, year_branch, year_qi_stem, day_qi_stem, gender).calculate
   end
 
   def calculate
@@ -194,7 +196,7 @@ class StemLineageCalculator
   end
 
   def build_child_stem
-    if day_stem.yin_yang == '陰'
+    if gender == 'female'
       female_child_stem = original_linage.female_child_stem
       female_child_stem_convert = female_child_stem.yin_yang_convert
 
@@ -205,7 +207,7 @@ class StemLineageCalculator
       else
         month_stem
       end
-    else
+    elsif gender == 'male'
       male_child_stem = @spouse_stem.generates_stem
       male_child_stem_convert = male_child_stem.yin_yang_convert
 
@@ -233,16 +235,15 @@ class StemLineageCalculator
   end
 
   def user_lineage
-    is_female_day_stem = day_stem.yin_yang == '陰'
     child_text = nil
     child_spouse_text = nil
 
-    if is_female_day_stem
+    if gender == 'female'
       child_text = "#{original_linage.female_child_stem.name}・#{@child_stem.name}"
-      child_spouse_text = "#{original_linage.female_child_spouse_stem.name || '-'}・#{@child_spouse_stem&.name}"
-    else
+      child_spouse_text = "#{original_linage.female_child_spouse_stem.name}・#{@child_spouse_stem&.name || '-'}"
+    elsif gender == 'male'
       child_text = "#{original_linage.male_child_stem.name}・#{@child_stem.name}"
-      child_spouse_text = "#{original_linage.male_child_spouse_stem&.name || '-'}・#{@child_spouse_stem.name}"
+      child_spouse_text = "#{original_linage.male_child_spouse_stem.name}・#{@child_spouse_stem&.name || '-'}"
     end
 
     {

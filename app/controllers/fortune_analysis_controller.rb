@@ -1,10 +1,12 @@
 class FortuneAnalysisController < ApplicationController
   def index
     @date = Date.today
+    @gender = 'male'
   end
 
   def calculate
     @date = Date.parse(params[:date])
+    @gender = params[:gender]
     @result = FortuneAnalysis.preload(
       sexagenary_cycle_year: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } },
       sexagenary_cycle_month: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } },
@@ -43,7 +45,8 @@ class FortuneAnalysisController < ApplicationController
                                                @month_branch,
                                                @year_branch,
                                                @year_qi_stem,
-                                               @day_qi_stem)
+                                               @day_qi_stem,
+                                               @gender)
 
     render :index
   end

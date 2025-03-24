@@ -1,14 +1,23 @@
 <h1>宿命図</h1>
 
-<%= form_with url: fortune_analysis_calculate_path, method: :post do %>
-  <div>
-    <p><%= label_tag :date, "日付を選択してください" %></p>
-    <%= date_field_tag :date, @date %>
-  </div>
-  <div class="submit-button">
-    <%= submit_tag "計算" %>
-  </div>
-<% end %>
+<div class="input-field">
+  <%= form_with url: fortune_analysis_calculate_path, method: :post do %>
+    <div>
+      <p><%= label_tag :date, "日付を選択してください" %></p>
+      <%= date_field_tag :date, @date %>
+    </div>
+    <div>
+      <p><%= label_tag :date, "性別を選択してください" %></p>
+      <%= radio_button_tag 'gender', 'male', @gender == 'male' %>
+      男性
+      <%= radio_button_tag 'gender', 'female', @gender == 'female' %>
+      女性
+    </div>
+    <div class="submit-button">
+      <%= submit_tag "計算" %>
+    </div>
+  <% end %>
+</div>
 
 <div class="result-table">
   <% if @result %>
