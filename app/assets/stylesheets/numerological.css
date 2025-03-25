@@ -1,4 +1,4 @@
-.numerological {
+.numerological, .numerological-structure  {
   margin: 12px;
   font-size: 10px;
 
@@ -11,7 +11,7 @@
 
     th, td {
       border: 1px solid lightgray;
-      padding: 10px;
+      padding: 5px;
       text-align: center;
     }
     td {

@@ -1,0 +1,45 @@
+<div class="numerological-structure">
+  <table>
+    <tr>
+      <% numerological_structure[:stem_names].each do |name| %>
+        <th><%= name %></th>
+      <% end %>
+    </tr>
+    <tr>
+      <% numerological_structure[:stem_count].each do |count| %>
+        <td><%= count %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <% numerological_structure[:ten_major_star_name].each do |name| %>
+        <td><%= name %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <% numerological_structure[:stem_point].each do |point| %>
+        <td><%= point %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td colspan="2"><%= "闘争: #{numerological_structure[:struggle]}" %></td>
+      <td colspan="2"><%= "入力: #{numerological_structure[:input]}" %></td>
+      <td colspan="2"><%= "自我: #{numerological_structure[:ego]}" %></td>
+      <td colspan="2"><%= "表現: #{numerological_structure[:expression]}" %></td>
+      <td colspan="2"><%= "取得: #{numerological_structure[:get]}" %></td>
+    </tr>
+    <tr>
+      <td colspan="4"><%= "受動的: #{numerological_structure[:back_structure]}" %></td>
+      <td colspan="2"><%= "中心: #{numerological_structure[:center_structure]}" %></td>
+      <td colspan="4"><%= "能動的: #{numerological_structure[:front_structure]}" %></td>
+    </tr>
+    <tr>
+      <td colspan="2"><%= "受剋: #{numerological_structure[:control_by]}" %></td>
+      <td colspan="6"><%= "相生: #{numerological_structure[:generates]}" %></td>
+      <td colspan="2"><%= "打剋: #{numerological_structure[:control]}" %></td>
+    </tr>
+    <tr>
+      <td colspan="5"><%= "主: #{numerological_structure[:self]}" %></td>
+      <td colspan="5"><%= "客: #{numerological_structure[:other]}" %></td>
+    </tr>
+  </table>
+</div>

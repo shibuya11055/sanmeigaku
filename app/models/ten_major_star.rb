@@ -1,4 +1,10 @@
 class TenMajorStar < ApplicationRecord
+  # 主観か客観かの性質で分かれている
+  SELF_IDS = [2, 4, 6, 8, 10]
+  OTHER_IDS = [1, 3, 5, 7, 9]
+  # 構造化するためのID順
+  STRUCTURE_IDS = [8, 7, 10, 9, 2, 1, 4, 3, 6, 5]
+
   belongs_to :element
   has_many :stem_ten_star_mappings
   has_many :main_stems, through: :stem_ten_star_mappings, source: :main_stem
