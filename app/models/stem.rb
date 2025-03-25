@@ -40,7 +40,7 @@ class Stem < ApplicationRecord
   # 干合
   def union_ids(first_stem_id, second_stem_id)
     input_pair = [first_stem_id, second_stem_id].sort
-    
+
     STEM_UNIONS.each do |pair, result|
       if pair == input_pair
         return should_reverse?(result) ? result.reverse : result
@@ -48,7 +48,7 @@ class Stem < ApplicationRecord
         return should_reverse?(pair) ? pair.reverse : pair
       end
     end
-    
+
     nil
   end
 

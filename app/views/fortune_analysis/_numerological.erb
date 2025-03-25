@@ -9,6 +9,7 @@
         <th>点数<br/>合計</th>
         <th>干数<br/>合計</th>
         <th>全点<br/>数計</th>
+        <th>星</th>
         <th>割合<br/>(%)</th>
         <th>五行<br/>(%)</th>
       </tr>
@@ -23,6 +24,7 @@
           <td><%= value[:point_sum] %></td>
           <td><%= value[:stem_count] %></td>
           <td><%= value[:all_points] %></td>
+          <td><%= value[:ten_major_star].name %></td>
           <td><%= value[:percentage] %></td>
           <% if index.even? %>
             <td rowspan="2"><%= simple_format(value[:element_percentage]) %></td>

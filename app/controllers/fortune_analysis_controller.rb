@@ -40,7 +40,7 @@ class FortuneAnalysisController < ApplicationController
     @has_birth_voids = has_birth_voids
 
     @stem_lineage = StemLineageCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch, @year_qi_stem, @day_qi_stem, @gender)
-    @numerological = NumerologicalCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch)
+    @numerological, @beast_type = NumerologicalCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch)
 
     render :index
   end
