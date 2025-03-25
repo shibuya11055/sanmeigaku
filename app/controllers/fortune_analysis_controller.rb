@@ -41,6 +41,7 @@ class FortuneAnalysisController < ApplicationController
 
     @stem_lineage = StemLineageCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch, @year_qi_stem, @day_qi_stem, @gender)
     @numerological = NumerologicalCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch)
+
     render :index
   end
 
@@ -218,17 +219,17 @@ class FortuneAnalysisController < ApplicationController
 
     {
       day_and_month: {
-        title: "\u65E5\u5E72\u30FB\u6708\u5E72",
+          title: '日干・月干',
         before: [@day_stem.name, @month_stem.name],
         result: day_and_month_union_names
       },
       day_and_year: {
-        title: "\u65E5\u5E72\u30FB\u5E74\u5E72",
+        title: '日干・年干',
         before: [@day_stem.name, @year_stem.name],
         result: day_and_year_union_names
       },
       month_and_year: {
-        title: "\u6708\u5E72\u30FB\u5E74\u5E72",
+        title: '月干・年干',
         before: [@month_stem.name, @year_stem.name],
         result: month_and_year_union_names
       }
