@@ -1,0 +1,56 @@
+<div class="yin-detail">
+        <div class="energy">
+          若年期: <%= youth_sub_star.name %>・<%= @youth_sub_star.energy %><br/>
+          中年期: <%= middle_age_sub_star.name %>・<%= @middle_age_sub_star.energy %><br/>
+          晩年期: <%= old_age_sub_star.name %>・<%= @old_age_sub_star.energy %><br/>
+        </div>
+
+        <% if abnormals.present? %>
+          <div class="abnormals">
+            異常干支
+            <ul>
+              <% abnormals.each do |abnormal| %>
+                <li><%= abnormal %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% birth_void_values = birth_voids.values.compact %>
+        <% if birth_void_values.present? %>
+          <div class="birth-void">
+            宿命天中殺
+            <ul>
+              <% birth_void_values.each do |value| %>
+                <li
+                  class="<%= css_classes({
+                  'void-list': true,
+                  'shape-wrapper': true,
+                  'text-center': has_birth_voids[:has_compatible_void] || has_birth_voids[:has_double_birth_void] || has_birth_voids[:has_complete_void],
+                  'color-red': value == '生日中殺' || value == '生月中殺' || value == '生年中殺' || value == '日座天中殺' || value == '日居天中殺',
+                  'green-circle': value == '互換中殺',
+                  'blue-square': value == '宿命二中殺',
+                  'complete-void-color': value == '全天中殺'
+                }) %>"
+                >
+                  <%= value %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% if !stem_unions.values.all? { |union| union[:result].nil? } %>
+          <div class="stem_unions">
+            干合
+            <ul>
+              <% stem_unions.each do |key, union| %>
+                <% if union[:result].present? %>
+                  <li><%= "【#{union[:title]}】: #{union[:before].join('・')} → #{union[:result].join('・')}" %></li>
+                <% end %>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div>

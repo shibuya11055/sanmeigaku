@@ -1,0 +1,131 @@
+<h2>陰占図</h2>
+<div class="yin-field">
+  <div class="void">
+    <%= day_heavenly_void %>
+  </div>
+  <div class="yin-chart">
+    <table class="table-bordered">
+      <tr>
+        <th>日<br/>(<%= result.sexagenary_cycle_day_id %>)</th>
+        <th>月<br/>(<%= result.sexagenary_cycle_month_id %>)</th>
+        <th>年<br/>(<%= result.sexagenary_cycle_year_id %>)</th>
+      </tr>
+      <tr>
+        <td>
+          <p
+            class="<%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"
+          >
+            <%= day_stem.name %>
+          </p>
+          <p>（主気）</p>
+        </td>
+        <td>
+          <p
+            class="<%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"
+          >
+            <%= month_stem.name %>
+          </p>
+          <p>（精神気・未来・南）</p>
+        </td>
+        <td>
+          <p
+            class="<%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"
+          >
+            <%= year_stem.name %>
+          </p>
+          <p>（精神気・過去・北）</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p
+            class="<%= css_classes({
+              'shape-wrapper': true,
+              'color-red': has_birth_voids[:has_birth_day_void],
+              'green-circle': has_birth_voids[:has_compatible_void],
+              'complete-void-color': has_birth_voids[:has_complete_void]
+            }) %>"
+          >
+            <%= day_branch.name %>
+          </p>
+          <p>（西・結果）</p>
+        </td>
+        <td>
+          <p
+            class="<%= css_classes({
+              'shape-wrapper': true,
+              'color-red': has_birth_voids[:has_birth_month_void],
+              'blue-square': has_birth_voids[:has_double_birth_void],
+              'complete-void-color': has_birth_voids[:has_complete_void]
+            }) %>"
+          >
+            <%= month_branch.name %>
+          </p>
+          <p>（中央・交点・経過）</p>
+        </td>
+        <td>
+          <p
+            class="<%= css_classes({
+              'shape-wrapper': true,
+              'color-red': has_birth_voids[:has_birth_year_void],
+              'green-circle': has_birth_voids[:has_compatible_void],
+              'blue-square': has_birth_voids[:has_double_birth_void],
+              'complete-void-color': has_birth_voids[:has_complete_void]
+            }) %>"
+          >
+            <%= year_branch.name %>
+          </p>
+          <p>（東・未来）</p>
+        </td>
+      </tr>
+      <tr class="branch-stem">
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"><%= day_branch.first_stem&.name || '-' %></p>
+        </td>
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"><%= month_branch.first_stem&.name || '-' %></p>
+        </td>
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"><%= year_branch.first_stem&.name || '-' %></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"><%= day_branch.second_stem&.name || '-' %></p>
+        </td>
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"><%= month_branch.second_stem&.name || '-' %></p>
+        </td>
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"><%= year_branch.second_stem&.name || '-' %></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"><%= day_branch.third_stem&.name || '-' %></p>
+        </td>
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"><%= month_branch.third_stem&.name || '-' %></p>
+        </td>
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"><%= year_branch.third_stem&.name || '-' %></p>
+        </td>
+      </tr>
+      <tr class="qi-stem">
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"><%= day_qi_stem.name %></p>
+        </td>
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"><%= month_qi_stem.name %></p>
+        </td>
+        <td>
+          <p class="<%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"><%= year_qi_stem.name %></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="void">
+    <%= year_heavenly_void %>
+  </div>
+</div>

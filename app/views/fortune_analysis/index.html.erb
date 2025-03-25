@@ -1,358 +1,67 @@
 <h1>宿命図</h1>
-
-<div class="input-field">
-  <%= form_with url: fortune_analysis_calculate_path, method: :post do %>
-    <div>
-      <p><%= label_tag :date, "日付を選択してください" %></p>
-      <%= date_field_tag :date, @date %>
-    </div>
-    <div>
-      <p><%= label_tag :date, "性別を選択してください" %></p>
-      <%= radio_button_tag 'gender', 'male', @gender == 'male' %>
-      男性
-      <%= radio_button_tag 'gender', 'female', @gender == 'female' %>
-      女性
-    </div>
-    <div class="submit-button">
-      <%= submit_tag "計算" %>
-    </div>
-  <% end %>
-</div>
+<%# 生年月日、性別入力 %>
+<%= render 'fortune_analysis/input_field', date: @date, gender: @gender %>
 
 <div class="result-table">
   <% if @result %>
-    <h2>陰占図</h2>
-    <div class="yin-field">
-      <div class="void">
-        <%= @day_heavenly_void %>
-      </div>
-      <div class="yin-chart">
-        <table class="table-bordered">
-          <tr>
-            <th>日<br/>(<%= @result.sexagenary_cycle_day_id %>)</th>
-            <th>月<br/>(<%= @result.sexagenary_cycle_month_id %>)</th>
-            <th>年<br/>(<%= @result.sexagenary_cycle_year_id %>)</th>
-          </tr>
+    <%# 陰占図 %>
+    <%= render 'fortune_analysis/yin_chart',
+      day_heavenly_void: @day_heavenly_void,
+      result: @result,
+      has_birth_voids: @has_birth_voids,
+      day_stem: @day_stem,
+      month_stem: @month_stem,
+      year_stem: @year_stem,
+      day_branch: @day_branch,
+      month_branch: @month_branch,
+      year_branch: @year_branch,
+      day_qi_stem: @day_qi_stem,
+      month_qi_stem: @month_qi_stem,
+      year_qi_stem: @year_qi_stem,
+      year_heavenly_void: @year_heavenly_void
+    %>
 
-          <%
-            has_birth_day_void = @birth_voids[:birth_day_void].present? ||
-                                  @birth_voids[:day_position_void].present? ||
-                                  @birth_voids[:day_residence_void].present?
-            has_birth_month_void = @birth_voids[:birth_month_void].present?
-            has_birth_year_void = @birth_voids[:birth_year_void].present?
-            has_compatible_void = @birth_voids[:compatible_void].present?
-            has_double_birth_void = @birth_voids[:double_birth_void].present?
-            has_complete_void = @birth_voids[:complete_void].present?
-          %>
-          <tr>
-            <td>
-              <p
-                class="<%= 'color-red' if has_birth_day_void %>"
-              >
-                <%= @day_stem.name %>
-              </p>
-              <p>（主気）</p>
-            </td>
-            <td>
-              <p
-                class="<%= 'color-red' if has_birth_month_void %>"
-              >
-                <%= @month_stem.name %>
-              </p>
-              <p>（精神気・未来・南）</p>
-            </td>
-            <td>
-              <p
-                class="<%= 'color-red' if has_birth_year_void %>"
-              >
-                <%= @year_stem.name %>
-              </p>
-              <p>（精神気・過去・北）</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p
-                class="<%= css_classes({
-                  'shape-wrapper': true,
-                  'color-red': has_birth_day_void,
-                  'green-circle': has_compatible_void,
-                  'complete-void-color': has_complete_void
-                }) %>"
-              >
-                <%= @day_branch.name %>
-              </p>
-              <p>（西・結果）</p>
-            </td>
-            <td>
-              <p
-                class="<%= css_classes({
-                  'shape-wrapper': true,
-                  'color-red': has_birth_month_void,
-                  'blue-square': has_double_birth_void,
-                  'complete-void-color': has_complete_void
-                }) %>"
-              >
-                <%= @month_branch.name %>
-              </p>
-              <p>（中央・交点・経過）</p>
-            </td>
-            <td>
-              <p
-                class="<%= css_classes({
-                  'shape-wrapper': true,
-                  'color-red': has_birth_year_void,
-                  'green-circle': has_compatible_void,
-                  'blue-square': has_double_birth_void,
-                  'complete-void-color': has_complete_void
-                }) %>"
-              >
-                <%= @year_branch.name %>
-              </p>
-              <p>（東・未来）</p>
-            </td>
-          </tr>
-          <tr class="branch-stem">
-            <td>
-              <p class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.first_stem&.name || '-' %></p>
-            </td>
-            <td>
-              <p class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.first_stem&.name || '-' %></p>
-            </td>
-            <td>
-              <p class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.first_stem&.name || '-' %></p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.second_stem&.name || '-' %></p>
-            </td>
-            <td>
-              <p class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.second_stem&.name || '-' %></p>
-            </td>
-            <td>
-              <p class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.second_stem&.name || '-' %></p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="<%= 'color-red' if has_birth_day_void %>"><%= @day_branch.third_stem&.name || '-' %></p>
-            </td>
-            <td>
-              <p class="<%= 'color-red' if has_birth_month_void %>"><%= @month_branch.third_stem&.name || '-' %></p>
-            </td>
-            <td>
-              <p class="<%= 'color-red' if has_birth_year_void %>"><%= @year_branch.third_stem&.name || '-' %></p>
-            </td>
-          </tr>
-          <tr class="qi-stem">
-            <td>
-              <p class="<%= 'color-red' if has_birth_day_void %>"><%= @day_qi_stem.name %></p>
-            </td>
-            <td>
-              <p class="<%= 'color-red' if has_birth_month_void %>"><%= @month_qi_stem.name %></p>
-            </td>
-            <td>
-              <p class="<%= 'color-red' if has_birth_year_void %>"><%= @year_qi_stem.name %></p>
-            </td>
-          </tr>
-        </table>
-      </div>
+    <%# 詳細 %>
+    <%= render 'fortune_analysis/detail',
+      youth_sub_star: @youth_sub_star,
+      middle_age_sub_star: @middle_age_sub_star,
+      old_age_sub_star: @old_age_sub_star,
+      abnormals: @abnormals,
+      birth_voids: @birth_voids,
+      has_birth_voids: @has_birth_voids,
+      stem_unions: @stem_unions
+    %>
 
-      <div class="void">
-        <%= @year_heavenly_void %>
-      </div>
+    <%# 陽占図 %>
+    <%= render 'fortune_analysis/yang_chart',
+      ten_stars: @ten_stars,
+      ten_stars_relations: @ten_stars_relations,
+      twelve_stars: @twelve_stars,
+      has_birth_voids: @has_birth_voids
+    %>
 
-      <div class="yin-detail">
-        <div class="energy">
-          若年期: <%= @youth_sub_star.name %>・<%= @youth_sub_star.energy %><br/>
-          中年期: <%= @middle_age_sub_star.name %>・<%= @middle_age_sub_star.energy %><br/>
-          晩年期: <%= @old_age_sub_star.name %>・<%= @old_age_sub_star.energy %><br/>
-        </div>
+    <%# 六親図 %>
+    <%= render 'fortune_analysis/stem_lineage',
+      stem_lineage: @stem_lineage,
+      day_stem: @day_stem
+    %>
 
-        <% if @abnormals.present? %>
-          <div class="abnormals">
-            異常干支
-            <ul>
-              <% @abnormals.each do |abnormal| %>
-                <li><%= abnormal %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
+    <%# 数理法 %>
+    <%= render 'fortune_analysis/numerological',
+      numerological: @numerological,
+      day_branch: @day_branch,
+      month_branch: @month_branch,
+      year_branch: @year_branch
+    %>
 
-        <% birth_void_values = @birth_voids.values.compact %>
-        <% if birth_void_values.present? %>
-          <div class="birth-void">
-            宿命天中殺
-            <ul>
-              <% birth_void_values.each do |value| %>
-                <li
-                  class="<%= css_classes({
-                  'void-list': true,
-                  'shape-wrapper': true,
-                  'text-center': has_compatible_void || has_double_birth_void || has_complete_void,
-                  'color-red': value == '生日中殺' || value == '生月中殺' || value == '生年中殺' || value == '日座天中殺' || value == '日居天中殺',
-                  'green-circle': value == '互換中殺',
-                  'blue-square': value == '宿命二中殺',
-                  'complete-void-color': value == '全天中殺'
-                }) %>"
-                >
-                  <%= value %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-
-        <% if !@stem_unions.values.all? { |union| union[:result].nil? } %>
-          <div class="stem_unions">
-            干合
-            <ul>
-              <% @stem_unions.each do |key, union| %>
-                <% if union[:result].present? %>
-                  <li><%= "【#{union[:title]}】: #{union[:before].join('・')} → #{union[:result].join('・')}" %></li>
-                <% end %>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <h2>陽占図</h2>
-    <table class="yang-chart">
-      <tbody>
-        <tr>
-          <td></td>
-          <td class="arrow"></td>
-          <td class="tooltip" style="background-image: url('<%= asset_path(@ten_stars[:north].image_name) %>');">
-            <p class="font-bold font-size-20 <%= 'color-red' if has_birth_year_void %>"><%= @ten_stars[:north].name %></p>
-            <p>精神の帰結</p>
-            <span class="tooltip-text">
-              <%= simple_format(@ten_stars[:north_message]) %>
-            </span>
-          </td>
-          <td class="arrow"></td>
-          <td>
-            <p class="font-bold font-size-20 <%= 'color-red' if has_birth_year_void %>"><%= @twelve_stars[:third].name %></p>
-          </td>
-        </tr>
-        <tr class="arrow-tr">
-          <td></td>
-          <td></td>
-          <td class="tooltip">
-            <i class="fa-solid fa-angles-up default-relation"></i>
-            <i class="user-relation <%= @ten_stars_relations[:top] %>">
-              <span class="tooltip-text">
-                <%= simple_format(@ten_stars_relations[:top_message]) %>
-              </span>
-            </i>
-          </td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="tooltip" style="background-image: url('<%= asset_path(@ten_stars[:west].image_name) %>');">
-            <p class="font-bold font-size-20 <%= 'color-red' if has_birth_day_void %>"><%= @ten_stars[:west].name %></p>
-            <p>家庭・行動の結果</p>
-            <span class="tooltip-text">
-              <%= simple_format(@ten_stars[:west_message]) %>
-            </span>
-          </td>
-          <td class="arrow tooltip">
-            <i class="fa-solid fa-arrow-left default-relation"></i>
-            <i class="user-relation <%= @ten_stars_relations[:left] %>">
-              <span class="tooltip-text">
-                <%= simple_format(@ten_stars_relations[:left_message]) %>
-              </span>
-            </i>
-          </td>
-          <td class="tooltip" style="background-image: url('<%= asset_path(@ten_stars[:center].image_name) %>');">
-            <p class="font-bold font-size-20 <%= 'color-red' if has_birth_month_void %>"><%= @ten_stars[:center].name %></p>
-            <p>心・通過点</p>
-            <span class="tooltip-text">
-              <%= simple_format(@ten_stars[:center_message]) %>
-            </span>
-          </td>
-          <td class="arrow tooltip">
-            <i class="fa-solid fa-angles-left default-relation"></i>
-            <i class="user-relation <%= @ten_stars_relations[:right] %>">
-              <span class="tooltip-text">
-                <%= simple_format(@ten_stars_relations[:right_message]) %>
-              </span>
-            </i>
-          </td>
-          <td class="tooltip" style="background-image: url('<%= asset_path(@ten_stars[:east].image_name) %>');">
-            <p class="font-bold font-size-20 <%= 'color-red' if has_birth_year_void %>"><%= @ten_stars[:east].name %></p>
-            <p>社会・行動の始まり</p>
-            <span class="tooltip-text">
-              <%= simple_format(@ten_stars[:east_message]) %>
-            </span>
-          </td>
-        </tr>
-        <tr class="arrow-tr">
-          <td></td>
-          <td></td>
-          <td class="tooltip">
-            <i class="fa-solid fa-arrow-up default-relation"></i>
-            <i class="user-relation <%= @ten_stars_relations[:bottom] %>">
-              <span class="tooltip-text">
-                <%= simple_format(@ten_stars_relations[:bottom_message]) %>
-              </span>
-            </i>
-          </td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>
-            <p class="font-bold font-size-20 <%= 'color-red' if has_birth_day_void %>"><%= @twelve_stars[:first].name %></p>
-          </td>
-          <td class="arrow"></td>
-          <td class="tooltip" style="background-image: url('<%= asset_path(@ten_stars[:south].image_name) %>');">
-            <p class="font-bold font-size-20 <%= 'color-red' if has_birth_month_void %>"><%= @ten_stars[:south].name %></p>
-            <p>精神の始まり</p>
-            <span class="tooltip-text">
-              <%= simple_format(@ten_stars[:south_message]) %>
-            </span>
-          </td>
-          <td class="arrow"></td>
-          <td>
-            <p class="font-bold font-size-20 <%= 'color-red' if has_birth_month_void %>"><%= @twelve_stars[:second].name %></p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <%= render 'fortune_analysis/stem_lineage', stem_lineage: @stem_lineage, day_stem: @day_stem %>
-    <%= render 'fortune_analysis/numerological', numerological: @numerological, day_branch: @day_branch, month_branch: @month_branch, year_branch: @year_branch %>
-
-    <h2>宿命絵図</h2>
-    <table class="art-chart">
-      <thead>
-        <tr>
-          <th><%= image_tag(@day_stem.image_name) %></th>
-          <th><%= image_tag(@month_stem.image_name) %></th>
-          <th><%= image_tag(@year_stem.image_name) %></th>
-        </tr>
-      <tbody>
-        <tr>
-          <td><%= image_tag(@day_branch.first_stem.image_name) if @day_branch.first_stem.present? %></td>
-          <td><%= image_tag(@month_branch.first_stem.image_name) if @month_branch.first_stem.present? %></td>
-          <td><%= image_tag(@year_branch.first_stem.image_name) if @year_branch.first_stem.present? %></td>
-        </tr>
-        <tr>
-          <td><%= image_tag(@day_branch.second_stem.image_name) if @day_branch.second_stem.present? %></td>
-          <td><%= image_tag(@month_branch.second_stem.image_name) if @month_branch.second_stem.present? %></td>
-          <td><%= image_tag(@year_branch.second_stem.image_name) if @year_branch.second_stem.present? %></td>
-        </tr>
-        <tr>
-          <td><%= image_tag(@day_branch.third_stem.image_name) if @day_branch.third_stem.present? %></td>
-          <td><%= image_tag(@month_branch.third_stem.image_name) if @month_branch.third_stem.present? %></td>
-          <td><%= image_tag(@year_branch.third_stem.image_name) if @year_branch.third_stem.present? %></td>
-        </tr>
-      </tbody>
-    </table>
+    <%# 宿命絵図 %>
+    <%= render 'fortune_analysis/diagram',
+      day_stem: @day_stem,
+      month_stem: @month_stem,
+      year_stem: @year_stem,
+      day_branch: @day_branch,
+      month_branch: @month_branch,
+      year_branch: @year_branch
+    %>
   <% end %>
 </div>

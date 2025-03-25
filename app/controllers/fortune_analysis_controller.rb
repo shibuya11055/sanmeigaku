@@ -37,6 +37,7 @@ class FortuneAnalysisController < ApplicationController
     @abnormals = abnormals
 
     @birth_voids = birth_voids
+    @has_birth_voids = has_birth_voids
 
     @stem_lineage = StemLineageCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch, @year_qi_stem, @day_qi_stem, @gender)
     @numerological = NumerologicalCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch)
@@ -138,6 +139,20 @@ class FortuneAnalysisController < ApplicationController
       day_residence_void: @result.sexagenary_cycle_day.day_residence_void? ? "\u65E5\u5C45\u5929\u4E2D\u6BBA" : nil,
       double_birth_void: double_birth_void? ? "\u5BBF\u547D\u4E8C\u4E2D\u6BBA" : nil,
       complete_void: complete_void? ? "\u5168\u5929\u4E2D\u6BBA" : nil
+    }
+  end
+
+  # 各中殺を持つかどうか
+  def has_birth_voids
+    {
+      has_birth_day_void: @birth_voids[:birth_day_void].present? ||
+                            @birth_voids[:day_position_void].present? ||
+                            @birth_voids[:day_residence_void].present?,
+      has_birth_month_void: @birth_voids[:birth_month_void].present?,
+      has_birth_year_void: @birth_voids[:birth_year_void].present?,
+      has_compatible_void: @birth_voids[:compatible_void].present?,
+      has_double_birth_void: @birth_voids[:double_birth_void].present?,
+      has_complete_void: @birth_voids[:complete_void].present?
     }
   end
 

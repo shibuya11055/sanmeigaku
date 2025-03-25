@@ -1,0 +1,104 @@
+<h2>陽占図</h2>
+<table class="yang-chart">
+  <tbody>
+    <tr>
+      <td></td>
+      <td class="arrow"></td>
+      <td class="tooltip" style="background-image: url('<%= asset_path(ten_stars[:north].image_name) %>');">
+        <p class="font-bold font-size-20 <%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"><%= ten_stars[:north].name %></p>
+        <p>精神の帰結</p>
+        <span class="tooltip-text">
+          <%= simple_format(ten_stars[:north_message]) %>
+        </span>
+      </td>
+      <td class="arrow"></td>
+      <td>
+        <p class="font-bold font-size-20 <%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"><%= twelve_stars[:third].name %></p>
+      </td>
+    </tr>
+    <tr class="arrow-tr">
+      <td></td>
+      <td></td>
+      <td class="tooltip">
+        <i class="fa-solid fa-angles-up default-relation"></i>
+        <i class="user-relation <%= ten_stars_relations[:top] %>">
+          <span class="tooltip-text">
+            <%= simple_format(ten_stars_relations[:top_message]) %>
+          </span>
+        </i>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="tooltip" style="background-image: url('<%= asset_path(ten_stars[:west].image_name) %>');">
+        <p class="font-bold font-size-20 <%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"><%= ten_stars[:west].name %></p>
+        <p>家庭・行動の結果</p>
+        <span class="tooltip-text">
+          <%= simple_format(ten_stars[:west_message]) %>
+        </span>
+      </td>
+      <td class="arrow tooltip">
+        <i class="fa-solid fa-arrow-left default-relation"></i>
+        <i class="user-relation <%= ten_stars_relations[:left] %>">
+          <span class="tooltip-text">
+            <%= simple_format(ten_stars_relations[:left_message]) %>
+          </span>
+        </i>
+      </td>
+      <td class="tooltip" style="background-image: url('<%= asset_path(ten_stars[:center].image_name) %>');">
+        <p class="font-bold font-size-20 <%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"><%= ten_stars[:center].name %></p>
+        <p>心・通過点</p>
+        <span class="tooltip-text">
+          <%= simple_format(ten_stars[:center_message]) %>
+        </span>
+      </td>
+      <td class="arrow tooltip">
+        <i class="fa-solid fa-angles-left default-relation"></i>
+        <i class="user-relation <%= ten_stars_relations[:right] %>">
+          <span class="tooltip-text">
+            <%= simple_format(ten_stars_relations[:right_message]) %>
+          </span>
+        </i>
+      </td>
+      <td class="tooltip" style="background-image: url('<%= asset_path(ten_stars[:east].image_name) %>');">
+        <p class="font-bold font-size-20 <%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"><%= ten_stars[:east].name %></p>
+        <p>社会・行動の始まり</p>
+        <span class="tooltip-text">
+          <%= simple_format(ten_stars[:east_message]) %>
+        </span>
+      </td>
+    </tr>
+    <tr class="arrow-tr">
+      <td></td>
+      <td></td>
+      <td class="tooltip">
+        <i class="fa-solid fa-arrow-up default-relation"></i>
+        <i class="user-relation <%= ten_stars_relations[:bottom] %>">
+          <span class="tooltip-text">
+            <%= simple_format(ten_stars_relations[:bottom_message]) %>
+          </span>
+        </i>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>
+        <p class="font-bold font-size-20 <%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"><%= twelve_stars[:first].name %></p>
+      </td>
+      <td class="arrow"></td>
+      <td class="tooltip" style="background-image: url('<%= asset_path(ten_stars[:south].image_name) %>');">
+        <p class="font-bold font-size-20 <%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"><%= ten_stars[:south].name %></p>
+        <p>精神の始まり</p>
+        <span class="tooltip-text">
+          <%= simple_format(ten_stars[:south_message]) %>
+        </span>
+      </td>
+      <td class="arrow"></td>
+      <td>
+        <p class="font-bold font-size-20 <%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"><%= twelve_stars[:second].name %></p>
+      </td>
+    </tr>
+  </tbody>
+</table>

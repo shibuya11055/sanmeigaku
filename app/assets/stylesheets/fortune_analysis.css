@@ -14,10 +14,10 @@
 
 .result-table {
   margin-top: 20px;
+  display: flex;
 }
 
 .yin-field {
-  display: flex;
   td {
     background-color:rgba(255,255,255,0.88);
   }
@@ -89,11 +89,11 @@ ul {
 }
 
 .art-chart {
-  border: 1px solid lightgray;  
+  border: 1px solid lightgray;
   border-collapse: collapse;
 
   th, td {
-    border-right: 1px solid lightgray; 
+    border-right: 1px solid lightgray;
 
     &:last-child {
       border-right: none;
