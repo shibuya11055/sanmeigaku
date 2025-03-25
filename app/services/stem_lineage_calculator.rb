@@ -1,11 +1,11 @@
 class StemLineageCalculator
-  attr_reader :original_linage, 
-              :day_stem, 
-              :month_stem, 
-              :year_stem, 
-              :day_branch, 
-              :month_branch, 
-              :year_branch, 
+  attr_reader :original_linage,
+              :day_stem,
+              :month_stem,
+              :year_stem,
+              :day_branch,
+              :month_branch,
+              :year_branch,
               :year_qi_stem,
               :day_qi_stem,
               :gender
@@ -60,7 +60,7 @@ class StemLineageCalculator
       month_branch.third_stem_id,
       year_branch.first_stem_id,
       year_branch.second_stem_id,
-      year_branch.third_stem_id,
+      year_branch.third_stem_id
     ].compact
 
     ids
@@ -182,7 +182,7 @@ class StemLineageCalculator
     if @mother_in_law_stem.nil?
       return nil
     end
-    
+
     union_stem_mother_in_law = @mother_in_law_stem.union_stem
     union_stem_mother_in_law_convert = union_stem_mother_in_law.yin_yang_convert
 
@@ -248,38 +248,38 @@ class StemLineageCalculator
 
     {
       mother: {
-        text: "#{original_linage.m_stem.name}・#{@mother_stem&.name}",
+        text: "#{original_linage.m_stem.name}・#{@mother_stem&.name}"
       },
       father: {
-        text: "#{original_linage.f_stem.name}・#{@father_stem&.name}",
+        text: "#{original_linage.f_stem.name}・#{@father_stem&.name}"
       },
       m_grandmother: {
-        text: "#{original_linage.m_grandmother_stem&.name}・#{@m_grandmother_stem&.name || '-'}",
+        text: "#{original_linage.m_grandmother_stem&.name}・#{@m_grandmother_stem&.name || '-'}"
       },
       m_grandfather: {
-        text: "#{original_linage.m_grandfather_stem.name}・#{@m_grandfather_stem&.name || '-'}",
+        text: "#{original_linage.m_grandfather_stem.name}・#{@m_grandfather_stem&.name || '-'}"
       },
       f_grandmother: {
-        text: "#{original_linage.f_grandmother_stem.name}・#{@f_grandmother_stem&.name || '-'}",
+        text: "#{original_linage.f_grandmother_stem.name}・#{@f_grandmother_stem&.name || '-'}"
       },
       f_grandfather: {
-        text: "#{original_linage.f_grandfather_stem.name}・#{@f_grandfather_stem&.name || '-'}",
+        text: "#{original_linage.f_grandfather_stem.name}・#{@f_grandfather_stem&.name || '-'}"
       },
       spouse: {
-        text: "#{original_linage.spouse_stem.name}・#{@spouse_stem&.name}",
+        text: "#{original_linage.spouse_stem.name}・#{@spouse_stem&.name}"
       },
       mother_in_law: {
-        text: "#{original_linage.mother_in_law_stem.name}・#{@mother_in_law_stem&.name || '-'}",
+        text: "#{original_linage.mother_in_law_stem.name}・#{@mother_in_law_stem&.name || '-'}"
       },
       father_in_law: {
-        text: "#{original_linage.father_in_law_stem.name}・#{@father_in_law_stem&.name || '-'}",
+        text: "#{original_linage.father_in_law_stem.name}・#{@father_in_law_stem&.name || '-'}"
       },
       child: {
-        text: child_text,
+        text: child_text
       },
       child_spouse: {
-        text: child_spouse_text,
-      },
+        text: child_spouse_text
+      }
     }
   end
 end

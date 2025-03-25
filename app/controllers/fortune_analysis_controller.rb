@@ -38,16 +38,8 @@ class FortuneAnalysisController < ApplicationController
 
     @birth_voids = birth_voids
 
-    @stem_lineage = StemLineageCalculator.call(@day_stem,
-                                               @month_stem,
-                                               @year_stem,
-                                               @day_branch,
-                                               @month_branch,
-                                               @year_branch,
-                                               @year_qi_stem,
-                                               @day_qi_stem,
-                                               @gender)
-
+    @stem_lineage = StemLineageCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch, @year_qi_stem, @day_qi_stem, @gender)
+    @numerological = NumerologicalCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch)
     render :index
   end
 
@@ -138,14 +130,14 @@ class FortuneAnalysisController < ApplicationController
   # 生日中殺などをオブジェクトで持つ
   def birth_voids
     {
-      birth_day_void: birth_day_void? ? '生日中殺' : nil,
-      birth_month_void: birth_month_void? ? '生月中殺' : nil,
-      birth_year_void: birth_year_void? ? '生年中殺' : nil,
-      compatible_void: compatible_void? ? '互換中殺' : nil,
-      day_position_void: @result.sexagenary_cycle_day.day_position_void? ? '日座天中殺' : nil,
-      day_residence_void: @result.sexagenary_cycle_day.day_residence_void? ? '日居天中殺' : nil,
-      double_birth_void: double_birth_void? ? '宿命二中殺' : nil,
-      complete_void: complete_void? ? '全天中殺' : nil
+      birth_day_void: birth_day_void? ? "\u751F\u65E5\u4E2D\u6BBA" : nil,
+      birth_month_void: birth_month_void? ? "\u751F\u6708\u4E2D\u6BBA" : nil,
+      birth_year_void: birth_year_void? ? "\u751F\u5E74\u4E2D\u6BBA" : nil,
+      compatible_void: compatible_void? ? "\u4E92\u63DB\u4E2D\u6BBA" : nil,
+      day_position_void: @result.sexagenary_cycle_day.day_position_void? ? "\u65E5\u5EA7\u5929\u4E2D\u6BBA" : nil,
+      day_residence_void: @result.sexagenary_cycle_day.day_residence_void? ? "\u65E5\u5C45\u5929\u4E2D\u6BBA" : nil,
+      double_birth_void: double_birth_void? ? "\u5BBF\u547D\u4E8C\u4E2D\u6BBA" : nil,
+      complete_void: complete_void? ? "\u5168\u5929\u4E2D\u6BBA" : nil
     }
   end
 
@@ -211,19 +203,19 @@ class FortuneAnalysisController < ApplicationController
 
     {
       day_and_month: {
-        title: '日干・月干',
+        title: "\u65E5\u5E72\u30FB\u6708\u5E72",
         before: [@day_stem.name, @month_stem.name],
-        result: day_and_month_union_names,
+        result: day_and_month_union_names
       },
       day_and_year: {
-        title: '日干・年干',
+        title: "\u65E5\u5E72\u30FB\u5E74\u5E72",
         before: [@day_stem.name, @year_stem.name],
-        result: day_and_year_union_names,
+        result: day_and_year_union_names
       },
       month_and_year: {
-        title: '月干・年干',
+        title: "\u6708\u5E72\u30FB\u5E74\u5E72",
         before: [@month_stem.name, @year_stem.name],
-        result: month_and_year_union_names,
+        result: month_and_year_union_names
       }
     }
   end

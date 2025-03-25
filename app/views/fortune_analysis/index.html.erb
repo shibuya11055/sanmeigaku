@@ -34,7 +34,7 @@
             <th>年<br/>(<%= @result.sexagenary_cycle_year_id %>)</th>
           </tr>
 
-          <%  
+          <%
             has_birth_day_void = @birth_voids[:birth_day_void].present? ||
                                   @birth_voids[:day_position_void].present? ||
                                   @birth_voids[:day_residence_void].present?
@@ -46,7 +46,7 @@
           %>
           <tr>
             <td>
-              <p 
+              <p
                 class="<%= 'color-red' if has_birth_day_void %>"
               >
                 <%= @day_stem.name %>
@@ -85,7 +85,7 @@
               <p>（西・結果）</p>
             </td>
             <td>
-              <p 
+              <p
                 class="<%= css_classes({
                   'shape-wrapper': true,
                   'color-red': has_birth_month_void,
@@ -326,6 +326,7 @@
     </table>
 
     <%= render 'fortune_analysis/stem_lineage', stem_lineage: @stem_lineage, day_stem: @day_stem %>
+    <%= render 'fortune_analysis/numerological', numerological: @numerological, day_branch: @day_branch, month_branch: @month_branch, year_branch: @year_branch %>
 
     <h2>宿命絵図</h2>
     <table class="art-chart">
@@ -355,4 +356,3 @@
     </table>
   <% end %>
 </div>
-

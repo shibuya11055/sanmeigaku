@@ -1,0 +1,34 @@
+<div class="numerological">
+  <table>
+    <thead>
+      <tr>
+        <th>気</th>
+        <th><%= day_branch.name %></th>
+        <th><%= month_branch.name %></th>
+        <th><%= year_branch.name %></th>
+        <th>点数合計</th>
+        <th>干数合計</th>
+        <th>全点数計</th>
+        <th>割合(%)</th>
+        <th>五行(%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% numerological.each_with_index do |(key, value), index| %>
+        <tr>
+          <td><%= key %></td>
+          <td><%= value[:day_branch_point] %></td>
+          <td><%= value[:month_branch_point] %></td>
+          <td><%= value[:year_branch_point] %></td>
+          <td><%= value[:point_sum] %></td>
+          <td><%= value[:stem_count] %></td>
+          <td><%= value[:all_points] %></td>
+          <td><%= value[:percentage] %></td>
+          <% if index.even? %>
+            <td rowspan="2"><%= value[:element_percentage] %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

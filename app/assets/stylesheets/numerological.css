@@ -1,0 +1,17 @@
+.numerological {
+  margin-top: 20px;
+
+  table {
+    border-collapse:  collapse;
+
+    th {
+      background-color: #F4EBDA;
+    }
+
+    th, td {
+      border: 1px solid lightgray;
+      padding: 10px;
+      text-align: center;
+    }
+  }
+}
