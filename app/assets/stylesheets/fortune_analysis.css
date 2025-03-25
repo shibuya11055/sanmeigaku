@@ -12,12 +12,16 @@
   margin-top: 12px;
 }
 
-.result-table {
+.result-field {
   margin-top: 20px;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .yin-field {
+  display: flex;
+  margin-top: 12px;
   td {
     background-color:rgba(255,255,255,0.88);
   }
@@ -54,25 +58,13 @@
   border-top: 2px solid #A6B5A5;
 }
 
-.yang-chart {
-  margin-top: 20px;
-  border: 1px solid lightgray;
-  border-collapse: collapse;
-}
-
-.yang-chart td {
-  padding: 10px;
-  text-align: center;
-  border: 1px solid lightgray;
-}
-
 .yin-detail div {
-  margin-bottom: 16px;
+  margin: 12px;
 }
 
 .void {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
   writing-mode: tb;
   margin: 0 16px 0 16px;
 }
@@ -89,6 +81,7 @@ ul {
 }
 
 .art-chart {
+  margin: 12px;
   border: 1px solid lightgray;
   border-collapse: collapse;
 
@@ -107,17 +100,26 @@ ul {
 
   td {
     text-align: center;
-    width: 100px;
-    height: 100px;
-    padding: 8px;
+    width: 60px;
+    height: 60px;
+    padding: 2px;
   }
 
   img {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
   }
 }
 
+.yang-chart {
+  margin: 12px;
+  border-collapse: collapse;
+  td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid lightgray;
+  }
+}
 /* 背景画像 */
 .yang-chart {
   .arrow-tr {
@@ -133,10 +135,11 @@ ul {
     background-repeat: no-repeat;
     background-size: cover;
     /* width: 100px; */
-    height: 100px;
+    height: 70px;
     background-color:rgba(255,255,255,0.88);
     background-blend-mode:lighten;
   }
+
   td:hover {
     background-color: rgba(254, 255, 218, 0.806);
     background-blend-mode:lighten;

@@ -2,24 +2,66 @@
 <%# 生年月日、性別入力 %>
 <%= render 'fortune_analysis/input_field', date: @date, gender: @gender %>
 
-<div class="result-table">
+<div class="result-field">
   <% if @result %>
     <%# 陰占図 %>
-    <%= render 'fortune_analysis/yin_chart',
-      day_heavenly_void: @day_heavenly_void,
-      result: @result,
-      has_birth_voids: @has_birth_voids,
-      day_stem: @day_stem,
-      month_stem: @month_stem,
-      year_stem: @year_stem,
-      day_branch: @day_branch,
-      month_branch: @month_branch,
-      year_branch: @year_branch,
-      day_qi_stem: @day_qi_stem,
-      month_qi_stem: @month_qi_stem,
-      year_qi_stem: @year_qi_stem,
-      year_heavenly_void: @year_heavenly_void
-    %>
+    <div>
+      <%= render 'fortune_analysis/yin_chart',
+        day_heavenly_void: @day_heavenly_void,
+        result: @result,
+        has_birth_voids: @has_birth_voids,
+        day_stem: @day_stem,
+        month_stem: @month_stem,
+        year_stem: @year_stem,
+        day_branch: @day_branch,
+        month_branch: @month_branch,
+        year_branch: @year_branch,
+        day_qi_stem: @day_qi_stem,
+        month_qi_stem: @month_qi_stem,
+        year_qi_stem: @year_qi_stem,
+        year_heavenly_void: @year_heavenly_void
+      %>
+    </div>
+
+    <%# 六親図 %>
+    <div>
+      <%= render 'fortune_analysis/stem_lineage',
+        stem_lineage: @stem_lineage,
+        day_stem: @day_stem
+      %>
+    </div>
+
+    <%# 陽占図 %>
+    <div>
+      <%= render 'fortune_analysis/yang_chart',
+        ten_stars: @ten_stars,
+        ten_stars_relations: @ten_stars_relations,
+        twelve_stars: @twelve_stars,
+        has_birth_voids: @has_birth_voids
+      %>
+    </div>
+
+    <%# 数理法 %>
+    <div>
+      <%= render 'fortune_analysis/numerological',
+        numerological: @numerological,
+        day_branch: @day_branch,
+        month_branch: @month_branch,
+        year_branch: @year_branch
+      %>
+    </div>
+
+    <%# 宿命絵図 %>
+    <div>
+      <%= render 'fortune_analysis/diagram',
+        day_stem: @day_stem,
+        month_stem: @month_stem,
+        year_stem: @year_stem,
+        day_branch: @day_branch,
+        month_branch: @month_branch,
+        year_branch: @year_branch
+      %>
+    </div>
 
     <%# 詳細 %>
     <%= render 'fortune_analysis/detail',
@@ -30,38 +72,6 @@
       birth_voids: @birth_voids,
       has_birth_voids: @has_birth_voids,
       stem_unions: @stem_unions
-    %>
-
-    <%# 陽占図 %>
-    <%= render 'fortune_analysis/yang_chart',
-      ten_stars: @ten_stars,
-      ten_stars_relations: @ten_stars_relations,
-      twelve_stars: @twelve_stars,
-      has_birth_voids: @has_birth_voids
-    %>
-
-    <%# 六親図 %>
-    <%= render 'fortune_analysis/stem_lineage',
-      stem_lineage: @stem_lineage,
-      day_stem: @day_stem
-    %>
-
-    <%# 数理法 %>
-    <%= render 'fortune_analysis/numerological',
-      numerological: @numerological,
-      day_branch: @day_branch,
-      month_branch: @month_branch,
-      year_branch: @year_branch
-    %>
-
-    <%# 宿命絵図 %>
-    <%= render 'fortune_analysis/diagram',
-      day_stem: @day_stem,
-      month_stem: @month_stem,
-      year_stem: @year_stem,
-      day_branch: @day_branch,
-      month_branch: @month_branch,
-      year_branch: @year_branch
     %>
   <% end %>
 </div>

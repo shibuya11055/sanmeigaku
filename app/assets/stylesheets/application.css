@@ -57,10 +57,6 @@ p {
   font-weight: bold;
 }
 
-.font-size-20 {
-  font-size: 20px;
-}
-
 /* カーソルを重ねる要素 */
 .tooltip {
   position: relative; /* ツールチップの位置の基準に */

@@ -6,11 +6,11 @@
         <th><%= day_branch.name %></th>
         <th><%= month_branch.name %></th>
         <th><%= year_branch.name %></th>
-        <th>点数合計</th>
-        <th>干数合計</th>
-        <th>全点数計</th>
-        <th>割合(%)</th>
-        <th>五行(%)</th>
+        <th>点数<br/>合計</th>
+        <th>干数<br/>合計</th>
+        <th>全点<br/>数計</th>
+        <th>割合<br/>(%)</th>
+        <th>五行<br/>(%)</th>
       </tr>
     </thead>
     <tbody>
@@ -25,7 +25,7 @@
           <td><%= value[:all_points] %></td>
           <td><%= value[:percentage] %></td>
           <% if index.even? %>
-            <td rowspan="2"><%= value[:element_percentage] %></td>
+            <td rowspan="2"><%= simple_format(value[:element_percentage]) %></td>
           <% end %>
         </tr>
       <% end %>

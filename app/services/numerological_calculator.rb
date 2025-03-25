@@ -76,7 +76,7 @@ class NumerologicalCalculator
       if index.odd?
         _, pre_value = stem_data.to_a[index-1]
         element_percentage = ((pre_value[:all_points] + value[:all_points]) / total_all_points.to_f * 100).round(1)
-        pre_value[:element_percentage] = "#{pre_value[:element_name]}: #{element_percentage}"
+        pre_value[:element_percentage] = "#{pre_value[:element_name]}\n#{element_percentage}"
       end
     end
 

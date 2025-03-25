@@ -1,18 +1,18 @@
 .stem-lineage {
-  margin-top: 20px;
+  margin: 12px;
   display: flex;
   .container {
-      display: grid;
-      grid-template-columns: repeat(5, 100px);
-      grid-gap: 10px;
-      text-align: center;
+    display: grid;
+    grid-template-columns: repeat(5, 60px);
+    grid-gap: 4px;
+    text-align: center;
   }
   .box {
-      border: 1px solid lightgray;
-      padding: 10px;
-      background-color: white;
+    border: 1px solid lightgray;
+    padding: 4px;
+    background-color: white;
   }
   .arrow {
-      text-align: center;
+    text-align: center;
   }
 }
