@@ -57,4 +57,152 @@
     宿命五型
     <ul><li><%= beast_type %></li></ul>
   </div>
+
+  <% phase_method_text = PhaseMethodText.new %>
+  <div>
+    位相（合法）
+    <% if phase_method[:has_combined] %>
+      <ul>
+        <% # 三合 %>
+        <% if phase_method[:trine].present? %>
+          <li>
+            <%= phase_method_text.get_message("trine.#{phase_method[:trine]}") %>
+          </li>
+        <% end %>
+
+        <% # 半会 %>
+        <% if phase_method[:half_trine].present? %>
+          <li>
+            <%= phase_method_text.get_message("half_trine.#{phase_method[:half_trine][:key]}") %>
+            -
+            <%= phase_method_text.get_message("branch_pairs.#{phase_method[:half_trine][:pairs].join('_and_')}") %>
+          </li>
+        <% end %>
+
+        <% # 支合 %>
+        <% if phase_method[:combination].present? %>
+          <li>
+            <%= phase_method_text.get_message("combination.#{phase_method[:combination][:key]}") %>
+            -
+            <%= phase_method_text.get_message("branch_pairs.#{phase_method[:combination][:pairs].join('_and_')}") %>
+          </li>
+        <% end %>
+
+        <% # 方三位 %>
+        <% if phase_method[:directional].present? %>
+          <li>
+            <%= phase_method_text.get_message("directional.#{phase_method[:directional]}") %>
+          </li>
+        <% end %>
+
+        <% # 準方三位 %>
+        <% if phase_method[:half_directional].present? %>
+          <li>
+            <%= phase_method_text.get_message("half_directional.#{phase_method[:half_directional][:key]}") %>
+            -
+            <%= phase_method_text.get_message("branch_pairs.#{phase_method[:half_directional][:pairs].join('_and_')}") %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if phase_method[:has_scattered] %>
+      位相（散法）
+      <ul>
+        <% # 対冲 %>
+        <% if phase_method[:clash].present? %>
+          <li>
+            <%= phase_method_text.get_message("clash.#{phase_method[:clash][:key]}") %>
+            -
+            <%= phase_method_text.get_message("branch_pairs.#{phase_method[:clash][:pairs].join('_and_')}") %>
+          </li>
+        <% end %>
+
+        <% # 害 %>
+        <% if phase_method[:harm].present? %>
+          <% phase_method[:harm].each do |harm_obj| %>
+            <li>
+              <%= "害（#{harm_obj.keys.first.to_s}）" %>
+            </li>
+          <% end %>  
+        <% end %>
+
+        <% # 刑 %>
+        <% if phase_method[:punishment].present? %>
+          <% phase_method[:punishment][:pairs].each do |pair| %>
+            <li>
+              <%= phase_method_text.get_message("punishment.#{phase_method[:punishment][:key]}") %>
+              -
+              <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %>
+            </li>
+          <% end %>
+        <% end %>
+
+        <% # 自刑 %>
+        <% if phase_method[:self_punishment].present? %>
+          <% phase_method[:self_punishment][:pairs].each do |pair| %>
+            <li>
+              <%= phase_method_text.get_message("self_punishment.#{phase_method[:self_punishment][:key]}") %>
+              -
+              <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %>
+            </li>
+          <% end %>
+        <% end %>
+
+        <% # 破 %>
+        <% if phase_method[:braking].present? %>
+          <% phase_method[:braking].each do |braking_obj| %>
+            <li>
+              <%= "破（#{braking_obj.keys.first.to_s}）" %>
+            </li>
+          <% end %>  
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if phase_method[:has_special] %>
+      位相（特殊）
+      <ul>
+        <% # 大半会 %>
+        <% if phase_method[:strong_half_trine].present? %>
+          <li>
+            <%= phase_method_text.get_message('strong_half_trine') %>
+          </li>
+        <% end %>
+
+        <% # 律音 %>
+        <% if phase_method[:ricchin].present? %>
+          <% phase_method[:ricchin][:pairs].each do |pair| %>
+            <li>
+              律音
+              -
+              <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %>
+            </li>
+          <% end %>  
+        <% end %>
+
+        <% # 納音 %>
+        <% if phase_method[:nacchin].present? %>
+          <% phase_method[:nacchin][:pairs].each do |pair| %>
+            <li>
+              納音
+              -
+              <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %>
+            </li>
+          <% end %>  
+        <% end %>
+
+        <% # 天剋地中 %>
+        <% if phase_method[:dual_clash].present? %>
+          <% phase_method[:dual_clash][:pairs].each do |pair| %>
+            <li>
+              天剋地中
+              -
+              <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %>
+            </li>
+          <% end %>  
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
 </div>

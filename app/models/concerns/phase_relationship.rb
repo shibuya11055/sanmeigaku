@@ -31,7 +31,7 @@ module PhaseRelationship
 
   # 対冲
   CLASH_IDS = {
-    Heavenly: [[3, 9], [12, 6], [5, 11]],
+    heavenly: [[3, 9], [12, 6], [5, 11]],
     earthly: [[1, 7], [2, 8], [4, 10]]
   }
 
