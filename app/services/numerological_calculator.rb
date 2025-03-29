@@ -39,10 +39,10 @@ class NumerologicalCalculator
   def calculate
     @stem_ids = stem_ids
 
-    stem_data, beast_type = build_data
+    stem_data, beast_type, total_energy = build_data
     yang_structure = build_yang_structure(stem_data)
 
-    [stem_data, beast_type, yang_structure]
+    [stem_data, beast_type, total_energy, yang_structure]
   end
 
   private
@@ -106,8 +106,10 @@ class NumerologicalCalculator
     }
 
     beast_type = beast_type(star_pair_percentages)
+    total_energy = stem_data.values.map{ |v| v[:all_points] }.sum
 
-    [stem_data, beast_type]
+
+    [stem_data, beast_type, total_energy]
   end
 
   def calculate_star_pair_percentage(stem_data, ten_major_star_ids)
