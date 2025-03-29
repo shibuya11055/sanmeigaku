@@ -1,0 +1,73 @@
+trine:
+  water: 三合水局
+  wood: 三合木局
+  fire: 三合火局
+  metal: 三合金局
+half_trine:
+  water: 半会（水）
+  wood: 半会（木）
+  fire: 半会（火）
+  metal: 半会（金）
+combination:
+  north: 北方支合
+  east: 東方支合
+  west: 西方支合
+  south: 南方支合
+  Heavenly: 天軸支合
+  center: 中央支合
+directional:
+  winter: 方三位（冬）
+  spring: 方三位（春）
+  summer: 方三位（夏）
+  autumn: 方三位（秋）
+half_directional:
+  winter: 準方三位（冬）
+  spring: 準方三位（春）
+  summer: 準方三位（夏）
+  autumn: 準方三位（秋）
+clash:
+  heavenly: 天衝冲
+  earthly: 地衝冲
+harm:
+  子未: 害（子・未）
+  寅巳: 害（寅・巳）
+  午丑: 害（午・丑）
+  申亥: 害（申・亥）
+  卯辰: 害（卯・辰）
+  戌酉: 害（戌・酉）
+  未子: 害（未・子）
+  巳寅: 害（巳・寅）
+  丑午: 害（丑・午）
+  亥申: 害（亥・申）
+  辰卯: 害（辰・卯）
+  酉戌: 害（酉・戌）
+punishment:
+  noble: 生貴刑
+  prosperous: 旺気刑
+  hidden: 庫気刑
+self_punishment:
+  noble: 自刑（生貴刑）
+  prosperous: 自刑（旺気刑）
+  hidden: 自刑（庫気刑）
+brake:
+  丑辰: 破（丑・辰）
+  卯午: 破（卯・午）
+  戌未: 破（戌・未）
+  子酉: 破（子・酉）
+  申巳: 破（申・巳）
+  亥寅: 破（亥・寅）
+  辰丑: 破（丑・辰）
+  午卯: 破（卯・午）
+  未戌: 破（戌・未）
+  酉子: 破（子・酉）
+  巳申: 破（申・巳）
+  寅亥: 破（亥・寅）
+strong_half_trine: 大半会
+ricchin: 律音
+nacchin: 納音
+dual_clash: 天剋地中
+branch_pairs:
+  day_and_month: 日支・月支
+  day_and_year: 日支・年支
+  month_and_year: 月支・年支
+  day_and_month_and_year: 日支・月支・年支
