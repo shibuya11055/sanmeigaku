@@ -107,7 +107,7 @@ class Stem < ApplicationRecord
     when '癸'
       '水陰.png'
     else
-      nil
+      'default.png'
     end
   end
 

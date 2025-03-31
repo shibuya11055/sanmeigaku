@@ -10,25 +10,25 @@
         <th>年<br/>(<%= result.sexagenary_cycle_year_id %>)</th>
       </tr>
       <tr>
-        <td>
+        <td style="background-image: url('<%= asset_path(day_stem.image_name) %>');">
           <p
-            class="<%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"
+            class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_day_void] %>"
           >
             <%= day_stem.name %>
           </p>
           <p>（主気）</p>
         </td>
-        <td>
+        <td style="background-image: url('<%= asset_path(month_stem.image_name) %>');">
           <p
-            class="<%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"
+            class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_month_void] %>"
           >
             <%= month_stem.name %>
           </p>
           <p>（南）</p>
         </td>
-        <td>
+        <td style="background-image: url('<%= asset_path(year_stem.image_name) %>');">
           <p
-            class="<%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"
+            class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_year_void] %>"
           >
             <%= year_stem.name %>
           </p>
@@ -36,10 +36,9 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td style="background-image: url('<%= asset_path(day_branch.image_name) %>');">
           <p
             class="<%= css_classes({
-              'shape-wrapper': true,
               'color-red': has_birth_voids[:has_birth_day_void],
               'green-circle': has_birth_voids[:has_compatible_void],
               'complete-void-color': has_birth_voids[:has_complete_void]
@@ -49,10 +48,9 @@
           </p>
           <p>（西）</p>
         </td>
-        <td>
+        <td style="background-image: url('<%= asset_path(month_branch.image_name) %>');">
           <p
             class="<%= css_classes({
-              'shape-wrapper': true,
               'color-red': has_birth_voids[:has_birth_month_void],
               'blue-square': has_birth_voids[:has_double_birth_void],
               'complete-void-color': has_birth_voids[:has_complete_void]
@@ -62,10 +60,9 @@
           </p>
           <p>（交点）</p>
         </td>
-        <td>
+        <td style="background-image: url('<%= asset_path(year_branch.image_name) %>');">
           <p
             class="<%= css_classes({
-              'shape-wrapper': true,
               'color-red': has_birth_voids[:has_birth_year_void],
               'green-circle': has_birth_voids[:has_compatible_void],
               'blue-square': has_birth_voids[:has_double_birth_void],
@@ -78,47 +75,47 @@
         </td>
       </tr>
       <tr class="branch-stem">
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"><%= day_branch.first_stem&.name || '-' %></p>
+        <td style="background-image: url('<%= asset_path(day_branch.first_stem&.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_day_void] %>"><%= day_branch.first_stem&.name || '-' %></p>
         </td>
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"><%= month_branch.first_stem&.name || '-' %></p>
+        <td style="background-image: url('<%= asset_path(month_branch.first_stem&.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_month_void] %>"><%= month_branch.first_stem&.name || '-' %></p>
         </td>
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"><%= year_branch.first_stem&.name || '-' %></p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"><%= day_branch.second_stem&.name || '-' %></p>
-        </td>
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"><%= month_branch.second_stem&.name || '-' %></p>
-        </td>
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"><%= year_branch.second_stem&.name || '-' %></p>
+        <td style="background-image: url('<%= asset_path(year_branch.first_stem&.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_year_void] %>"><%= year_branch.first_stem&.name || '-' %></p>
         </td>
       </tr>
       <tr>
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"><%= day_branch.third_stem&.name || '-' %></p>
+        <td style="background-image: url('<%= asset_path(day_branch.second_stem&.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_day_void] %>"><%= day_branch.second_stem&.name || '-' %></p>
         </td>
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"><%= month_branch.third_stem&.name || '-' %></p>
+        <td style="background-image: url('<%= asset_path(month_branch.second_stem&.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_month_void] %>"><%= month_branch.second_stem&.name || '-' %></p>
         </td>
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"><%= year_branch.third_stem&.name || '-' %></p>
+        <td style="background-image: url('<%= asset_path(year_branch.second_stem&.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_year_void] %>"><%= year_branch.second_stem&.name || '-' %></p>
+        </td>
+      </tr>
+      <tr>
+        <td style="background-image: url('<%= asset_path(day_branch.third_stem&.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_day_void] %>"><%= day_branch.third_stem&.name || '-' %></p>
+        </td>
+        <td style="background-image: url('<%= asset_path(month_branch.third_stem&.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_month_void] %>"><%= month_branch.third_stem&.name || '-' %></p>
+        </td>
+        <td style="background-image: url('<%= asset_path(year_branch.third_stem&.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_year_void] %>"><%= year_branch.third_stem&.name || '-' %></p>
         </td>
       </tr>
       <tr class="qi-stem">
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_day_void] %>"><%= day_qi_stem.name %></p>
+        <td style="background-image: url('<%= asset_path(day_qi_stem.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_day_void] %>"><%= day_qi_stem.name %></p>
         </td>
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_month_void] %>"><%= month_qi_stem.name %></p>
+        <td style="background-image: url('<%= asset_path(month_qi_stem.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_month_void] %>"><%= month_qi_stem.name %></p>
         </td>
-        <td>
-          <p class="<%= 'color-red' if has_birth_voids[:has_birth_year_void] %>"><%= year_qi_stem.name %></p>
+        <td style="background-image: url('<%= asset_path(year_qi_stem.image_name || 'default.png') %>');">
+          <p class="<%= 'color-red font-bold' if has_birth_voids[:has_birth_year_void] %>"><%= year_qi_stem.name %></p>
         </td>
       </tr>
     </table>

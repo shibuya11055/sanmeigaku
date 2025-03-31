@@ -10,4 +10,22 @@ class Branch < ApplicationRecord
   def stem_ids
     [first_stem&.id, second_stem&.id, third_stem&.id]
   end
+
+  def image_name
+    case name
+    when '子' then '水陰.png'
+    when '丑' then '土陰.png'
+    when '寅' then '木陽.png'
+    when '卯' then '木陰.png'
+    when '辰' then '土陽.png'
+    when '巳' then '火陽.png'
+    when '午' then '火陽.png'
+    when '未' then '土陰.png'
+    when '申' then '金陽.png'
+    when '酉' then '金陰.png'
+    when '戌' then '土陽.png'
+    when '亥' then '水陽.png'
+    else 'default.png'
+    end
+  end
 end
