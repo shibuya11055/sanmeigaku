@@ -26,9 +26,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    /* width: 100px; */
-    /* height: 70px; */
-    background-color:rgba(255,255,255,0.45);
+    background-color:rgba(255,255,255,0.5);
     background-blend-mode:lighten;
     text-shadow: 1px 1px 4px rgba(255,255,255,0.8);
   }
