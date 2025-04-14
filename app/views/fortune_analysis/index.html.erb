@@ -59,6 +59,13 @@
       %>
     </div>
 
+    <%# 年運 %>
+    <div>
+      <%= render 'fortune_analysis/yearly_fortune',
+        yearly_fortune: @yearly_fortune
+      %>
+    </div>
+
     <%# 詳細 %>
     <%= render 'fortune_analysis/detail',
       youth_sub_star: @youth_sub_star,

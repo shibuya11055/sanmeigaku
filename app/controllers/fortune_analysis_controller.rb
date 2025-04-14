@@ -43,6 +43,9 @@ class FortuneAnalysisController < ApplicationController
     @numerological, @beast_type, @total_energy, @numerological_structure = NumerologicalCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch)
     @phase_method = PhaseMethodCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch, @result)
 
+    # 年運
+    @yearly_fortune = YearlyFortuneCalculator.call(@date, @day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch, @day_heavenly_void)
+
     render :index
   end
 
