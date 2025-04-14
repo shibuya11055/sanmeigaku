@@ -34,7 +34,7 @@ module ApplicationHelper
         elsif rel == '大半会'
           content_tag(:span, rel, style: 'color: navy; font-weight: bold;')
         elsif rel == '律音'
-          content_tag(:span, rel, style: 'color: purple; font-weight: bold;')
+          content_tag(:span, rel, style: 'color: #9932CC; font-weight: bold;')
         elsif rel == '納音'
           content_tag(:span, rel, style: 'color: olive; font-weight: bold;')
         elsif rel == '干合'
