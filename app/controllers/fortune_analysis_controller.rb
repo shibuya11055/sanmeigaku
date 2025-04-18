@@ -39,17 +39,36 @@ class FortuneAnalysisController < ApplicationController
     @birth_voids = birth_voids
     @has_birth_voids = has_birth_voids
 
-    @stem_lineage = StemLineageCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch, @year_qi_stem, @day_qi_stem, @gender)
-    @numerological, @beast_type, @total_energy, @numerological_structure = NumerologicalCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch)
-    @phase_method = PhaseMethodCalculator.call(@day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch, @result)
+    calculate_params = build_calculate_params
+    calculator = FortuneAnalysisCalculateWrapper.new(calculate_params)
 
-    # 年運
-    @yearly_fortune = YearlyFortuneCalculator.call(@date, @day_stem, @month_stem, @year_stem, @day_branch, @month_branch, @year_branch, @day_heavenly_void)
+    @stem_lineage = calculator.stem_lineage
+    @numerological, @beast_type, @total_energy, @numerological_structure = calculator.numerological_calculator
+    @phase_method = calculator.phase_method
+    @yearly_fortune = calculator.yearly_fortune
 
     render :index
   end
 
   private
+
+  def build_calculate_params
+    {
+      result: @result,
+      date: @date,
+      gender: @gender,
+      day_stem: @day_stem,
+      month_stem: @month_stem,
+      year_stem: @year_stem,
+      day_branch: @day_branch,
+      month_branch: @month_branch,
+      year_branch: @year_branch,
+      day_qi_stem: @day_qi_stem,
+      month_qi_stem: @month_qi_stem,
+      year_qi_stem: @year_qi_stem,
+      day_heavenly_void: @day_heavenly_void
+    }
+  end
 
   def birth_qi
     days = qi_days
