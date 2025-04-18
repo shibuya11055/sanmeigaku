@@ -104,10 +104,10 @@ class YearlyFortuneCalculator
         nacchin = relationship.include?('冲') && stem == yearly_stem_name ? '納音' : nil
 
         if nacchin.nil?
-          # 天剋地冲
+          # 天剋地冲（干の陰陽が同じ、かつ相剋の関係）
           yin_yang = StemDefinition.find_by(name: stem).yin_yang
           year_stem_yin_yang = StemDefinition.find_by(name: yearly_stem_name).yin_yang
-          dual_clash = yin_yang == year_stem_yin_yang ? '天剋地冲' : nil
+          dual_clash = Stem::STEM_CONFLICTS.include?(stem + yearly_stem_name) && yin_yang == year_stem_yin_yang ? '天剋地冲' : nil
         end
 
         if nacchin.present? || dual_clash.present?

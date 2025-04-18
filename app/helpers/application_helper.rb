@@ -23,7 +23,7 @@ module ApplicationHelper
           content_tag(:span, rel, style: 'color: red; font-weight: bold;')
         elsif rel == '害'
           content_tag(:span, rel, style: 'color: maroon;')
-        elsif rel == '刑' || rel == '刑破'
+        elsif rel == '刑' || rel == '刑破' || rel == '冲刑' || rel == '冲' || rel == '害刑'
           content_tag(:span, rel, style: 'color: maroon;')
         elsif rel == '破'
           content_tag(:span, rel, style: 'color: maroon;')
