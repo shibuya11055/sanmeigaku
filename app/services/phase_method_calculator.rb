@@ -264,13 +264,14 @@ class PhaseMethodCalculator
   # 天剋地冲
   def build_dual_clash(clash_pairs)
     dual_clash_pairs = []
+    conflicts = Stem::STEM_CONFLICTS
 
     clash_pairs.each do |pair|
-      if pair == [:day, :month] && day_stem.yin_yang == month_stem.yin_yang
+      if pair == [:day, :month] && day_stem.yin_yang == month_stem.yin_yang && conflicts.include?(day_stem.name + month_stem.name)
         dual_clash_pairs << pair
-      elsif pair == [:day, :year] && day_stem.yin_yang == year_stem.yin_yang
+      elsif pair == [:day, :year] && day_stem.yin_yang == year_stem.yin_yang && conflicts.include?(day_stem.name + year_stem.name)
         dual_clash_pairs << pair
-      elsif pair == [:month, :year] && month_stem.yin_yang == year_stem.yin_yang
+      elsif pair == [:month, :year] && month_stem.yin_yang == year_stem.yin_yang && conflicts.include?(month_stem.name + year_stem.name)
         dual_clash_pairs << pair
       end
     end
