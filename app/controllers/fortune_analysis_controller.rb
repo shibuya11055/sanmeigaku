@@ -46,6 +46,7 @@ class FortuneAnalysisController < ApplicationController
     @numerological, @beast_type, @total_energy, @numerological_structure = calculator.numerological_calculator
     @phase_method = calculator.phase_method
     @yearly_fortune = calculator.yearly_fortune
+    @major_fortune = calculator.major_fortune
 
     render :index
   end

@@ -48,4 +48,9 @@ class FortuneAnalysisCalculateWrapper
   def yearly_fortune
     YearlyFortuneCalculator.call(date, day_stem, month_stem, year_stem, day_branch, month_branch, year_branch, day_heavenly_void)
   end
+
+  # 大運
+  def major_fortune
+    MajorFortuneCalculator.call(date, result, gender, day_stem, month_stem, year_stem, day_branch, month_branch, year_branch, day_heavenly_void)
+  end
 end

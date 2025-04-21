@@ -1,0 +1,36 @@
+<div class="major-fortune">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>旬</th>
+        <th>干支</th>
+        <th>年齢</th>
+        <th>年代</th>
+        <th>主星</th>
+        <th>従星</th>
+        <th>日</th>
+        <th>月</th>
+        <th>年</th>
+        <th>天中殺</th>
+        <th>変剋律</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% major_fortune.each_with_index do |item, i| %>
+        <tr>
+          <td><%= "大#{i + 1}" %></td>
+          <td><%= item[:stem_and_branch] %></td>
+          <td><%= item[:age] %></td>
+          <td><%= item[:year] %></td>
+          <td><%= item[:major_star] %></td>
+          <td><%= item[:sub_star] %></td>
+          <%= relationship_color(item[:relationship][:day], item[:heavenly_void]) %>
+          <%= relationship_color(item[:relationship][:month], item[:heavenly_void]) %>
+          <%= relationship_color(item[:relationship][:year], item[:heavenly_void]) %>
+          <%= relationship_color(item[:heavenly_void], item[:heavenly_void]) %>
+          <td><%= item[:abnormal] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

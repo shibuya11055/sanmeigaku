@@ -152,8 +152,38 @@ class LunarCalendarEntry < ActiveHash::Base
     self.find_by(year: birth_date.year).entries[birth_date.month - 2]
   end
 
+  # 前月の月入日（年月日を返す）
+  def self.lunar_birth_day_previous_month_with_datetime(birth_date)
+    if birth_date.month == 1
+      year = birth_date.year - 1
+      month = 12
+      day = self.find_by(year: year).entries[11]
+      return Time.new(year, month, day)
+    end
+
+    year = birth_date.year
+    month = birth_date.month - 1
+    day = self.find_by(year: year).entries[month - 1]
+    return Time.new(year, month, day)
+  end
+
+  # 翌月の月入日（年月日を返す）
+  def self.lunar_birth_day_next_month_with_datetime(birth_date)
+    if birth_date.month == 12
+      year = birth_date.year + 1
+      month = 1
+      day = self.find_by(year: year).entries[0]
+      return Time.new(year, month, day)
+    end
+
+    year = birth_date.year
+    month = birth_date.month + 1
+    day = self.find_by(year: year).entries[month - 1]
+    return Time.new(year, month, day)
+  end
+
   def self.current_year?(birth_date)
-    year = birth_date.year 
+    year = birth_date.year
     boundary_date = Date.new(year, 2, 7)
 
     # 2月7日以降であれば干支歴で今年であることが確定する（2044年までのデータで）

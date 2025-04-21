@@ -66,6 +66,13 @@
       %>
     </div>
 
+    <%# 大運 %>
+    <div>
+      <%= render 'fortune_analysis/major_fortune',
+        major_fortune: @major_fortune
+      %>
+    </div>
+
     <%# 詳細 %>
     <%= render 'fortune_analysis/detail',
       youth_sub_star: @youth_sub_star,

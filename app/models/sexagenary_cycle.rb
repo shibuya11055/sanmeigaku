@@ -2,6 +2,7 @@ class SexagenaryCycle < ApplicationRecord
   ABNORMAL_MAPPING_IDS = [11, 12, 35, 37, 48, 54, 18, 19, 24, 23, 25, 30, 36]
   DAY_POSITION_VOID_IDS = [11, 12]
   DAY_RESIDENCE_VOID_IDS = [41, 42]
+  MAX_NUMBER = 60
 
   belongs_to :stem
   belongs_to :branch
