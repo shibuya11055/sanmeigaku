@@ -18,6 +18,10 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 gem 'active_hash'
+# 認証機能のためのgem
+gem 'devise'
+# Devise日本語化
+gem 'devise-i18n'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -57,6 +61,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # メール送信をブラウザで確認するためのgem
+  gem 'letter_opener_web'
 end
 
 group :test do

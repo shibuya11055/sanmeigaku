@@ -1,0 +1,160 @@
+/* Devise画面用のスタイル */
+
+.devise-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.devise-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.devise-form .field {
+  margin-bottom: 1.5rem;
+}
+
+.devise-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.devise-form input[type="email"],
+.devise-form input[type="password"],
+.devise-form input[type="text"] {
+  width: 100%;
+  padding: 0.75rem 1rem; /* 左右のパディングを明示的に1remに設定 */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  background-color: #fafafa;
+  box-sizing: border-box; /* ボックスサイズの計算方法を統一 */
+}
+
+.devise-form input[type="email"]:focus,
+.devise-form input[type="password"]:focus,
+.devise-form input[type="text"]:focus {
+  border-color: #6c9;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(102, 204, 153, 0.25);
+}
+
+.devise-form .actions {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.devise-form .actions input[type="submit"] {
+  background-color: #6c9;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.devise-form .actions input[type="submit"]:hover {
+  background-color: #5b8;
+}
+
+.devise-links {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.devise-links a {
+  color: #6c9;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin: 0 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.devise-links a:hover {
+  color: #5b8;
+  text-decoration: underline;
+}
+
+/* エラーメッセージのスタイル */
+#error_explanation {
+  background-color: #fff5f5;
+  border: 1px solid #ffcccc;
+  color: #d32f2f;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+#error_explanation h2 {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #d32f2f;
+}
+
+#error_explanation ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.field_with_errors input {
+  border-color: #d32f2f !important;
+}
+
+/* フラッシュメッセージのスタイル */
+.notice, .alert {
+  text-align: center;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+}
+
+.notice {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.alert {
+  background-color: #fff5f5;
+  color: #d32f2f;
+}
+
+/* チェックボックスとラベルを横並びにするスタイル */
+.checkbox-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-inline input[type="checkbox"] {
+  margin: 0;
+}
+
+.checkbox-inline label {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 600px) {
+  .devise-container {
+    max-width: 100%;
+    padding: 1.5rem;
+    margin: 1rem;
+    border-radius: 4px;
+  }
+}

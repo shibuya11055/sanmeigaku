@@ -1,0 +1,21 @@
+<% if resource.errors.any? %>
+  <div id="error_explanation" data-turbo-cache="false">
+    <h2>
+      <% if defined?(@confirmation_context) && @confirmation_context %>
+        <%= I18n.t("devise.confirmations.resend_failed") %>
+      <% elsif defined?(@password_reset_context) && @password_reset_context %>
+        <%= I18n.t("devise.passwords.reset_failed") %>
+      <% else %>
+        <%= I18n.t("errors.messages.not_saved",
+                  count: resource.errors.count,
+                  resource: resource.class.model_name.human.downcase)
+        %>
+      <% end %>
+    </h2>
+    <ul>
+      <% resource.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
