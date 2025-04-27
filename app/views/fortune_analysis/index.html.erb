@@ -1,13 +1,9 @@
-<div class="header-controls">
-  <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "logout-link" %>
-</div>
-
 <h1>宿命図</h1>
 <%# 生年月日、性別入力 %>
 <%= render 'fortune_analysis/input_field', date: @date, gender: @gender %>
 
 <div class="result-field">
-  <% if @result %>
+  <% if @result.present? %>
     <%# 陰占図 %>
     <div>
       <%= render 'fortune_analysis/yin_chart',

@@ -1,5 +1,5 @@
 <div class="input-field">
-  <%= form_with url: fortune_analysis_calculate_path, method: :post do %>
+  <%= form_with url: fortune_analysis_calculate_path, method: :post, local: true do %>
     <div>
       <p><%= label_tag :date, "日付を選択してください" %></p>
       <%= date_field_tag :date, date %>

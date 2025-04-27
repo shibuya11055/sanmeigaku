@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  # 自動生成されたルートを削除
+  # get "clients/index"
+  # get "clients/show"
+  # get "clients/new"
+  # get "clients/edit"
+
+  # クライアントのリソースルーティングを追加
+  resources :clients
+
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     passwords: 'users/passwords',
@@ -6,8 +15,8 @@ Rails.application.routes.draw do
     unlocks: 'users/unlocks'
   }
 
-  # ルートパスを直接 fortune_analysis#index に設定
-  root to: 'fortune_analysis#index'
+  # ルートパスをクライアント一覧に変更
+  root to: 'clients#index'
 
   # 他のルーティング
   get 'fortune_analysis', to: 'fortune_analysis#index'

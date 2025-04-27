@@ -24,20 +24,42 @@
   </head>
 
   <body>
-    <% if notice %>
-      <div class="flash flash-notice">
-        <%= notice %>
-        <button type="button" class="flash-close" aria-label="閉じる" onclick="closeFlash(this)">&times;</button>
-      </div>
-    <% end %>
-    <% if alert %>
-      <div class="flash flash-alert">
-        <%= alert %>
-        <button type="button" class="flash-close" aria-label="閉じる" onclick="closeFlash(this)">&times;</button>
-      </div>
-    <% end %>
+    <% if user_signed_in? %>
+      <div class="app-container">
+        <%= render 'shared/side_menu' %>
+        <div class="content-area">
+          <% if notice %>
+            <div class="flash flash-notice">
+              <%= notice %>
+              <button type="button" class="flash-close" aria-label="閉じる" onclick="closeFlash(this)">&times;</button>
+            </div>
+          <% end %>
+          <% if alert %>
+            <div class="flash flash-alert">
+              <%= alert %>
+              <button type="button" class="flash-close" aria-label="閉じる" onclick="closeFlash(this)">&times;</button>
+            </div>
+          <% end %>
 
-    <%= yield %>
+          <%= yield %>
+        </div>
+      </div>
+    <% else %>
+      <% if notice %>
+        <div class="flash flash-notice">
+          <%= notice %>
+          <button type="button" class="flash-close" aria-label="閉じる" onclick="closeFlash(this)">&times;</button>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="flash flash-alert">
+          <%= alert %>
+          <button type="button" class="flash-close" aria-label="閉じる" onclick="closeFlash(this)">&times;</button>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    <% end %>
 
     <script>
       // フラッシュメッセージを閉じる関数

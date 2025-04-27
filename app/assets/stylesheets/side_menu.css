@@ -1,0 +1,253 @@
+/* サイドメニューとコンテンツエリアのスタイル */
+/* 全体のデフォルトマージン・パディングをリセット */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* サイドメニュー基本スタイル */
+.side-menu {
+  width: 250px;
+  background: linear-gradient(135deg, #2c3e50, #1a2530);
+  color: #f5f5f5;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* サイドメニューヘッダー */
+.side-menu-header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.app-logo i {
+  font-size: 24px;
+  color: #3498db;
+  margin-right: 10px;
+}
+
+.app-name {
+  font-size: 18px;
+}
+
+.close-menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #ccc;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-menu-btn:hover {
+  color: #fff;
+}
+
+/* ユーザー情報セクション */
+.side-menu-user {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+.user-avatar i {
+  font-size: 24px;
+  color: #3498db;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.user-role {
+  font-size: 12px;
+  color: #bbb;
+}
+
+/* ナビゲーションメニュー */
+.side-menu-nav {
+  flex: 1;
+  padding: 20px 0;
+  overflow-y: auto;
+}
+
+.side-menu-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-menu-item {
+  margin: 5px 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.side-menu-item a {
+  color: #f5f5f5;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  transition: all 0.2s;
+}
+
+.side-menu-item:hover a {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.side-menu-item.active a {
+  background: linear-gradient(90deg, #3498db, #2980b9);
+  color: white;
+}
+
+.side-menu-item i {
+  font-size: 16px;
+  min-width: 20px;
+  margin-right: 10px;
+}
+
+.menu-text {
+  font-size: 14px;
+}
+
+/* フッターセクション */
+.side-menu-footer {
+  padding: 15px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #f5f5f5;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logout-btn i {
+  margin-right: 10px;
+}
+
+/* メインコンテンツエリア */
+.content-area {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+
+/* モバイル用メニュートグル */
+.mobile-menu-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #3498db;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* オーバーレイ背景 */
+.side-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* タブレットサイズ以下のレスポンシブ対応 */
+@media screen and (max-width: 768px) {
+  .side-menu {
+    transform: translateX(-100%);
+    width: 280px;
+  }
+
+  .close-menu-btn {
+    display: block;
+  }
+
+  .content-area {
+    margin-left: 0;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  /* サイドメニュー表示時のスタイル */
+  .side-menu.show {
+    transform: translateX(0);
+  }
+
+  .side-menu-overlay.show {
+    display: block;
+    opacity: 1;
+  }
+}

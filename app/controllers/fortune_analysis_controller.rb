@@ -1,54 +1,60 @@
 class FortuneAnalysisController < ApplicationController
   def index
-    @date = Date.today
-    @gender = 'male'
+    # パラメータから日付と性別を取得（なければデフォルト値を使用）
+    @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
+    @gender = params[:gender] || 'male'
+
+    # 日付パラメータがある場合は計算結果を表示
+    if params[:date].present?
+      @result = FortuneAnalysis.preload(
+        sexagenary_cycle_year: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } },
+        sexagenary_cycle_month: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } },
+        sexagenary_cycle_day: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } }
+      ).find_by(birthday: @date)
+
+      if @result
+        # 結果が見つかった場合のみ計算処理を実行
+        @year_heavenly_void = @result.sexagenary_cycle_year.heavenly_void
+        @day_heavenly_void = @result.sexagenary_cycle_day.heavenly_void
+
+        @day_stem = @result.sexagenary_cycle_day.stem
+        @month_stem = @result.sexagenary_cycle_month.stem
+        @year_stem = @result.sexagenary_cycle_year.stem
+
+        @day_branch = @result.sexagenary_cycle_day.branch
+        @month_branch = @result.sexagenary_cycle_month.branch
+        @year_branch = @result.sexagenary_cycle_year.branch
+
+        @stem_unions = stem_unions
+
+        @year_qi_stem, @month_qi_stem, @day_qi_stem = birth_qi
+
+        @ten_stars, @twelve_stars = calculate_yang_chart
+
+        @ten_stars_relations = ten_stars_relations
+
+        @youth_sub_star, @middle_age_sub_star, @old_age_sub_star = calculate_branch_and_stem_sub_star
+
+        @abnormals = abnormals
+
+        @birth_voids = birth_voids
+        @has_birth_voids = has_birth_voids
+
+        calculate_params = build_calculate_params
+        calculator = FortuneAnalysisCalculateWrapper.new(calculate_params)
+
+        @stem_lineage = calculator.stem_lineage
+        @numerological, @beast_type, @total_energy, @numerological_structure = calculator.numerological_calculator
+        @phase_method = calculator.phase_method
+        @yearly_fortune = calculator.yearly_fortune
+        @major_fortune = calculator.major_fortune
+      end
+    end
   end
 
   def calculate
-    @date = Date.parse(params[:date])
-    @gender = params[:gender]
-    @result = FortuneAnalysis.preload(
-      sexagenary_cycle_year: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } },
-      sexagenary_cycle_month: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } },
-      sexagenary_cycle_day: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } }
-    ).find_by(birthday: @date)
-
-    @year_heavenly_void = @result.sexagenary_cycle_year.heavenly_void
-    @day_heavenly_void = @result.sexagenary_cycle_day.heavenly_void
-
-    @day_stem = @result.sexagenary_cycle_day.stem
-    @month_stem = @result.sexagenary_cycle_month.stem
-    @year_stem = @result.sexagenary_cycle_year.stem
-
-    @day_branch = @result.sexagenary_cycle_day.branch
-    @month_branch = @result.sexagenary_cycle_month.branch
-    @year_branch = @result.sexagenary_cycle_year.branch
-
-    @stem_unions = stem_unions
-
-    @year_qi_stem, @month_qi_stem, @day_qi_stem = birth_qi
-
-    @ten_stars, @twelve_stars = calculate_yang_chart
-
-    @ten_stars_relations = ten_stars_relations
-
-    @youth_sub_star, @middle_age_sub_star, @old_age_sub_star = calculate_branch_and_stem_sub_star
-
-    @abnormals = abnormals
-
-    @birth_voids = birth_voids
-    @has_birth_voids = has_birth_voids
-
-    calculate_params = build_calculate_params
-    calculator = FortuneAnalysisCalculateWrapper.new(calculate_params)
-
-    @stem_lineage = calculator.stem_lineage
-    @numerological, @beast_type, @total_energy, @numerological_structure = calculator.numerological_calculator
-    @phase_method = calculator.phase_method
-    @yearly_fortune = calculator.yearly_fortune
-    @major_fortune = calculator.major_fortune
-
-    render :index
+    # 単純にリダイレクトするだけ
+    redirect_to fortune_analysis_path(date: params[:date], gender: params[:gender])
   end
 
   private

@@ -1,0 +1,219 @@
+<% content_for :title, "顧客一覧 | 算命学アプリ" %>
+
+<div class="clients-container">
+  <header class="header-section">
+    <h1 class="heading">顧客一覧</h1>
+    <%= link_to new_client_path, class: "btn btn-primary new-client-btn" do %>
+      <i class="fas fa-plus"></i> 新規顧客登録
+    <% end %>
+  </header>
+
+  <div class="search-section">
+    <div class="search-box">
+      <input type="text" id="clientSearchInput" placeholder="名前で検索..." class="search-input">
+      <i class="fas fa-search search-icon"></i>
+    </div>
+  </div>
+
+  <% if @clients.present? %>
+    <div class="client-list">
+      <table class="client-table">
+        <thead>
+          <tr>
+            <th>名前</th>
+            <th>生年月日</th>
+            <th>性別</th>
+            <th>連絡先</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="clientTableBody">
+          <% @clients.each do |client| %>
+            <tr data-name="<%= client.fullname.downcase %>">
+              <td class="client-name">
+                <%= link_to client.fullname, client_path(client) %>
+              </td>
+              <td><%= client.birthday&.strftime('%Y年%m月%d日') %></td>
+              <td><%= client.gender == 'male' ? '男性' : '女性' %></td>
+              <td>
+                <% if client.email.present? %>
+                  <i class="fas fa-envelope"></i> <%= client.email %><br>
+                <% end %>
+                <% if client.phone.present? %>
+                  <i class="fas fa-phone"></i> <%= client.phone %>
+                <% end %>
+              </td>
+              <td class="actions-cell">
+                <%= link_to client_path(client), class: "action-btn view-btn", title: "詳細" do %>
+                  <i class="fas fa-eye"></i>
+                <% end %>
+                <%= link_to edit_client_path(client), class: "action-btn edit-btn", title: "編集" do %>
+                  <i class="fas fa-edit"></i>
+                <% end %>
+                <%= link_to client_path(client),
+                            method: :delete,
+                            data: { turbo_method: :delete, turbo_confirm: "#{client.fullname}さんの情報を削除してもよろしいですか？" },
+                            class: "action-btn delete-btn",
+                            title: "削除" do %>
+                  <i class="fas fa-trash"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fas fa-users"></i>
+      </div>
+      <h2>顧客がまだ登録されていません</h2>
+      <p>「新規顧客登録」ボタンから顧客を登録しましょう。</p>
+      <%= link_to new_client_path, class: "btn btn-primary" do %>
+        <i class="fas fa-plus"></i> 新規顧客登録
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .clients-container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .heading {
+    font-size: 24px;
+    margin: 0;
+  }
+  .new-client-btn {
+    padding: 8px 16px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+  .new-client-btn i {
+    margin-right: 8px;
+  }
+  .search-section {
+    margin-bottom: 20px;
+  }
+  .search-box {
+    position: relative;
+    max-width: 400px;
+  }
+  .search-input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+  }
+  .client-list {
+    overflow-x: auto;
+  }
+  .client-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .client-table th, .client-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  .client-table th {
+    background-color: #f7f7f7;
+    font-weight: bold;
+  }
+  .client-name a {
+    color: #1a73e8;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .actions-cell {
+    white-space: nowrap;
+  }
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 8px;
+    text-decoration: none;
+  }
+  .view-btn {
+    background-color: #e6f3ff;
+    color: #1a73e8;
+  }
+  .edit-btn {
+    background-color: #e8f5e9;
+    color: #43a047;
+  }
+  .delete-btn {
+    background-color: #fee8e7;
+    color: #f44336;
+  }
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    text-align: center;
+  }
+  .empty-icon {
+    font-size: 64px;
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+  .empty-state h2 {
+    margin: 0 0 10px 0;
+    color: #333;
+  }
+  .empty-state p {
+    margin: 0 0 20px 0;
+    color: #666;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('clientSearchInput');
+    const tableRows = document.querySelectorAll('#clientTableBody tr');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+
+        tableRows.forEach(row => {
+          const clientName = row.getAttribute('data-name');
+          if (clientName.includes(searchTerm)) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    }
+  });
+</script>
