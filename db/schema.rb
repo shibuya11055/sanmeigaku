@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_24_141420) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_27_122635) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,6 +33,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_24_141420) do
     t.index ["third_stem_id"], name: "index_branches_on_third_stem_id"
   end
 
+  create_table "clients", comment: "クライアント情報テーブル", force: :cascade do |t|
+    t.string "fullname", null: false, comment: "クライアントの名前（ニックネーム可）"
+    t.date "birthday", null: false, comment: "生年月日"
+    t.integer "gender", null: false, comment: "性別 0=男性(male), 1=女性(female)"
+    t.integer "blood_type", comment: "血液型 0=A型, 1=B型, 2=O型, 3=AB型, 4=不明(unknown)"
+    t.integer "marital_status", comment: "婚姻状況 0=未婚(single), 1=既婚(married), 2=離婚(divorced), 3=死別(widowed)"
+    t.string "birthplace", comment: "出生地（都道府県など）"
+    t.text "memo", comment: "自由記述欄"
+    t.bigint "user_id", null: false, comment: "所有するユーザーID"
+    t.bigint "job_id", comment: "職業ID"
+    t.bigint "occupation_id", comment: "職種ID"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_clients_on_job_id"
+    t.index ["occupation_id"], name: "index_clients_on_occupation_id"
+    t.index ["user_id", "fullname"], name: "index_clients_on_user_id_and_fullname"
+    t.index ["user_id"], name: "index_clients_on_user_id"
+  end
+
   create_table "elements", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -51,6 +70,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_24_141420) do
     t.index ["sexagenary_cycle_day_id"], name: "index_fortune_analyses_on_sexagenary_cycle_day_id"
     t.index ["sexagenary_cycle_month_id"], name: "index_fortune_analyses_on_sexagenary_cycle_month_id"
     t.index ["sexagenary_cycle_year_id"], name: "index_fortune_analyses_on_sexagenary_cycle_year_id"
+  end
+
+  create_table "jobs", comment: "職業マスタテーブル", force: :cascade do |t|
+    t.string "name", null: false, comment: "職業名（例: \"会社員\"）"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_jobs_on_name", unique: true
+  end
+
+  create_table "occupations", comment: "職種マスタテーブル", force: :cascade do |t|
+    t.string "name", null: false, comment: "職種名（例: \"エンジニア\"）"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_occupations_on_name", unique: true
   end
 
   create_table "sexagenary_cycles", id: :serial, force: :cascade do |t|
@@ -169,6 +202,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_24_141420) do
   add_foreign_key "branches", "stems", column: "first_stem_id"
   add_foreign_key "branches", "stems", column: "second_stem_id"
   add_foreign_key "branches", "stems", column: "third_stem_id"
+  add_foreign_key "clients", "jobs"
+  add_foreign_key "clients", "occupations"
+  add_foreign_key "clients", "users"
   add_foreign_key "fortune_analyses", "sexagenary_cycles", column: "sexagenary_cycle_day_id"
   add_foreign_key "fortune_analyses", "sexagenary_cycles", column: "sexagenary_cycle_month_id"
   add_foreign_key "fortune_analyses", "sexagenary_cycles", column: "sexagenary_cycle_year_id"
