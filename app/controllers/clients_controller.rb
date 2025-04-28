@@ -58,7 +58,7 @@ class ClientsController < ApplicationController
       params.require(:client).permit(
         :fullname, :birthday, :gender, :email, :phone,
         :postal_code, :address, :occupation_id, :job_id,
-        :blood_type, :marital_status, :memo
+        :blood_type, :marital_status, :birthplace, :memo
       )
     end
 end
