@@ -1,0 +1,166 @@
+<%# filepath: /Users/shibuyakyouhei/myApp/sanmeigaku/app/views/fortune_analysis/_client_fortune.erb %>
+<div class="client-fortune-info">
+  <% if result.present? && day_stem.present? && day_branch.present? %>
+    <!-- 簡易命式表示 -->
+    <div class="fortune-chart">
+      <div class="fortune-row fortune-header">
+        <div class="fortune-cell">年柱</div>
+        <div class="fortune-cell">月柱</div>
+        <div class="fortune-cell">日柱</div>
+      </div>
+      <div class="fortune-row">
+        <div class="fortune-cell fortune-stem">
+          <%= year_stem.name %>
+        </div>
+        <div class="fortune-cell fortune-stem">
+          <%= month_stem.name %>
+        </div>
+        <div class="fortune-cell fortune-stem">
+          <%= day_stem.name %>
+        </div>
+      </div>
+      <div class="fortune-row">
+        <div class="fortune-cell fortune-branch">
+          <%= year_branch.name %>
+        </div>
+        <div class="fortune-cell fortune-branch">
+          <%= month_branch.name %>
+        </div>
+        <div class="fortune-cell fortune-branch">
+          <%= day_branch.name %>
+        </div>
+      </div>
+    </div>
+
+    <% if defined?(stem_lineage) && stem_lineage.present? %>
+      <!-- 六親法の結果表示（シンプルバージョン） -->
+      <div class="fortune-section">
+        <h3 class="fortune-subtitle">六親法</h3>
+        <div class="fortune-grid">
+          <div class="fortune-item">
+            <div class="fortune-label">本命星</div>
+            <div class="fortune-value"><%= stem_lineage[:main_star] %></div>
+          </div>
+          <div class="fortune-item">
+            <div class="fortune-label">月干支元神</div>
+            <div class="fortune-value"><%= stem_lineage[:month_star] %></div>
+          </div>
+          <div class="fortune-item">
+            <div class="fortune-label">年干支元神</div>
+            <div class="fortune-value"><%= stem_lineage[:year_star] %></div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if defined?(numerological) && numerological.present? %>
+      <!-- 数理法の結果表示（シンプルバージョン） -->
+      <div class="fortune-section">
+        <h3 class="fortune-subtitle">数理法</h3>
+        <div class="fortune-grid">
+          <div class="fortune-item">
+            <div class="fortune-label">象数</div>
+            <div class="fortune-value"><%= numerological %></div>
+          </div>
+          <% if defined?(beast_type) && beast_type.present? %>
+            <div class="fortune-item">
+              <div class="fortune-label">獣タイプ</div>
+              <div class="fortune-value"><%= beast_type %></div>
+            </div>
+          <% end %>
+          <% if defined?(total_energy) && total_energy.present? %>
+            <div class="fortune-item">
+              <div class="fortune-label">総エネルギー</div>
+              <div class="fortune-value"><%= total_energy %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="no-fortune-data">
+      <p>この生年月日の算命学データが見つかりません。</p>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .client-fortune-info {
+    margin-bottom: 20px;
+  }
+
+  .fortune-chart {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+    border: 1px solid #ddd;
+  }
+
+  .fortune-row {
+    display: table-row;
+  }
+
+  .fortune-cell {
+    display: table-cell;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+
+  .fortune-header {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+
+  .fortune-stem {
+    background-color: #e6f0ff;
+  }
+
+  .fortune-branch {
+    background-color: #f0f7ee;
+  }
+
+  .fortune-section {
+    margin-bottom: 25px;
+  }
+
+  .fortune-subtitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    border-left: 4px solid #1a73e8;
+  }
+
+  .fortune-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .fortune-item {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+  }
+
+  .fortune-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+  }
+
+  .fortune-value {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .no-fortune-data {
+    padding: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    color: #666;
+  }
+</style>

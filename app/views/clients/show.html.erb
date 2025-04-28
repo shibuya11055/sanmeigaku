@@ -14,115 +14,169 @@
     </div>
   </header>
 
-  <div class="client-detail-wrapper">
-    <div class="detail-section">
-      <h2 class="section-title">基本情報</h2>
-
-      <div class="detail-grid">
-        <div class="detail-item">
-          <div class="detail-label">氏名</div>
-          <div class="detail-value"><%= @client.fullname %></div>
-        </div>
-
-        <div class="detail-item">
-          <div class="detail-label">生年月日</div>
-          <div class="detail-value">
-            <%= @client.birthday&.strftime('%Y年%m月%d日') %>
-            <span class="detail-subtext">(<%= ((Date.today - @client.birthday).to_i / 365).floor %>歳)</span>
-          </div>
-        </div>
-
-        <div class="detail-item">
-          <div class="detail-label">性別</div>
-          <div class="detail-value"><%= @client.gender == 'male' ? '男性' : '女性' %></div>
-        </div>
-
-        <div class="detail-item">
-          <div class="detail-label">血液型</div>
-          <div class="detail-value">
-            <% case @client.blood_type %>
-            <% when 'a' %>
-              A型
-            <% when 'b' %>
-              B型
-            <% when 'o' %>
-              O型
-            <% when 'ab' %>
-              AB型
-            <% else %>
-              不明
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="detail-section">
-      <h2 class="section-title">職業情報</h2>
-
-      <div class="detail-grid">
-        <div class="detail-item">
-          <div class="detail-label">職業</div>
-          <div class="detail-value"><%= @client.job&.name || '未設定' %></div>
-        </div>
-
-        <div class="detail-item">
-          <div class="detail-label">職種</div>
-          <div class="detail-value"><%= @client.occupation&.name || '未設定' %></div>
-        </div>
-
-        <div class="detail-item">
-          <div class="detail-label">婚姻状況</div>
-          <div class="detail-value">
-            <% case @client.marital_status %>
-            <% when 'single' %>
-              未婚
-            <% when 'married' %>
-              既婚
-            <% when 'divorced' %>
-              離婚
-            <% when 'widowed' %>
-              死別
-            <% else %>
-              未設定
-            <% end %>
-          </div>
-        </div>
-
-        <div class="detail-item">
-          <div class="detail-label">出生地</div>
-          <div class="detail-value"><%= @client.birthplace.present? ? @client.birthplace : '未設定' %></div>
-        </div>
-      </div>
-    </div>
-
-    <% if @client.memo.present? %>
+  <div class="client-detail-layout">
+    <!-- 左側：クライアント基本情報 -->
+    <div class="client-detail-wrapper client-info-section">
       <div class="detail-section">
-        <h2 class="section-title">メモ</h2>
-        <div class="memo-content">
-          <%= simple_format h(@client.memo) %>
+        <h2 class="section-title">基本情報</h2>
+
+        <div class="detail-grid">
+          <div class="detail-item">
+            <div class="detail-label">氏名</div>
+            <div class="detail-value"><%= @client.fullname %></div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">生年月日</div>
+            <div class="detail-value">
+              <%= @client.birthday&.strftime('%Y年%m月%d日') %>
+              <span class="detail-subtext">(<%= ((Date.today - @client.birthday).to_i / 365).floor %>歳)</span>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">性別</div>
+            <div class="detail-value"><%= @client.gender == 'male' ? '男性' : '女性' %></div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">血液型</div>
+            <div class="detail-value">
+              <% case @client.blood_type %>
+              <% when 'a' %>
+                A型
+              <% when 'b' %>
+                B型
+              <% when 'o' %>
+                O型
+              <% when 'ab' %>
+                AB型
+              <% else %>
+                不明
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
+
+      <div class="detail-section">
+        <h2 class="section-title">職業情報</h2>
+
+        <div class="detail-grid">
+          <div class="detail-item">
+            <div class="detail-label">職業</div>
+            <div class="detail-value"><%= @client.job&.name || '未設定' %></div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">職種</div>
+            <div class="detail-value"><%= @client.occupation&.name || '未設定' %></div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">婚姻状況</div>
+            <div class="detail-value">
+              <% case @client.marital_status %>
+              <% when 'single' %>
+                未婚
+              <% when 'married' %>
+                既婚
+              <% when 'divorced' %>
+                離婚
+              <% when 'widowed' %>
+                死別
+              <% else %>
+                未設定
+              <% end %>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">出生地</div>
+            <div class="detail-value"><%= @client.birthplace.present? ? @client.birthplace : '未設定' %></div>
+          </div>
+        </div>
+      </div>
+
+      <% if @client.memo.present? %>
+        <div class="detail-section">
+          <h2 class="section-title">メモ</h2>
+          <div class="memo-content">
+            <%= simple_format h(@client.memo) %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- 右側：算命学分析結果 -->
+    <div class="client-detail-wrapper fortune-analysis-section">
+      <div class="detail-section">
+        <h2 class="section-title">宿命図</h2>
+
+        <% if @result %>
+          <div>
+            <%= render 'fortune_analysis/yin_chart',
+              day_heavenly_void: @day_heavenly_void,
+              result: @result,
+              has_birth_voids: @has_birth_voids,
+              day_stem: @day_stem,
+              month_stem: @month_stem,
+              year_stem: @year_stem,
+              day_branch: @day_branch,
+              month_branch: @month_branch,
+              year_branch: @year_branch,
+              day_qi_stem: @day_qi_stem,
+              month_qi_stem: @month_qi_stem,
+              year_qi_stem: @year_qi_stem,
+              year_heavenly_void: @year_heavenly_void
+            %>
+          </div>
+
+          <%# 詳細 %>
+          <%= render 'fortune_analysis/detail',
+            youth_sub_star: @youth_sub_star,
+            middle_age_sub_star: @middle_age_sub_star,
+            old_age_sub_star: @old_age_sub_star,
+            abnormals: @abnormals,
+            birth_voids: @birth_voids,
+            has_birth_voids: @has_birth_voids,
+            stem_unions: @stem_unions,
+            beast_type: @beast_type,
+            phase_method: @phase_method
+          %>
+
+          <div class="fortune-link">
+            <%= link_to fortune_analysis_path(date: @client.birthday, gender: @client.gender), class: "btn-primary full-width-btn", target: "_blank", rel: "noopener noreferrer" do %>
+              <i class="fas fa-chart-line"></i> 詳細な結果を表示
+            <% end %>
+          </div>
+        <% else %>
+          <div class="no-fortune-data">
+            <p>この生年月日の算命学データが見つかりません。</p>
+            <p>日付：<%= @client.birthday&.strftime('%Y年%m月%d日') %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-actions">
+    <%= link_to edit_client_path(@client), class: "btn-primary action-btn" do %>
+      <i class="fas fa-edit"></i> 編集する
     <% end %>
 
-    <div class="detail-actions">
-      <%= link_to edit_client_path(@client), class: "btn-primary action-btn" do %>
-        <i class="fas fa-edit"></i> 編集する
-      <% end %>
-
-      <%= link_to client_path(@client),
-                  method: :delete,
-                  data: { turbo_method: :delete, turbo_confirm: "#{@client.fullname}さんの情報を削除してもよろしいですか？" },
-                  class: "btn-danger action-btn" do %>
-        <i class="fas fa-trash"></i> 削除する
-      <% end %>
-    </div>
+    <%= link_to client_path(@client),
+                method: :delete,
+                data: { turbo_method: :delete, turbo_confirm: "#{@client.fullname}さんの情報を削除してもよろしいですか？" },
+                class: "btn-danger action-btn" do %>
+      <i class="fas fa-trash"></i> 削除する
+    <% end %>
   </div>
 </div>
 
 <style>
   .client-detail-container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
   }
@@ -144,6 +198,27 @@
   .header-actions {
     display: flex;
     gap: 10px;
+  }
+
+  .client-detail-layout {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  .client-info-section {
+    flex: 1;
+  }
+
+  .fortune-analysis-section {
+    flex: 1;
+  }
+
+  .client-detail-wrapper {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   .btn-primary, .btn-secondary, .btn-danger {
@@ -185,14 +260,6 @@
     background-color: #c82333;
   }
 
-  .client-detail-wrapper {
-    background-color: #fff;
-    padding: 30px;
-    margin-bottom: 30px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
   .detail-section {
     margin-bottom: 40px;
     padding-bottom: 30px;
@@ -202,6 +269,7 @@
   .detail-section:last-of-type {
     border-bottom: none;
     padding-bottom: 0;
+    margin-bottom: 0;
   }
 
   .section-title {
@@ -253,7 +321,6 @@
     display: flex;
     justify-content: flex-end;
     gap: 15px;
-    margin-top: 30px;
   }
 
   .action-btn {
@@ -264,7 +331,133 @@
     margin-right: 8px;
   }
 
-  /* レスポンシブ対応 */
+  /* 陽占図のスタイル */
+  .yang-chart-container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .yang-chart {
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .yang-chart td {
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .yang-chart .arrow {
+    width: 30px;
+    height: 30px;
+    position: relative;
+  }
+
+  .yang-chart .arrow-tr {
+    height: 30px;
+  }
+
+  .yang-chart .tooltip {
+    position: relative;
+  }
+
+  .yang-chart .tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .yang-chart .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* 関係性の矢印スタイル */
+  .yang-chart .default-relation {
+    color: #ccc;
+  }
+
+  .yang-chart .user-relation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .yang-chart .promotion {
+    color: #ff6b6b;
+  }
+
+  .yang-chart .generation {
+    color: #4dabf7;
+  }
+
+  .yang-chart .control {
+    color: #fcc419;
+  }
+
+  .yang-chart .anti-control {
+    color: #51cf66;
+  }
+
+  .yang-chart .same {
+    color: #be4bdb;
+  }
+
+  .text-red {
+    color: #dc3545;
+  }
+
+  .font-bold {
+    font-weight: bold;
+  }
+
+  .fortune-subtitle {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    border-left: 4px solid #1a73e8;
+  }
+
+  .fortune-section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 992px) {
+    .yang-chart td {
+      width: 60px;
+      height: 60px;
+      font-size: 14px;
+    }
+  }
+
   @media (max-width: 768px) {
     .detail-header {
       flex-direction: column;
@@ -283,6 +476,10 @@
     .action-btn {
       width: 100%;
       justify-content: center;
+    }
+
+    .fortune-chart {
+      font-size: 14px;
     }
   }
 </style>
