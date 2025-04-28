@@ -9,47 +9,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initSideMenu() {
   const sideMenu = document.getElementById('sideMenu');
-  const openSideMenuBtn = document.getElementById('openSideMenuBtn');
-  const closeSideMenuBtn = document.getElementById('closeSideMenuBtn');
-  const sideMenuOverlay = document.getElementById('sideMenuOverlay');
+  const toggleMenuBtn = document.getElementById('toggleMenuBtn');
+  const contentArea = document.querySelector('.content-area');
 
-  // メニューを開く
-  if (openSideMenuBtn) {
-    openSideMenuBtn.addEventListener('click', function() {
-      sideMenu.classList.add('show');
-      sideMenuOverlay.classList.add('show');
-      document.body.style.overflow = 'hidden'; // スクロール防止
-    });
+  if (!sideMenu || !toggleMenuBtn) {
+    console.log('サイドメニュー要素が見つかりません');
+    return;
   }
 
-  // メニューを閉じる
-  if (closeSideMenuBtn) {
-    closeSideMenuBtn.addEventListener('click', function() {
-      closeSideMenu();
-    });
+  // 画面サイズに応じたメニュー状態の設定
+  function setMenuStateByScreenSize() {
+    if (window.innerWidth <= 768) {
+      // タブレットサイズ以下では縮小表示
+      sideMenu.classList.add('collapsed');
+      if (contentArea) contentArea.classList.add('collapsed-margin');
+
+      // ボタンのアイコンを右向きに
+      const toggleIcon = toggleMenuBtn.querySelector('i');
+      if (toggleIcon) {
+        toggleIcon.classList.remove('fa-chevron-left');
+        toggleIcon.classList.add('fa-chevron-right');
+      }
+    } else {
+      // 通常サイズのデスクトップでは展開表示
+      sideMenu.classList.remove('collapsed');
+      if (contentArea) contentArea.classList.remove('collapsed-margin');
+
+      // ボタンのアイコンを左向きに
+      const toggleIcon = toggleMenuBtn.querySelector('i');
+      if (toggleIcon) {
+        toggleIcon.classList.remove('fa-chevron-right');
+        toggleIcon.classList.add('fa-chevron-left');
+      }
+    }
   }
 
-  // オーバーレイクリックでもメニューを閉じる
-  if (sideMenuOverlay) {
-    sideMenuOverlay.addEventListener('click', function() {
-      closeSideMenu();
-    });
-  }
+  // 初期設定
+  setMenuStateByScreenSize();
+
+  // メニューを展開/縮小する
+  toggleMenuBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    toggleMenuCollapse();
+  });
 
   // 画面サイズが変わった時の対応
   window.addEventListener('resize', function() {
-    if (window.innerWidth > 768) {
-      // デスクトップサイズになったらメニューを表示
-      if (sideMenu) sideMenu.classList.remove('show');
-      if (sideMenuOverlay) sideMenuOverlay.classList.remove('show');
-      document.body.style.overflow = '';
-    }
+    setMenuStateByScreenSize();
   });
 
-  // メニューを閉じる共通関数
-  function closeSideMenu() {
-    if (sideMenu) sideMenu.classList.remove('show');
-    if (sideMenuOverlay) sideMenuOverlay.classList.remove('show');
-    document.body.style.overflow = ''; // スクロール復活
+  // メニューの展開/縮小を切り替え
+  function toggleMenuCollapse() {
+    const isCollapsed = sideMenu.classList.toggle('collapsed');
+
+    if (contentArea) {
+      contentArea.classList.toggle('collapsed-margin', isCollapsed);
+    }
+
+    // 展開/縮小ボタンのアイコンを変更
+    const toggleIcon = toggleMenuBtn.querySelector('i');
+    if (toggleIcon) {
+      if (isCollapsed) {
+        toggleIcon.classList.remove('fa-chevron-left');
+        toggleIcon.classList.add('fa-chevron-right');
+      } else {
+        toggleIcon.classList.remove('fa-chevron-right');
+        toggleIcon.classList.add('fa-chevron-left');
+      }
+    }
   }
 }

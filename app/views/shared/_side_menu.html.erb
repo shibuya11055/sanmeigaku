@@ -4,8 +4,9 @@
       <i class="fas fa-dharmachakra"></i>
       <span class="app-name">算命学アプリ</span>
     </div>
-    <button id="closeSideMenuBtn" class="close-menu-btn">
-      <i class="fas fa-times"></i>
+    <!-- 縮小・展開ボタン -->
+    <button id="toggleMenuBtn" class="toggle-menu-btn" type="button">
+      <i class="fas fa-chevron-left"></i>
     </button>
   </div>
 
@@ -22,13 +23,13 @@
   <nav class="side-menu-nav">
     <ul class="side-menu-items">
       <li class="side-menu-item <%= current_page?(clients_path) ? 'active' : '' %>">
-        <%= link_to clients_path do %>
+        <%= link_to clients_path, class: "menu-link" do %>
           <i class="fas fa-users"></i>
           <span class="menu-text">顧客管理</span>
         <% end %>
       </li>
       <li class="side-menu-item <%= current_page?('/fortune_analysis') ? 'active' : '' %>">
-        <%= link_to '/fortune_analysis' do %>
+        <%= link_to '/fortune_analysis', class: "menu-link" do %>
           <i class="fas fa-chart-line"></i>
           <span class="menu-text">宿命図</span>
         <% end %>
@@ -42,11 +43,6 @@
       <span>ログアウト</span>
     <% end %>
   </div>
-</div>
-
-<!-- モバイル用メニュートグルボタン -->
-<div class="mobile-menu-toggle" id="openSideMenuBtn">
-  <i class="fas fa-bars"></i>
 </div>
 
 <!-- オーバーレイ背景 -->
@@ -64,50 +60,170 @@
 
   function initSideMenu() {
     const sideMenu = document.getElementById('sideMenu');
-    const openSideMenuBtn = document.getElementById('openSideMenuBtn');
-    const closeSideMenuBtn = document.getElementById('closeSideMenuBtn');
+    const toggleMenuBtn = document.getElementById('toggleMenuBtn');
+    const contentArea = document.querySelector('.content-area');
     const sideMenuOverlay = document.getElementById('sideMenuOverlay');
 
-    // メニューを開く
-    if (openSideMenuBtn) {
-      openSideMenuBtn.addEventListener('click', function() {
-        console.log('開くボタンがクリックされました');
-        sideMenu.classList.add('show');
-        sideMenuOverlay.classList.add('show');
-        document.body.style.overflow = 'hidden'; // スクロール防止
-      });
+    if (!sideMenu || !toggleMenuBtn) {
+      console.log('サイドメニュー要素が見つかりません', sideMenu, toggleMenuBtn);
+      return;
     }
 
-    // メニューを閉じる
-    if (closeSideMenuBtn) {
-      closeSideMenuBtn.addEventListener('click', function() {
-        console.log('閉じるボタンがクリックされました');
-        closeSideMenu();
-      });
+    // ローカルストレージから状態を復元
+    const savedCollapsedState = localStorage.getItem('sideMenuCollapsed');
+    const isSavedCollapsed = savedCollapsedState === 'true';
+
+    // メニューリンクの取得
+    const menuLinks = document.querySelectorAll('.menu-link');
+
+    // 画面サイズに応じたメニュー状態の設定
+    function setMenuStateByScreenSize() {
+      const isMobile = window.innerWidth <= 768;
+
+      if (isMobile) {
+        // タブレットサイズ以下では縮小表示
+        sideMenu.classList.add('collapsed');
+        sideMenu.classList.remove('expanded');
+        if (contentArea) contentArea.classList.add('collapsed-margin');
+
+        // ボタンのアイコンを右向きに
+        const toggleIcon = toggleMenuBtn.querySelector('i');
+        if (toggleIcon) {
+          toggleIcon.classList.remove('fa-chevron-left');
+          toggleIcon.classList.add('fa-chevron-right');
+        }
+      } else {
+        // デスクトップでは保存された状態を復元
+        if (isSavedCollapsed) {
+          sideMenu.classList.add('collapsed');
+          if (contentArea) contentArea.classList.add('collapsed-margin');
+
+          const toggleIcon = toggleMenuBtn.querySelector('i');
+          if (toggleIcon) {
+            toggleIcon.classList.remove('fa-chevron-left');
+            toggleIcon.classList.add('fa-chevron-right');
+          }
+        } else {
+          sideMenu.classList.remove('collapsed');
+          if (contentArea) contentArea.classList.remove('collapsed-margin');
+
+          const toggleIcon = toggleMenuBtn.querySelector('i');
+          if (toggleIcon) {
+            toggleIcon.classList.remove('fa-chevron-right');
+            toggleIcon.classList.add('fa-chevron-left');
+          }
+        }
+      }
     }
 
-    // オーバーレイクリックでもメニューを閉じる
+    // 初期設定
+    setMenuStateByScreenSize();
+
+    // メニューを展開/縮小する
+    toggleMenuBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      toggleMenuCollapse();
+    });
+
+    // モバイル時のオーバーレイクリック処理
     if (sideMenuOverlay) {
       sideMenuOverlay.addEventListener('click', function() {
-        closeSideMenu();
+        if (window.innerWidth <= 768) {
+          collapseMobileMenu();
+        }
       });
     }
+
+    // モバイルでメニュー項目クリック時の処理
+    menuLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        if (window.innerWidth <= 768) {
+          // モバイル時のみ自動縮小
+          setTimeout(() => {
+            collapseMobileMenu();
+          }, 100); // 少し遅延させて遷移をブロックしないように
+        }
+      });
+    });
 
     // 画面サイズが変わった時の対応
     window.addEventListener('resize', function() {
-      if (window.innerWidth > 768) {
-        // デスクトップサイズになったらメニューを表示
-        if (sideMenu) sideMenu.classList.remove('show');
-        if (sideMenuOverlay) sideMenuOverlay.classList.remove('show');
-        document.body.style.overflow = '';
+      // 画面サイズが変わっても保存された状態を尊重
+      if (window.innerWidth <= 768) {
+        // モバイルでオーバーレイが表示されている場合は非表示に
+        if (sideMenu.classList.contains('expanded')) {
+          collapseMobileMenu();
+        }
       }
+
+      setMenuStateByScreenSize();
     });
 
-    // メニューを閉じる共通関数
-    function closeSideMenu() {
-      if (sideMenu) sideMenu.classList.remove('show');
-      if (sideMenuOverlay) sideMenuOverlay.classList.remove('show');
-      document.body.style.overflow = ''; // スクロール復活
+    // アイコンの状態を更新する関数
+    function updateToggleIcon() {
+      const isCollapsed = sideMenu.classList.contains('collapsed');
+      const toggleIcon = toggleMenuBtn.querySelector('i');
+
+      if (toggleIcon) {
+        // 矢印の向きはCSSのtransformで制御するため、クラス変更のみ行う
+        if (isCollapsed) {
+          toggleIcon.classList.remove('fa-chevron-left');
+          toggleIcon.classList.add('fa-chevron-right');
+        } else {
+          toggleIcon.classList.remove('fa-chevron-right');
+          toggleIcon.classList.add('fa-chevron-left');
+        }
+      }
+    }
+
+    // モバイル時のメニュー展開
+    function expandMobileMenu() {
+      sideMenu.classList.remove('collapsed');
+      sideMenu.classList.add('expanded');
+      sideMenuOverlay.classList.add('show');
+      document.body.classList.add('menu-open');
+      if (contentArea) contentArea.classList.add('overlay-active');
+      updateToggleIcon();
+    }
+
+    // モバイル時のメニュー縮小
+    function collapseMobileMenu() {
+      sideMenu.classList.add('collapsed');
+      sideMenu.classList.remove('expanded');
+      sideMenuOverlay.classList.remove('show');
+      document.body.classList.remove('menu-open');
+      if (contentArea) contentArea.classList.remove('overlay-active');
+      updateToggleIcon();
+    }
+
+    // メニューの展開/縮小を切り替え
+    function toggleMenuCollapse() {
+      const isMobile = window.innerWidth <= 768;
+
+      if (isMobile) {
+        // モバイル時は特別な処理
+        if (sideMenu.classList.contains('expanded')) {
+          collapseMobileMenu();
+        } else {
+          expandMobileMenu();
+        }
+      } else {
+        // デスクトップ時の通常処理
+        const isCollapsed = sideMenu.classList.toggle('collapsed');
+
+        // 状態をローカルストレージに保存
+        localStorage.setItem('sideMenuCollapsed', isCollapsed);
+
+        if (contentArea) {
+          contentArea.classList.toggle('collapsed-margin', isCollapsed);
+        }
+
+        // 展開/縮小ボタンのアイコンを変更
+        updateToggleIcon();
+      }
     }
   }
+
+  // ページ読み込み後すぐに実行
+  initSideMenu();
 </script>
