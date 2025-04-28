@@ -23,7 +23,6 @@
             <th>名前</th>
             <th>生年月日</th>
             <th>性別</th>
-            <th>連絡先</th>
             <th>操作</th>
           </tr>
         </thead>
@@ -35,14 +34,6 @@
               </td>
               <td><%= client.birthday&.strftime('%Y年%m月%d日') %></td>
               <td><%= client.gender == 'male' ? '男性' : '女性' %></td>
-              <td>
-                <% if client.email.present? %>
-                  <i class="fas fa-envelope"></i> <%= client.email %><br>
-                <% end %>
-                <% if client.phone.present? %>
-                  <i class="fas fa-phone"></i> <%= client.phone %>
-                <% end %>
-              </td>
               <td class="actions-cell">
                 <%= link_to client_path(client), class: "action-btn view-btn", title: "詳細" do %>
                   <i class="fas fa-eye"></i>
