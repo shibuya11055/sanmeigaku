@@ -1,2 +1,288 @@
-<h1>Clients#show</h1>
-<p>Find me in app/views/clients/show.html.erb</p>
+<%# filepath: /Users/shibuyakyouhei/myApp/sanmeigaku/app/views/clients/show.html.erb %>
+<% content_for :title, "#{@client.fullname}さん | 算命学アプリ" %>
+
+<div class="client-detail-container">
+  <header class="detail-header">
+    <h1><%= @client.fullname %>さんの詳細情報</h1>
+    <div class="header-actions">
+      <%= link_to clients_path, class: "btn-secondary" do %>
+        <i class="fas fa-arrow-left"></i> 顧客一覧に戻る
+      <% end %>
+      <%= link_to edit_client_path(@client), class: "btn-primary" do %>
+        <i class="fas fa-edit"></i> 編集する
+      <% end %>
+    </div>
+  </header>
+
+  <div class="client-detail-wrapper">
+    <div class="detail-section">
+      <h2 class="section-title">基本情報</h2>
+
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="detail-label">氏名</div>
+          <div class="detail-value"><%= @client.fullname %></div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">生年月日</div>
+          <div class="detail-value">
+            <%= @client.birthday&.strftime('%Y年%m月%d日') %>
+            <span class="detail-subtext">(<%= ((Date.today - @client.birthday).to_i / 365).floor %>歳)</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">性別</div>
+          <div class="detail-value"><%= @client.gender == 'male' ? '男性' : '女性' %></div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">血液型</div>
+          <div class="detail-value">
+            <% case @client.blood_type %>
+            <% when 'a' %>
+              A型
+            <% when 'b' %>
+              B型
+            <% when 'o' %>
+              O型
+            <% when 'ab' %>
+              AB型
+            <% else %>
+              不明
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <h2 class="section-title">職業情報</h2>
+
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="detail-label">職業</div>
+          <div class="detail-value"><%= @client.job&.name || '未設定' %></div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">職種</div>
+          <div class="detail-value"><%= @client.occupation&.name || '未設定' %></div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">婚姻状況</div>
+          <div class="detail-value">
+            <% case @client.marital_status %>
+            <% when 'single' %>
+              未婚
+            <% when 'married' %>
+              既婚
+            <% when 'divorced' %>
+              離婚
+            <% when 'widowed' %>
+              死別
+            <% else %>
+              未設定
+            <% end %>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="detail-label">出生地</div>
+          <div class="detail-value"><%= @client.birthplace.present? ? @client.birthplace : '未設定' %></div>
+        </div>
+      </div>
+    </div>
+
+    <% if @client.memo.present? %>
+      <div class="detail-section">
+        <h2 class="section-title">メモ</h2>
+        <div class="memo-content">
+          <%= simple_format h(@client.memo) %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="detail-actions">
+      <%= link_to edit_client_path(@client), class: "btn-primary action-btn" do %>
+        <i class="fas fa-edit"></i> 編集する
+      <% end %>
+
+      <%= link_to client_path(@client),
+                  method: :delete,
+                  data: { turbo_method: :delete, turbo_confirm: "#{@client.fullname}さんの情報を削除してもよろしいですか？" },
+                  class: "btn-danger action-btn" do %>
+        <i class="fas fa-trash"></i> 削除する
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<style>
+  .client-detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .detail-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-primary, .btn-secondary, .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+  }
+
+  .btn-secondary {
+    background-color: #f8f9fa;
+    color: #333;
+    border: 1px solid #ccc;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #1765cc;
+  }
+
+  .btn-secondary:hover {
+    background-color: #e2e6ea;
+  }
+
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+
+  .client-detail-wrapper {
+    background-color: #fff;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .detail-section {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eaeaea;
+  }
+
+  .detail-section:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .section-title {
+    font-size: 18px;
+    margin-bottom: 25px;
+    color: #444;
+    font-weight: 600;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+
+  .detail-item {
+    margin-bottom: 15px;
+  }
+
+  .detail-label {
+    font-weight: 500;
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .detail-value {
+    font-size: 16px;
+    color: #333;
+  }
+
+  .detail-subtext {
+    font-size: 14px;
+    color: #666;
+    margin-left: 5px;
+  }
+
+  .memo-content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .detail-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  .action-btn {
+    padding: 10px 20px;
+  }
+
+  .action-btn i {
+    margin-right: 8px;
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    .detail-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .detail-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .detail-actions {
+      flex-direction: column;
+    }
+
+    .action-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

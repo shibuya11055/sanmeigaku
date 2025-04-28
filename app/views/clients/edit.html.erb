@@ -29,7 +29,6 @@
           <div class="form-group form-group-half">
             <%= form.label :fullname, "氏名", class: "form-label required" %>
             <%= form.text_field :fullname, class: "form-control", placeholder: "例：山田 太郎", required: true %>
-            <small class="form-text text-muted">ニックネームでも可</small>
           </div>
 
           <div class="form-group form-group-half">
@@ -80,7 +79,6 @@
                 { include_blank: "選択してください" },
                 { class: "form-select" }
             %>
-            <small class="form-text text-muted">例：会社員、自営業など</small>
           </div>
 
           <div class="form-group form-group-half">
@@ -92,7 +90,6 @@
                 { include_blank: "選択してください" },
                 { class: "form-select" }
             %>
-            <small class="form-text text-muted">例：エンジニア、デザイナーなど</small>
           </div>
         </div>
 
@@ -233,6 +230,17 @@
     border: 1px solid #ccc;
     padding: 12px 15px;
     font-size: 16px;
+  }
+
+  .form-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px 12px;
+    padding-right: 40px;
   }
 
   .form-control:focus, .form-select:focus {
