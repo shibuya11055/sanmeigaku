@@ -59,10 +59,6 @@ Rails.application.configure do
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: "example.com" }
 
-  config.active_record.encryption.primary_key = nil
-  config.active_record.encryption.deterministic_key = nil
-  config.active_record.encryption.key_derivation_salt = nil
-
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
   #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
@@ -72,19 +68,17 @@ Rails.application.configure do
   #   authentication: :plain
   # }
 
-  # config.action_mailer.delivery_method = :smtp
-  # puts "[DEBUG] LOADED production.rb mailer setup OK"
-  # config.action_mailer.smtp_settings = {
-  #   address:              "smtp.gmail.com",
-  #   port:                 587,
-  #   domain:               "gmail.com",
-  #   user_name:            Rails.application.credentials.dig(:smtp, :user_name),
-  #   password:             Rails.application.credentials.dig(:smtp, :password),
-  #   authentication:       "plain",
-  #   enable_starttls_auto: true,
-  #   open_timeout:          5,
-  #   read_timeout:          5
-  # }
+  config.action_mailer.delivery_method = :smtp
+  puts "[DEBUG] LOADED production.rb mailer setup OK"
+  config.action_mailer.smtp_settings = {
+    address:              "smtp.gmail.com",
+    port:                 587,
+    domain:               "gmail.com",
+    user_name:            Rails.application.credentials.dig(:smtp, :user_name),
+    password:             Rails.application.credentials.dig(:smtp, :password),
+    authentication:       "plain",
+    enable_starttls_auto: true
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
