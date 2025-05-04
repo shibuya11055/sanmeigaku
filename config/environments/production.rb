@@ -69,6 +69,7 @@ Rails.application.configure do
   # }
 
   config.action_mailer.delivery_method = :smtp
+  puts "[DEBUG] LOADED production.rb mailer setup OK"
   config.action_mailer.smtp_settings = {
     address:              "smtp.gmail.com",
     port:                 587,
