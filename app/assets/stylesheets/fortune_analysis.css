@@ -170,3 +170,396 @@ ul {
   font-size: 1.5em; color: rgba(245, 151, 101, 1);
   padding:0 4px 0 4px;
 }
+
+/* 3要素ずつ並べるフレックスレイアウト */
+.fortune-detail-container.compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;  /* 12pxから16pxに増加 */
+  margin: 20px 0;  /* 15pxから20pxに増加 */
+}
+
+.fortune-card {
+  flex: 0 0 calc(33.333% - 12px); /* 3列に分けて、増加したgap分を考慮 */
+  background-color: #fff;
+  border-radius: 8px; /* 6pxから8pxに増加 */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* シャドウを少し強く */
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 240px; /* 最小幅を設定 */
+}
+
+/* カードヘッダー */
+.card-header {
+  padding: 12px 16px; /* 8px 12pxから12px 16pxに増加 */
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 1px solid #eaeaea;
+  display: flex;
+  align-items: center;
+}
+
+.card-header i {
+  margin-right: 10px; /* 8pxから10pxに増加 */
+  font-size: 14px;
+}
+
+/* カードコンテンツ */
+.card-content {
+  padding: 14px; /* 10pxから14pxに増加 */
+  font-size: 14px;
+  line-height: 1.5; /* 行間を追加 */
+}
+
+/* エネルギーカード */
+.energy-period {
+  display: block;
+  margin-bottom: 8px; /* 5pxから8pxに増加 */
+  padding: 8px 10px; /* 5pxから8px 10pxに増加 */
+  border-radius: 4px; /* 3pxから4pxに増加 */
+  background-color: #f9f9f9;
+}
+
+/* タグスタイル */
+.tag {
+  display: inline-block;
+  padding: 6px 10px; /* 4px 8pxから6px 10pxに増加 */
+  margin: 4px; /* 3pxから4pxに増加 */
+  border-radius: 4px; /* 3pxから4pxに増加 */
+  background-color: #f5f5f5;
+  font-size: 14px; /* 13pxから14pxに増加 */
+}
+
+/* 位相リスト */
+.compact-list .phase-item {
+  margin-bottom: 8px; /* 5pxから8pxに増加 */
+  padding: 8px 12px; /* 5px 8pxから8px 12pxに増加 */
+  font-size: 14px; /* 13pxから14pxに増加 */
+  background-color: #f9f9f9;
+  border-radius: 4px; /* 3pxから4pxに増加 */
+}
+
+/* 干合スタイル */
+.union-item {
+  margin-bottom: 8px; /* 5pxから8pxに増加 */
+  padding: 8px 10px; /* 6pxから8px 10pxに増加 */
+  font-size: 14px; /* 13pxから14pxに増加 */
+  background-color: #f0fffd; /* 背景色を追加 */
+  border-radius: 4px;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 900px) { /* 768pxから900pxに変更 */
+  .fortune-card {
+    flex: 0 0 calc(50% - 8px); /* 2列 */
+  }
+}
+
+@media (max-width: 600px) { /* 480pxから600pxに変更 */
+  .fortune-card {
+    flex: 0 0 100%; /* 1列 */
+  }
+}
+
+/* カードヘッダー色分け */
+.energy-card .card-header {
+  background-color: #FFD700;
+  color: #333;
+}
+
+.abnormal-card .card-header {
+  background-color: #FF6B6B;
+  color: white;
+}
+
+.void-card .card-header {
+  background-color: #A593E0;
+  color: white;
+}
+
+.unions-card .card-header {
+  background-color: #4ECDC4;
+  color: white;
+}
+
+.beast-card .card-header {
+  background-color: #FF8C42;
+  color: white;
+}
+
+.combined-card .card-header {
+  background-color: #6ECB63;
+  color: white;
+}
+
+.scattered-card .card-header {
+  background-color: #FF6B6B;
+  color: white;
+}
+
+.special-card .card-header {
+  background-color: #3D84A8;
+  color: white;
+}
+
+/* カードヘッダーホバー時の色調整 */
+.energy-card:hover .card-header {
+  background-color: #FFDF4F;
+}
+
+.abnormal-card:hover .card-header {
+  background-color: #FF8A8A;
+}
+
+.void-card:hover .card-header {
+  background-color: #B9ABE5;
+}
+
+.unions-card:hover .card-header {
+  background-color: #65D6CF;
+}
+
+.beast-card:hover .card-header {
+  background-color: #FFA065;
+}
+
+.combined-card:hover .card-header {
+  background-color: #8AD781;
+}
+
+.scattered-card:hover .card-header {
+  background-color: #FF8A8A;
+}
+
+.special-card:hover .card-header {
+  background-color: #5A9BC3;
+}
+
+/* 統一された詳細表示スタイル */
+.fortune-detail-unified {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin-top: 15px;
+  max-width: 800px;
+}
+
+.detail-section {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.detail-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.section-title i {
+  margin-right: 8px;
+}
+
+/* 各セクションのタイトル色 */
+.energy-title {
+  background-color: #FFF8DC;
+  color: #333;
+}
+
+.abnormal-title {
+  background-color: #FFEEEE;
+  color: #FF6B6B;
+}
+
+.void-title {
+  background-color: #F5F0FF;
+  color: #A593E0;
+}
+
+.unions-title {
+  background-color: #E6FFFA;
+  color: #4ECDC4;
+}
+
+.beast-title {
+  background-color: #FFF3E6;
+  color: #FF8C42;
+}
+
+.combined-title {
+  background-color: #F0FFF0;
+  color: #6ECB63;
+}
+
+.scattered-title {
+  background-color: #FFEEEE;
+  color: #FF6B6B;
+}
+
+.special-title {
+  background-color: #E6F2FF;
+  color: #3D84A8;
+}
+
+/* コンテンツスタイル */
+.energy-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.energy-row {
+  flex: 1 0 100%;
+  display: flex;
+  padding: 6px 10px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.period-label {
+  font-weight: 600;
+  margin-right: 10px;
+  min-width: 60px;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.detail-tag {
+  padding: 5px 10px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-item {
+  padding: 8px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.info-title {
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.center {
+  text-align: center;
+}
+
+/* 携帯対応 */
+@media (max-width: 576px) {
+  .fortune-detail-unified {
+    padding: 12px;
+  }
+
+  .energy-container {
+    flex-direction: column;
+  }
+
+  .section-title {
+    font-size: 15px;
+    padding: 5px 10px;
+  }
+
+  .info-item {
+    padding: 6px;
+  }
+}
+
+/* 超コンパクトデザイン */
+.ultra-compact-detail {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  max-width: 800px;
+  font-size: 14px;
+}
+
+.compact-section {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.compact-section:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.compact-header {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 6px 10px;
+}
+
+.compact-header i {
+  margin-right: 6px;
+  font-size: 13px;
+}
+
+.compact-content {
+  padding: 6px 10px 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.energy-item {
+  margin-right: 12px;
+  white-space: nowrap;
+}
+
+.tag-item {
+  display: inline-block;
+  padding: 2px 8px;
+  margin: 2px;
+  border-radius: 3px;
+  background-color: #f5f5f5;
+  font-size: 13px;
+}
+
+.info-row {
+  width: 100%;
+  padding: 3px 0;
+  margin: 0;
+  font-size: 13px;
+}
+
+.center {
+  text-align: center;
+}
+
+/* 背景色 */
+.energy-bg { background-color: #FFF8DC; }
+.abnormal-bg { background-color: #FFEEEE; }
+.void-bg { background-color: #F5F0FF; }
+.unions-bg { background-color: #E6FFFA; }
+.beast-bg { background-color: #FFF3E6; }
+.combined-bg { background-color: #F0FFF0; }
+.scattered-bg { background-color: #FFEEEE; }
+.special-bg { background-color: #E6F2FF; }

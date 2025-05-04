@@ -1,208 +1,138 @@
-<div class="yin-detail">
-  <div class="energy">
-    若年期: <%= youth_sub_star.name %>・<%= @youth_sub_star.energy %><br/>
-    中年期: <%= middle_age_sub_star.name %>・<%= @middle_age_sub_star.energy %><br/>
-    晩年期: <%= old_age_sub_star.name %>・<%= @old_age_sub_star.energy %><br/>
+<div class="ultra-compact-detail">
+  <div class="compact-section">
+    <div class="compact-header energy-bg"><i class="fas fa-star"></i> 三期エネルギー</div>
+    <div class="compact-content">
+      <span class="energy-item"><b>若年期</b>: <%= youth_sub_star.name %>・<%= @youth_sub_star.energy %></span>
+      <span class="energy-item"><b>中年期</b>: <%= middle_age_sub_star.name %>・<%= @middle_age_sub_star.energy %></span>
+      <span class="energy-item"><b>晩年期</b>: <%= old_age_sub_star.name %>・<%= @old_age_sub_star.energy %></span>
+    </div>
   </div>
 
   <% if abnormals.present? %>
-    <div class="abnormals">
-      異常干支
-      <ul>
-        <% abnormals.each do |abnormal| %>
-          <li><%= abnormal %></li>
-        <% end %>
-      </ul>
+    <div class="compact-section">
+      <div class="compact-header abnormal-bg"><i class="fas fa-exclamation-triangle"></i> 異常干支</div>
+      <div class="compact-content">
+        <% abnormals.each do |abnormal| %><span class="tag-item"><%= abnormal %></span><% end %>
+      </div>
     </div>
   <% end %>
 
   <% birth_void_values = birth_voids.values.compact %>
   <% if birth_void_values.present? %>
-    <div class="birth-void">
-      宿命天中殺
-      <ul>
+    <div class="compact-section">
+      <div class="compact-header void-bg"><i class="fas fa-ban"></i> 宿命天中殺</div>
+      <div class="compact-content">
         <% birth_void_values.each do |value| %>
-          <li
-            class="<%= css_classes({
-            'void-list': true,
-            'shape-wrapper': true,
+          <span class="<%= css_classes({
+            'tag-item': true,
             'text-center': has_birth_voids[:has_compatible_void] || has_birth_voids[:has_double_birth_void] || has_birth_voids[:has_complete_void],
             'color-red': value == '生日中殺' || value == '生月中殺' || value == '生年中殺' || value == '日座天中殺' || value == '日居天中殺',
             'green-circle': value == '互換中殺',
             'blue-square': value == '宿命二中殺',
             'complete-void-color': value == '全天中殺'
-          }) %>"
-          >
-            <%= value %>
-          </li>
+          }) %>"><%= value %></span>
         <% end %>
-      </ul>
+      </div>
     </div>
   <% end %>
+
+  <div class="compact-section">
+    <div class="compact-header beast-bg"><i class="fas fa-dragon"></i> 宿命五型</div>
+    <div class="compact-content center"><%= beast_type %></div>
+  </div>
 
   <% if !stem_unions.values.all? { |union| union[:result].nil? } %>
-    <div class="stem_unions">
-      干合
-      <ul>
+    <div class="compact-section">
+      <div class="compact-header unions-bg"><i class="fas fa-link"></i> 干合</div>
+      <div class="compact-content">
         <% stem_unions.each do |key, union| %>
           <% if union[:result].present? %>
-            <li><%= "【#{union[:title]}】: #{union[:before].join('・')} → #{union[:result].join('・')}" %></li>
+            <div class="info-row"><b>【<%= union[:title] %>】:</b> <%= union[:before].join('・') %> → <%= union[:result].join('・') %></div>
           <% end %>
         <% end %>
-      </ul>
+      </div>
     </div>
   <% end %>
 
-  <div>
-    宿命五型
-    <ul><li><%= beast_type %></li></ul>
-  </div>
-
   <% phase_method_text = PhaseMethodText.new %>
-  <div>
-    <% if phase_method[:has_combined] %>
-      位相（合法）
-      <ul>
-        <% # 三合 %>
+
+  <% if phase_method[:has_combined] %>
+    <div class="compact-section">
+      <div class="compact-header combined-bg"><i class="fas fa-plus-circle"></i> 位相（合法）</div>
+      <div class="compact-content">
         <% if phase_method[:trine].present? %>
-          <li>
-            <%= phase_method_text.get_message("trine.#{phase_method[:trine]}") %>
-          </li>
+          <div class="info-row"><%= phase_method_text.get_message("trine.#{phase_method[:trine]}") %></div>
         <% end %>
-
-        <% # 半会 %>
         <% if phase_method[:half_trine].present? %>
-          <li>
-            <%= phase_method_text.get_message("half_trine.#{phase_method[:half_trine][:key]}") %>
-            -
-            <%= phase_method_text.get_message("branch_pairs.#{phase_method[:half_trine][:pairs].join('_and_')}") %>
-          </li>
+          <div class="info-row"><%= phase_method_text.get_message("half_trine.#{phase_method[:half_trine][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:half_trine][:pairs].join('_and_')}") %></div>
         <% end %>
-
-        <% # 支合 %>
         <% if phase_method[:combination].present? %>
-          <li>
-            <%= phase_method_text.get_message("combination.#{phase_method[:combination][:key]}") %>
-            -
-            <%= phase_method_text.get_message("branch_pairs.#{phase_method[:combination][:pairs].join('_and_')}") %>
-          </li>
+          <div class="info-row"><%= phase_method_text.get_message("combination.#{phase_method[:combination][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:combination][:pairs].join('_and_')}") %></div>
         <% end %>
-
-        <% # 方三位 %>
         <% if phase_method[:directional].present? %>
-          <li>
-            <%= phase_method_text.get_message("directional.#{phase_method[:directional]}") %>
-          </li>
+          <div class="info-row"><%= phase_method_text.get_message("directional.#{phase_method[:directional]}") %></div>
         <% end %>
-
-        <% # 準方三位 %>
         <% if phase_method[:half_directional].present? %>
-          <li>
-            <%= phase_method_text.get_message("half_directional.#{phase_method[:half_directional][:key]}") %>
-            -
-            <%= phase_method_text.get_message("branch_pairs.#{phase_method[:half_directional][:pairs].join('_and_')}") %>
-          </li>
+          <div class="info-row"><%= phase_method_text.get_message("half_directional.#{phase_method[:half_directional][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:half_directional][:pairs].join('_and_')}") %></div>
         <% end %>
-      </ul>
-    <% end %>
+      </div>
+    </div>
+  <% end %>
 
-    <% if phase_method[:has_scattered] %>
-      位相（散法）
-      <ul>
-        <% # 対冲 %>
+  <% if phase_method[:has_scattered] %>
+    <div class="compact-section">
+      <div class="compact-header scattered-bg"><i class="fas fa-share-alt"></i> 位相（散法）</div>
+      <div class="compact-content">
         <% if phase_method[:clash].present? %>
-          <li>
-            <%= phase_method_text.get_message("clash.#{phase_method[:clash][:key]}") %>
-            -
-            <%= phase_method_text.get_message("branch_pairs.#{phase_method[:clash][:pairs].join('_and_')}") %>
-          </li>
+          <div class="info-row"><%= phase_method_text.get_message("clash.#{phase_method[:clash][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:clash][:pairs].join('_and_')}") %></div>
         <% end %>
-
-        <% # 害 %>
         <% if phase_method[:harm].present? %>
           <% phase_method[:harm].each do |harm_obj| %>
-            <li>
-              <%= "害（#{harm_obj.keys.first.to_s}）" %>
-            </li>
-          <% end %>  
+            <div class="info-row">害（<%= harm_obj.keys.first.to_s %>）</div>
+          <% end %>
         <% end %>
-
-        <% # 刑 %>
         <% if phase_method[:punishment].present? %>
           <% phase_method[:punishment][:pairs].each do |pair| %>
-            <li>
-              <%= phase_method_text.get_message("punishment.#{phase_method[:punishment][:key]}") %>
-              -
-              <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %>
-            </li>
+            <div class="info-row"><%= phase_method_text.get_message("punishment.#{phase_method[:punishment][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
           <% end %>
         <% end %>
-
-        <% # 自刑 %>
         <% if phase_method[:self_punishment].present? %>
           <% phase_method[:self_punishment][:pairs].each do |pair| %>
-            <li>
-              <%= phase_method_text.get_message("self_punishment.#{phase_method[:self_punishment][:key]}") %>
-              -
-              <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %>
-            </li>
+            <div class="info-row"><%= phase_method_text.get_message("self_punishment.#{phase_method[:self_punishment][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
           <% end %>
         <% end %>
-
-        <% # 破 %>
         <% if phase_method[:braking].present? %>
           <% phase_method[:braking].each do |braking_obj| %>
-            <li>
-              <%= "破（#{braking_obj.keys.first.to_s}）" %>
-            </li>
-          <% end %>  
+            <div class="info-row">破（<%= braking_obj.keys.first.to_s %>）</div>
+          <% end %>
         <% end %>
-      </ul>
-    <% end %>
+      </div>
+    </div>
+  <% end %>
 
-    <% if phase_method[:has_special] %>
-      位相（特殊）
-      <ul>
-        <% # 大半会 %>
+  <% if phase_method[:has_special] %>
+    <div class="compact-section">
+      <div class="compact-header special-bg"><i class="fas fa-magic"></i> 位相（特殊）</div>
+      <div class="compact-content">
         <% if phase_method[:strong_half_trine].present? %>
-          <li>
-            <%= phase_method_text.get_message('strong_half_trine') %>
-          </li>
+          <div class="info-row"><%= phase_method_text.get_message('strong_half_trine') %></div>
         <% end %>
-
-        <% # 律音 %>
         <% if phase_method[:ricchin].present? %>
           <% phase_method[:ricchin][:pairs].each do |pair| %>
-            <li>
-              律音
-              -
-              <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %>
-            </li>
-          <% end %>  
+            <div class="info-row">律音 - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
+          <% end %>
         <% end %>
-
-        <% # 納音 %>
         <% if phase_method[:nacchin].present? %>
           <% phase_method[:nacchin][:pairs].each do |pair| %>
-            <li>
-              納音
-              -
-              <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %>
-            </li>
-          <% end %>  
+            <div class="info-row">納音 - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
+          <% end %>
         <% end %>
-
-        <% # 天剋地中 %>
         <% if phase_method[:dual_clash].present? %>
           <% phase_method[:dual_clash][:pairs].each do |pair| %>
-            <li>
-              天剋地中
-              -
-              <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %>
-            </li>
-          <% end %>  
+            <div class="info-row">天剋地中 - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
+          <% end %>
         <% end %>
-      </ul>
-    <% end %>
-  </div>
+      </div>
+    </div>
+  <% end %>
 </div>
