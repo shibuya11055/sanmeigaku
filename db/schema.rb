@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_27_122635) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_09_150000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -162,6 +162,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_27_122635) do
     t.index ["element_id"], name: "index_stems_on_element_id"
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "stripe_customer_id"
+    t.string "stripe_subscription_id"
+    t.integer "status"
+    t.string "plan_name"
+    t.integer "amount"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
   create_table "ten_major_stars", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -231,5 +245,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_27_122635) do
   add_foreign_key "stem_twelve_star_mappings", "stems"
   add_foreign_key "stem_twelve_star_mappings", "twelve_sub_stars"
   add_foreign_key "stems", "elements"
+  add_foreign_key "subscriptions", "users"
   add_foreign_key "ten_major_stars", "elements"
 end

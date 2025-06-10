@@ -1,0 +1,275 @@
+<% content_for :title, "サブスクリプション管理" %>
+
+<div class="subscription-index-container">
+  <div class="subscription-main-card">
+    <h1 class="subscription-title">サブスクリプション管理</h1>
+
+    <% if @active_subscription %>
+      <div class="subscription-active-card">
+        <div class="active-card-header">
+          <div>
+            <h2 class="active-plan-title">現在のプラン</h2>
+            <p class="active-plan-detail">
+              <span class="active-plan-name"><%= @active_subscription.plan_name %></span> -
+              月額 <%= @active_subscription.monthly_amount_in_yen %>円
+            </p>
+            <p class="active-plan-date">
+              開始日: <%= @active_subscription.start_date.strftime("%Y年%m月%d日") %>
+            </p>
+          </div>
+          <div class="active-card-actions">
+            <%= link_to "詳細", @active_subscription, class: "btn-detail" %>
+            <%= link_to "キャンセル", cancel_subscription_path(@active_subscription), method: :patch, class: "btn-cancel", data: { confirm: "本当にサブスクリプションをキャンセルしますか？" } %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="subscription-join-card">
+        <h2 class="join-title">サブスクリプションに加入</h2>
+        <p class="join-desc">月額100円のベーシックプランで、すべての機能をご利用いただけます。</p>
+        <% if current_user.has_any_unjoinable_subscription? %>
+          <button class="btn-join" disabled style="opacity:0.5;cursor:not-allowed;">加入済み</button>
+        <% else %>
+          <%= link_to "今すぐ加入する", new_subscription_path, class: "btn-join" %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @subscriptions.any? %>
+      <div class="subscription-history-card">
+        <div class="history-header">
+          <h3 class="history-title">サブスクリプション履歴</h3>
+          <p class="history-desc">過去のサブスクリプション情報</p>
+        </div>
+        <table class="subscription-table">
+          <thead>
+            <tr>
+              <th>プラン名</th>
+              <th>月額</th>
+              <th>状態</th>
+              <th>期間</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @subscriptions.each do |subscription| %>
+              <tr class="<%= subscription.active? ? 'row-active' : 'row-inactive' %>">
+                <td><%= subscription.plan_name %></td>
+                <td><%= subscription.monthly_amount_in_yen %>円</td>
+                <td>
+                  <span class="status-badge <%= subscription.active? ? 'status-active' : 'status-inactive' %>">
+                    <%= subscription.status_jp %>
+                  </span>
+                </td>
+                <td>
+                  <%= subscription.start_date.strftime('%Y/%m/%d') %> ～
+                  <% if subscription.end_date %>
+                    <%= subscription.end_date.strftime('%Y/%m/%d') %>
+                  <% else %>
+                    継続中
+                  <% end %>
+                </td>
+                <td style="display: flex; gap: 8px; align-items: center;">
+                  <% if subscription.active? || subscription.trialing? || subscription.incomplete? %>
+                    <%= button_to "キャンセル", cancel_subscription_path(subscription.id), method: :patch, class: "btn-cancel", data: {
+                      turbo_confirm: "このサブスクリプションはキャンセル後も次回請求日の前日まで有効です。\n本当にキャンセルしますか？"
+                    } %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+.subscription-index-container {
+  background: #f7f9fb;
+  min-height: 80vh;
+  padding: 40px 0;
+}
+.subscription-main-card {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 40px 32px 32px 32px;
+}
+.subscription-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.subscription-active-card {
+  background: linear-gradient(90deg, #e0f2fe 0%, #f0fdf4 100%);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(16,185,129,0.08);
+}
+.active-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.active-plan-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #059669;
+  margin-bottom: 6px;
+}
+.active-plan-detail {
+  color: #047857;
+  font-size: 1.08rem;
+  margin-bottom: 2px;
+}
+.active-plan-name {
+  font-weight: 700;
+}
+.active-plan-date {
+  font-size: 0.98rem;
+  color: #10b981;
+}
+.active-card-actions {
+  display: flex;
+  gap: 10px;
+}
+.btn-detail {
+  background: #2563eb;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-detail:hover {
+  background: #1e40af;
+}
+.btn-cancel {
+  background: #ef4444;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-cancel:hover {
+  background: #b91c1c;
+}
+.subscription-join-card {
+  background: linear-gradient(90deg, #dbeafe 0%, #f0fdf4 100%);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.08);
+  text-align: center;
+}
+.join-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2563eb;
+  margin-bottom: 8px;
+}
+.join-desc {
+  color: #2563eb;
+  margin-bottom: 18px;
+}
+.btn-join {
+  background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.08rem;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 32px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-join:hover {
+  background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+}
+.subscription-history-card {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 24px 20px 12px 20px;
+  margin-top: 24px;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.04);
+}
+.history-header {
+  margin-bottom: 12px;
+}
+.history-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+}
+.history-desc {
+  color: #888;
+  font-size: 0.98rem;
+}
+.subscription-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 8px;
+}
+.subscription-table th, .subscription-table td {
+  padding: 12px 10px;
+  text-align: left;
+}
+.subscription-table th {
+  background: #e0e7ef;
+  font-weight: 700;
+  color: #222;
+  border-bottom: 2px solid #cbd5e1;
+}
+.subscription-table tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+.row-active {
+  background: #f0fdf4;
+}
+.row-inactive {
+  background: #f9fafb;
+}
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.status-active {
+  background: #bbf7d0;
+  color: #047857;
+}
+.status-inactive {
+  background: #e5e7eb;
+  color: #6b7280;
+}
+.btn-table-detail {
+  background: #2563eb;
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: none;
+  text-decoration: none;
+  transition: background 0.2s;
+  font-size: 0.98rem;
+}
+.btn-table-detail:hover {
+  background: #1e40af;
+}
+</style>

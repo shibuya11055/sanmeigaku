@@ -1,0 +1,18 @@
+## ログイン
+
+```
+stripe login
+```
+
+## webhoookを受け取れる状態にしておく
+認証用のkeyはcredentialに保管する
+
+```
+EDITOR="vi" bin/rails credentials:edit
+```
+
+webhookをローカルで受け取れるようにする
+
+```
+stripe listen --forward-to localhost:3000/stripe/webhook
+```

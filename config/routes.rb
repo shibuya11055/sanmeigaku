@@ -18,6 +18,14 @@ Rails.application.routes.draw do
   # ルートパスをクライアント一覧に変更
   root to: 'clients#index'
 
+  # サブスクリプション管理
+  resources :subscriptions, except: [:show] do
+    member do
+      patch :cancel
+      patch :resume
+    end
+  end
+
   # 他のルーティング
   get 'fortune_analysis', to: 'fortune_analysis#index'
   post 'fortune_analysis/calculate', to: 'fortune_analysis#calculate'
@@ -29,4 +37,7 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
+
+  # Stripe Webhook受信用のルート
+  post 'stripe/webhook', to: 'stripe_webhooks#receive'
 end

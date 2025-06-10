@@ -22,6 +22,8 @@ gem 'active_hash'
 gem 'devise'
 # Devise日本語化
 gem 'devise-i18n'
+# Stripe決済機能
+gem 'stripe'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
