@@ -7,7 +7,11 @@ class StripeWebhooksController < ApplicationController
   def receive
     payload = request.body.read
     sig_header = request.env['HTTP_STRIPE_SIGNATURE']
-    endpoint_secret = Rails.application.credentials.dig(:stripe, :webhook_secret)
+    endpoint_secret = if Rails.env.development?
+      Rails.application.credentials.dig(:stripe, :webhook_secret)
+    elsif Rails.env.production?
+      Rails.application.credentials.dig(:stripe, :prod_webhook_secret)
+    end
 
     event = nil
     begin
