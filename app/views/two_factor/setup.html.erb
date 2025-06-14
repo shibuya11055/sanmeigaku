@@ -1,0 +1,334 @@
+<% content_for :title, "2要素認証設定 | 算命学アプリ" %>
+
+<div class="two-factor-setup-container">
+  <div class="setup-header">
+    <h1 class="setup-title">
+      <i class="fas fa-shield-alt"></i>
+      2要素認証を設定
+    </h1>
+    <p class="setup-description">
+      セキュリティを強化するために、認証アプリを使用した2要素認証を設定しましょう。
+    </p>
+  </div>
+
+  <div class="setup-content">
+    <div class="setup-steps">
+      <div class="step-item">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>認証アプリをダウンロード</h3>
+          <p>Google Authenticator、Authy、または他の認証アプリをスマートフォンにインストールしてください。</p>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>QRコードをスキャン</h3>
+          <p>認証アプリでこのQRコードをスキャンしてください。</p>
+          <div class="qr-code-container">
+            <%= @qr_code_svg.html_safe %>
+          </div>
+          <div class="manual-code">
+            <p><strong>手動入力用コード:</strong></p>
+            <code><%= @user.otp_secret %></code>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>バックアップコードを保存</h3>
+          <p>認証アプリにアクセスできない場合に使用できるバックアップコードです。安全な場所に保存してください。</p>
+          <div class="backup-codes">
+            <% @backup_codes.each do |code| %>
+              <div class="backup-code"><%= code %></div>
+            <% end %>
+          </div>
+          <div class="backup-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>重要:</strong> これらのコードは一度しか表示されません。必ず安全な場所に保存してください。
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>認証コードを入力</h3>
+          <p>認証アプリに表示された6桁のコードを入力して設定を完了してください。</p>
+
+          <%= form_with url: enable_two_factor_path, method: :post, local: true, class: "verification-form" do |form| %>
+            <div class="form-group">
+              <%= form.label :otp_code, "認証コード", class: "form-label" %>
+              <%= form.text_field :otp_code, class: "form-control otp-input", placeholder: "000000", maxlength: 6, pattern: "[0-9]{6}", required: true %>
+              <div class="form-help">認証アプリに表示された6桁の数字を入力してください</div>
+            </div>
+
+            <div class="form-actions">
+              <%= form.submit "2要素認証を有効にする", class: "btn btn-primary enable-btn" %>
+              <%= link_to user_path, class: "btn btn-secondary cancel-btn" do %>
+                キャンセル
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .two-factor-setup-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .setup-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .setup-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .setup-title i {
+    color: #28a745;
+  }
+
+  .setup-description {
+    font-size: 16px;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .setup-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .step-item {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 20px;
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .step-content {
+    flex: 1;
+  }
+
+  .step-content h3 {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .step-content p {
+    margin: 0 0 16px 0;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .qr-code-container {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    display: inline-block;
+    margin: 16px 0;
+  }
+
+  .manual-code {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+  }
+
+  .manual-code code {
+    background: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  .backup-codes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .backup-code {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .backup-warning {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 16px;
+    color: #856404;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .backup-warning i {
+    color: #f39c12;
+    margin-top: 2px;
+  }
+
+  .verification-form {
+    margin-top: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .otp-input {
+    width: 200px;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 4px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-weight: 600;
+  }
+
+  .otp-input:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+  }
+
+  .form-help {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #666;
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+  }
+
+  .btn-secondary {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+  }
+
+  .btn-secondary:hover {
+    background: #e2e6ea;
+    text-decoration: none;
+    color: #6c757d;
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    .two-factor-setup-container {
+      padding: 15px;
+    }
+
+    .step-item {
+      flex-direction: column;
+      padding: 24px 20px;
+    }
+
+    .step-number {
+      align-self: flex-start;
+    }
+
+    .backup-codes {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form-actions {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+    }
+  }
+</style>

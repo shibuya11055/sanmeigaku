@@ -1,0 +1,447 @@
+<div class="devise-container">
+  <h2>2要素認証</h2>
+
+  <!-- エラーメッセージをフォームの近くに表示 -->
+  <% if flash[:alert] %>
+    <div class="alert two-factor-alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <% if flash[:notice] %>
+    <div class="notice two-factor-notice">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <p class="auth-description">
+    セキュリティのため、認証アプリに表示されるコードまたはバックアップコードを入力してください。
+  </p>
+
+  <%= form_with url: two_factor_authentication_path, method: :post, local: true, html: { class: "devise-form" } do |form| %>
+    <!-- CSSのみのタブ実装 -->
+    <input type="radio" id="tab-app" name="tab-group" class="tab-radio" checked>
+    <input type="radio" id="tab-backup" name="tab-group" class="tab-radio">
+
+    <div class="auth-tabs">
+      <label for="tab-app" class="tab-btn">認証アプリ</label>
+      <label for="tab-backup" class="tab-btn">バックアップコード</label>
+    </div>
+
+    <div class="tab-content" id="app-content">
+      <div class="field">
+        <label for="otp_code">認証コード</label>
+        <input type="text" name="otp_code" id="otp_code" placeholder="000000" maxlength="6" pattern="[0-9]{6}" autofocus="true" />
+        <small class="form-help">認証アプリに表示された6桁のコードを入力してください</small>
+      </div>
+    </div>
+
+    <div class="tab-content" id="backup-content">
+      <div class="field">
+        <label for="backup_code">バックアップコード</label>
+        <input type="text" name="backup_code" id="backup_code" placeholder="XXXXXXXX" />
+        <small class="form-help">2要素認証設定時に保存したバックアップコードを入力してください</small>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "ログイン" %>
+    </div>
+  <% end %>
+
+  <div class="devise-links">
+    <%= link_to new_user_session_path do %>
+      ← ログイン画面に戻る
+    <% end %>
+  </div>
+</div>
+
+<style>
+  /* アプリケーションレイアウトのフラッシュメッセージを非表示 */
+  body.signed-out .flash:not(.two-factor-alert):not(.two-factor-notice) {
+    display: none;
+  }
+
+  /* 2要素認証画面専用のフラッシュメッセージスタイル */
+  .two-factor-alert,
+  .two-factor-notice {
+    padding: 12px 20px;
+    margin: 0 0 20px 0;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .two-factor-notice {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  .two-factor-alert {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+
+  .auth-description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
+
+  /* CSSのみのタブ実装 */
+  .tab-radio {
+    display: none;
+  }
+
+  .auth-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: #6c757d;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    text-align: center;
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.3;
+    position: relative;
+  }
+
+  .tab-btn:hover {
+    color: #495057;
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  /* ラジオボタンがチェックされたときのスタイル */
+  #tab-app:checked ~ .auth-tabs label[for="tab-app"],
+  #tab-backup:checked ~ .auth-tabs label[for="tab-backup"] {
+    color: #5B2C87;
+    background: #ffffff;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  /* ラジオボタンがチェックされたときにコンテンツを表示 */
+  #tab-app:checked ~ #app-content,
+  #tab-backup:checked ~ #backup-content {
+    display: block;
+  }
+
+  .form-help {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+    font-size: 12px;
+  }
+
+  .field input[type="text"] {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  .field input[maxlength="6"] {
+    width: 120px;
+    margin: 0 auto;
+    display: block;
+  }
+</style>
+
+
+<style>
+  body {
+    background: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .two-factor-auth-container {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .auth-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .auth-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+  }
+
+  .auth-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .auth-icon i {
+    font-size: 32px;
+  }
+
+  .auth-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .auth-description {
+    font-size: 16px;
+    margin: 0;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+
+  .auth-content {
+    padding: 30px;
+  }
+
+  .auth-tabs {
+    display: flex;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 24px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .tab-btn.active {
+    background: white;
+    color: #667eea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.2s;
+    box-sizing: border-box;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+
+  .otp-input {
+    text-align: center;
+    letter-spacing: 8px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .backup-input {
+    text-align: center;
+    letter-spacing: 2px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .form-help {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .form-actions {
+    margin-top: 24px;
+  }
+
+  .login-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  }
+
+  .auth-links {
+    margin-top: 24px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+  }
+
+  .back-link {
+    color: #6c757d;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: #667eea;
+    text-decoration: none;
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 576px) {
+    body {
+      padding: 15px;
+    }
+
+    .auth-header {
+      padding: 30px 20px;
+    }
+
+    .auth-content {
+      padding: 24px 20px;
+    }
+
+    .auth-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .auth-icon i {
+      font-size: 24px;
+    }
+
+    .auth-title {
+      font-size: 20px;
+    }
+
+    .tab-btn {
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const otpInput = document.querySelector('[name="user[otp_code]"]');
+    const backupInput = document.querySelector('[name="user[backup_code]"]');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const tabName = this.dataset.tab;
+
+        // タブボタンの状態を更新
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+
+        // タブコンテンツの表示を更新
+        tabContents.forEach(content => content.classList.remove('active'));
+        document.getElementById(tabName + '-tab').classList.add('active');
+
+        // 入力フィールドをクリア
+        if (otpInput) otpInput.value = '';
+        if (backupInput) backupInput.value = '';
+      });
+    });
+
+    // OTP入力時の自動フォーマット
+    if (otpInput) {
+      otpInput.addEventListener('input', function() {
+        this.value = this.value.replace(/\D/g, '').slice(0, 6);
+      });
+    }
+
+    // バックアップコード入力時の自動フォーマット
+    if (backupInput) {
+      backupInput.addEventListener('input', function() {
+        this.value = this.value.replace(/[^A-Fa-f0-9]/g, '').toUpperCase().slice(0, 8);
+      });
+    }
+  });
+</script>
