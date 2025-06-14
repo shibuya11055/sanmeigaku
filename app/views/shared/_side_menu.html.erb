@@ -34,6 +34,12 @@
           <span class="menu-text">宿命図</span>
         <% end %>
       </li>
+      <li class="side-menu-item <%= current_page?(user_path) || current_page?(edit_user_path) ? 'active' : '' %>">
+        <%= link_to user_path, class: "menu-link" do %>
+          <i class="fas fa-user-cog"></i>
+          <span class="menu-text">ユーザー管理</span>
+        <% end %>
+      </li>
     </ul>
   </nav>
 
