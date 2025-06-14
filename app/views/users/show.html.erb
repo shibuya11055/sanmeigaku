@@ -44,7 +44,7 @@
           <div class="stat-label">登録顧客数</div>
         </div>
       </div>
-      
+
       <div class="stat-card">
         <div class="stat-icon">
           <i class="fas fa-chart-line"></i>
@@ -54,7 +54,7 @@
           <div class="stat-label">利用日数</div>
         </div>
       </div>
-      
+
       <% if @user.has_active_subscription? %>
         <div class="stat-card premium">
           <div class="stat-icon">
@@ -140,6 +140,47 @@
           <div class="detail-row">
             <span class="detail-label">アカウント作成日</span>
             <span class="detail-value"><%= l(@user.created_at, format: :long) %></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- セキュリティ設定 -->
+      <div class="detail-card security-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-shield-alt"></i>
+            セキュリティ設定
+          </h3>
+        </div>
+        <div class="card-content">
+          <div class="security-item">
+            <div class="security-info">
+              <div class="security-title">2要素認証</div>
+              <div class="security-description">
+                ログイン時に追加の認証を要求してアカウントを保護
+              </div>
+            </div>
+            <div class="security-status">
+              <% if @user.two_factor_enabled? %>
+                <span class="status-badge enabled">
+                  <i class="fas fa-check-circle"></i>
+                  有効
+                </span>
+                <%= form_with url: disable_two_factor_path, method: :delete, local: true, class: "disable-form" do |form| %>
+                  <%= form.password_field :password, placeholder: "パスワードを入力", class: "password-input", required: true %>
+                  <%= form.submit "無効にする", class: "btn btn-danger btn-sm", data: { confirm: "2要素認証を無効にしますか？" } %>
+                <% end %>
+              <% else %>
+                <span class="status-badge disabled">
+                  <i class="fas fa-times-circle"></i>
+                  無効
+                </span>
+                <%= link_to setup_two_factor_path, class: "btn btn-primary btn-sm" do %>
+                  <i class="fas fa-plus"></i>
+                  設定する
+                <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -420,6 +461,132 @@
     color: #f39c12;
   }
 
+  /* セキュリティ設定のスタイル */
+  .security-card {
+    border: 2px solid #28a745;
+    border-radius: 16px;
+  }
+
+  .security-card .card-header {
+    background: linear-gradient(90deg, #d4edda 0%, #c3e6cb 100%);
+  }
+
+  .security-card .card-title i {
+    color: #28a745;
+  }
+
+  .security-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .security-info {
+    flex: 1;
+  }
+
+  .security-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+  }
+
+  .security-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+  }
+
+  .security-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .status-badge.enabled {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  .status-badge.disabled {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+
+  .disable-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+  }
+
+  .password-input {
+    padding: 6px 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 150px;
+  }
+
+  .password-input:focus {
+    outline: none;
+    border-color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1);
+  }
+
+  .btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .btn-primary.btn-sm {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+  }
+
+  .btn-primary.btn-sm:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+    text-decoration: none;
+    color: white;
+  }
+
+  .btn-danger.btn-sm {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+  }
+
+  .btn-danger.btn-sm:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+  }
+
   /* レスポンシブ対応 */
   @media (max-width: 768px) {
     .user-profile-container {
@@ -460,6 +627,28 @@
 
     .detail-label {
       width: auto;
+    }
+
+    .security-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .security-status {
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .disable-form {
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+    }
+
+    .password-input {
+      flex: 1;
+      margin-right: 8px;
     }
   }
 

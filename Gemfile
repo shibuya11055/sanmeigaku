@@ -24,6 +24,9 @@ gem 'devise'
 gem 'devise-i18n'
 # Stripe決済機能
 gem 'stripe'
+# 2要素認証
+gem 'rotp'
+gem 'rqrcode'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"

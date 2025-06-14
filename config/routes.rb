@@ -15,8 +15,18 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     passwords: 'users/passwords',
     confirmations: 'users/confirmations',
-    unlocks: 'users/unlocks'
+    unlocks: 'users/unlocks',
+    sessions: 'users/sessions'
   }
+
+  # 2要素認証のルーティング
+  get 'two_factor/setup', to: 'two_factor#setup', as: :setup_two_factor
+  post 'two_factor/enable', to: 'two_factor#enable', as: :enable_two_factor
+  delete 'two_factor/disable', to: 'two_factor#disable', as: :disable_two_factor
+
+  # 2要素認証ログイン
+  get 'two_factor_authentication', to: 'two_factor_authentication#show'
+  post 'two_factor_authentication', to: 'two_factor_authentication#verify'
 
   # ルートパスをクライアント一覧に変更
   root to: 'clients#index'
