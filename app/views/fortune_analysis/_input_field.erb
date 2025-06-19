@@ -1,18 +1,24 @@
-<div class="input-field">
-  <%= form_with url: fortune_analysis_calculate_path, method: :post, local: true do %>
-    <div>
-      <p><%= label_tag :date, "日付を選択してください" %></p>
-      <%= date_field_tag :date, date %>
-    </div>
-    <div>
-      <p><%= label_tag :date, "性別を選択してください" %></p>
-      <%= radio_button_tag 'gender', 'male', gender == 'male' %>
-      男性
-      <%= radio_button_tag 'gender', 'female', gender == 'female' %>
-      女性
-    </div>
-    <div class="submit-button">
-      <%= submit_tag "計算" %>
+<div class="input-field-container">
+  <%= form_with url: fortune_analysis_calculate_path, method: :post, local: true, class: "compact-form" do %>
+    <div class="form-row">
+      <div class="form-field">
+        <%= label_tag :date, "日付を選択してください", class: "form-label" %>
+        <%= date_field_tag :date, date, class: "form-input compact-date-input", required: true %>
+      </div>
+
+      <div class="form-field">
+        <%= label_tag :gender, "性別を選択してください", class: "form-label" %>
+        <div class="compact-radio-group">
+          <%= radio_button_tag 'gender', 'male', gender == 'male', class: "radio-input", id: "gender_male" %>
+          <%= label_tag :gender_male, "男性", class: "radio-label" %>
+          <%= radio_button_tag 'gender', 'female', gender == 'female', class: "radio-input", id: "gender_female" %>
+          <%= label_tag :gender_female, "女性", class: "radio-label" %>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <%= submit_tag "計算", class: "btn btn-primary compact-btn" %>
+      </div>
     </div>
   <% end %>
 </div>

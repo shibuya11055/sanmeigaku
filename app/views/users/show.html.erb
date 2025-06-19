@@ -21,60 +21,13 @@
       <div class="profile-meta">
         <span class="join-date">
           <i class="fas fa-calendar-alt"></i>
-          <%= l(@user.created_at, format: :long) %>から利用開始
+          <%= l(@user.created_at, format: :short) %>から利用開始
         </span>
       </div>
     </div>
     <div class="profile-actions">
       <%= link_to edit_user_path, class: "btn btn-primary edit-btn" do %>
         <i class="fas fa-edit"></i> プロフィール編集
-      <% end %>
-    </div>
-  </div>
-
-  <!-- 統計情報カード -->
-  <div class="stats-section">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-users"></i>
-        </div>
-        <div class="stat-content">
-          <div class="stat-number"><%= @user.clients.count %></div>
-          <div class="stat-label">登録顧客数</div>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-chart-line"></i>
-        </div>
-        <div class="stat-content">
-          <div class="stat-number"><%= (@user.created_at.to_date..Date.current).count %></div>
-          <div class="stat-label">利用日数</div>
-        </div>
-      </div>
-
-      <% if @user.has_active_subscription? %>
-        <div class="stat-card premium">
-          <div class="stat-icon">
-            <i class="fas fa-crown"></i>
-          </div>
-          <div class="stat-content">
-            <div class="stat-number">プレミアム</div>
-            <div class="stat-label">プラン</div>
-          </div>
-        </div>
-      <% else %>
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-user"></i>
-          </div>
-          <div class="stat-content">
-            <div class="stat-number">ベーシック</div>
-            <div class="stat-label">プラン</div>
-          </div>
-        </div>
       <% end %>
     </div>
   </div>
@@ -136,10 +89,6 @@
                 まだ登録されていません
               <% end %>
             </span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label">アカウント作成日</span>
-            <span class="detail-value"><%= l(@user.created_at, format: :long) %></span>
           </div>
         </div>
       </div>
