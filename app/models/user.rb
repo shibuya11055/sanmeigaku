@@ -63,7 +63,7 @@ class User < ApplicationRecord
     return nil unless otp_secret.present?
 
     # ROTPライブラリのバグを回避するため、手動でURI生成
-    issuer = "算命学アプリ"
+    issuer = "Unilo"
     account_name = email
 
     "otpauth://totp/#{CGI.escape("#{issuer}:#{account_name}")}?secret=#{otp_secret}&issuer=#{CGI.escape(issuer)}"
