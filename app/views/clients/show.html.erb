@@ -56,22 +56,6 @@
               <% end %>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="detail-section">
-        <h2 class="section-title">職業情報</h2>
-
-        <div class="detail-grid">
-          <div class="detail-item">
-            <div class="detail-label">職業</div>
-            <div class="detail-value"><%= @client.job&.name || '未設定' %></div>
-          </div>
-
-          <div class="detail-item">
-            <div class="detail-label">職種</div>
-            <div class="detail-value"><%= @client.occupation&.name || '未設定' %></div>
-          </div>
 
           <div class="detail-item">
             <div class="detail-label">婚姻状況</div>
@@ -94,6 +78,22 @@
           <div class="detail-item">
             <div class="detail-label">出生地</div>
             <div class="detail-value"><%= @client.birthplace.present? ? @client.birthplace : '未設定' %></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h2 class="section-title">職業情報</h2>
+
+        <div class="detail-grid">
+          <div class="detail-item">
+            <div class="detail-label">職業</div>
+            <div class="detail-value"><%= @client.job&.name || '未設定' %></div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-label">職種</div>
+            <div class="detail-value"><%= @client.occupation&.name || '未設定' %></div>
           </div>
         </div>
       </div>
