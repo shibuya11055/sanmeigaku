@@ -1,4 +1,9 @@
-<h2><%= resource_name.to_s.humanize %>情報の編集</h2>
+<div class="devise-container">
+  <div class="app-branding">
+    <%= image_tag "Unilo_icon_without_text.jpg", alt: "Unilo", class: "app-icon" %>
+    <h1 class="app-title">Unilo</h1>
+  </div>
+  <h2><%= resource_name.to_s.humanize %>情報の編集</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -48,3 +53,4 @@
 </div>
 
 <%= link_to "戻る", :back %>
+</div>

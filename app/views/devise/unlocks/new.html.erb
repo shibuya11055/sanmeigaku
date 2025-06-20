@@ -1,4 +1,8 @@
 <div class="devise-container">
+  <div class="app-branding">
+    <%= image_tag "Unilo_icon_without_text.jpg", alt: "Unilo", class: "app-icon" %>
+    <h1 class="app-title">Unilo</h1>
+  </div>
   <h2>ロック解除方法の再送信</h2>
 
   <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: "devise-form" }) do |f| %>

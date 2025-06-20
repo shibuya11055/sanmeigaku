@@ -2,7 +2,11 @@
 .input-field-container {
   max-width: 800px;
   padding: 1.5rem;
-  margin-top: 1.5rem;
+  margin-to.radio-group:focus-within {
+  border-color: #8B5CF6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+  background-color: white;
+}5rem;
   background-color: white;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -72,9 +76,9 @@
 }
 
 .form-input:focus {
-  border-color: #6c9;
+  border-color: #8B5CF6;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(102, 204, 153, 0.15);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
   background-color: white;
 }
 
@@ -90,8 +94,8 @@
 }
 
 .compact-radio-group:focus-within {
-  border-color: #6c9;
-  box-shadow: 0 0 0 3px rgba(102, 204, 153, 0.15);
+  border-color: #8B5CF6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
   background-color: white;
 }
 
@@ -100,7 +104,7 @@
   height: 16px;
   margin: 0;
   cursor: pointer;
-  accent-color: #6c9;
+  accent-color: #8B5CF6;
 }
 
 .radio-label {
@@ -143,37 +147,37 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #66cc99 0%, #5ab88a 100%);
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
   color: white;
-  box-shadow: 0 2px 10px rgba(102, 204, 153, 0.3);
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #5ab88a 0%, #4d9e7a 100%);
-  box-shadow: 0 4px 15px rgba(102, 204, 153, 0.4);
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
   transform: translateY(-1px);
 }
 
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(102, 204, 153, 0.3);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
 }
 
 .compact-btn.btn-primary {
-  background: linear-gradient(135deg, #66cc99 0%, #5ab88a 100%);
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
   color: white;
-  box-shadow: 0 2px 8px rgba(102, 204, 153, 0.3);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
 }
 
 .compact-btn.btn-primary:hover {
-  background: linear-gradient(135deg, #5ab88a 0%, #4d9e7a 100%);
-  box-shadow: 0 3px 12px rgba(102, 204, 153, 0.4);
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  box-shadow: 0 3px 12px rgba(139, 92, 246, 0.4);
   transform: translateY(-1px);
 }
 
 .compact-btn.btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(102, 204, 153, 0.3);
+  box-shadow: 0 2px 6px rgba(139, 92, 246, 0.3);
 }
 
 /* レスポンシブ対応 */

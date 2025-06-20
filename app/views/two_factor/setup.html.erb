@@ -2,6 +2,10 @@
 
 <div class="two-factor-setup-container">
   <div class="setup-header">
+    <div class="app-branding">
+      <%= image_tag "Unilo_icon_without_text.jpg", alt: "Unilo", class: "app-icon" %>
+      <h1 class="app-title">Unilo</h1>
+    </div>
     <h1 class="setup-title">
       <i class="fas fa-shield-alt"></i>
       2要素認証を設定
@@ -91,10 +95,57 @@
     margin-bottom: 40px;
   }
 
+  .app-branding {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .app-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.25);
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .app-icon:hover {
+    transform: scale(1.05);
+  }
+
+  .app-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: #6B46C1;
+    margin: 0;
+    letter-spacing: -0.3px;
+    position: relative;
+    background: linear-gradient(135deg, #6B46C1 0%, #8B5CF6 50%, #A78BFA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .app-title::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #8B5CF6, transparent);
+    border-radius: 1px;
+  }
+
   .setup-title {
     font-size: 28px;
     font-weight: 700;
-    color: #333;
+    color: #6B46C1;
     margin-bottom: 12px;
     display: flex;
     align-items: center;
@@ -252,8 +303,8 @@
 
   .otp-input:focus {
     outline: none;
-    border-color: #28a745;
-    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+    border-color: #8B5CF6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
   }
 
   .form-help {
@@ -283,13 +334,13 @@
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
     color: white;
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
   }
 
   .btn-secondary {
