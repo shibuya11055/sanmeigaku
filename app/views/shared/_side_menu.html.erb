@@ -40,6 +40,29 @@
           <span class="menu-text">ユーザー管理</span>
         <% end %>
       </li>
+      <li class="side-menu-item <%= current_page?(subscriptions_path) ? 'active' : '' %>">
+        <%= link_to subscriptions_path, class: "menu-link" do %>
+          <i class="fas fa-credit-card"></i>
+          <span class="menu-text">サブスクリプション</span>
+        <% end %>
+      </li>
+    </ul>
+
+    <div class="side-menu-divider"></div>
+
+    <ul class="side-menu-items side-menu-secondary">
+      <li class="side-menu-item">
+        <%= link_to terms_of_service_path, target: "_blank", class: "menu-link" do %>
+          <i class="fas fa-file-contract"></i>
+          <span class="menu-text">利用規約</span>
+        <% end %>
+      </li>
+      <li class="side-menu-item">
+        <%= link_to privacy_policy_path, target: "_blank", class: "menu-link" do %>
+          <i class="fas fa-shield-alt"></i>
+          <span class="menu-text">プライバシーポリシー</span>
+        <% end %>
+      </li>
     </ul>
   </nav>
 

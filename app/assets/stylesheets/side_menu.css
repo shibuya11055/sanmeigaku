@@ -252,6 +252,37 @@ body, html {
   margin: 0;
 }
 
+/* セカンダリメニューのスタイル */
+.side-menu-secondary {
+  margin-top: 10px;
+}
+
+.side-menu-secondary .side-menu-item a {
+  font-size: 13px;
+  color: #d1d5db;
+  padding: 10px 20px;
+}
+
+.side-menu-secondary .side-menu-item:hover a {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #f5f5f5;
+}
+
+.side-menu-secondary .side-menu-item i {
+  font-size: 14px;
+}
+
+/* 区切り線 */
+.side-menu-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 15px 20px;
+}
+
+.side-menu.collapsed .side-menu-divider {
+  margin: 15px 10px;
+}
+
 .side-menu-item {
   margin: 5px 0;
   border-radius: 6px;
@@ -359,4 +390,64 @@ body, html {
     filter: blur(2px);
     pointer-events: none;
   }
+}
+
+/* フッタースタイル */
+.app-footer {
+  margin-top: auto;
+  padding: 20px;
+  border-top: 1px solid #e9ecef;
+  background-color: #f8f9fa;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-links {
+  margin-bottom: 8px;
+}
+
+.footer-link {
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #8B5CF6;
+  text-decoration: none;
+}
+
+.footer-separator {
+  margin: 0 12px;
+  color: #6c757d;
+}
+
+.footer-copyright {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* ログアウト時のフッタースタイル */
+.signed-out-footer {
+  margin-top: 40px;
+  margin-left: 0;
+}
+
+/* コンテンツエリアを最小高さ100%にしてフッターを下に固定 */
+.content-area {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 40px);
+}
+
+.signed-out body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }

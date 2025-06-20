@@ -30,6 +30,14 @@
     </div>
   <% end %>
 
+  <div class="terms-agreement">
+    <p class="terms-text">
+      <%= link_to "利用規約", terms_of_service_path, target: "_blank", class: "terms-link" %>
+      ・
+      <%= link_to "プライバシーポリシー", privacy_policy_path, target: "_blank", class: "terms-link" %>
+    </p>
+  </div>
+
   <div class="devise-links">
     <%= render "devise/shared/links" %>
   </div>

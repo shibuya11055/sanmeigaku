@@ -46,6 +46,10 @@ Rails.application.routes.draw do
   # メール送信完了画面
   get 'users/mail_sent', to: 'users/pages#mail_sent', as: :user_mail_sent
 
+  # 利用規約・プライバシーポリシー
+  get 'terms_of_service', to: 'pages#terms_of_service', as: :terms_of_service
+  get 'privacy_policy', to: 'pages#privacy_policy', as: :privacy_policy
+
   # 開発環境でのメール確認用
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

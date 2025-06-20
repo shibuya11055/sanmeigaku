@@ -36,6 +36,16 @@
     </div>
   <% end %>
 
+  <div class="terms-agreement">
+    <p class="terms-text">
+      ユーザー登録することで、
+      <%= link_to "利用規約", terms_of_service_path, target: "_blank", class: "terms-link" %>
+      および
+      <%= link_to "プライバシーポリシー", privacy_policy_path, target: "_blank", class: "terms-link" %>
+      に同意したものとみなします。
+    </p>
+  </div>
+
   <div class="devise-links">
     <%= render "devise/shared/links" %>
   </div>
