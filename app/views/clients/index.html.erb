@@ -9,10 +9,14 @@
   </header>
 
   <div class="search-section">
-    <div class="search-box">
-      <input type="text" id="clientSearchInput" placeholder="名前で検索..." class="search-input">
-      <i class="fas fa-search search-icon"></i>
-    </div>
+    <%= form_with url: clients_path, method: :get, local: true, class: "search-form" do |form| %>
+      <div class="search-box">
+        <%= form.text_field :search, value: params[:search], placeholder: "名前で検索...", class: "search-input" %>
+        <button type="submit" class="search-btn">
+          <i class="fas fa-search search-icon"></i>
+        </button>
+      </div>
+    <% end %>
   </div>
 
   <% if @clients.present? %>
@@ -28,7 +32,7 @@
         </thead>
         <tbody id="clientTableBody">
           <% @clients.each do |client| %>
-            <tr data-name="<%= client.fullname.downcase %>">
+            <tr>
               <td class="client-name">
                 <%= link_to client.fullname, client_path(client) %>
               </td>
@@ -103,20 +107,32 @@
   .search-box {
     position: relative;
     max-width: 400px;
+    display: flex;
   }
   .search-input {
-    width: 100%;
-    padding: 10px 16px 10px 40px;
+    flex: 1;
+    padding: 8px 16px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 4px 0 0 4px;
     font-size: 16px;
+    border-right: none;
+  }
+  .search-btn {
+    background-color: #1a73e8;
+    color: white;
+    border: 1px solid #1a73e8;
+    border-radius: 0 4px 4px 0;
+    padding: 8px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .search-btn:hover {
+    background-color: #1765cc;
   }
   .search-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #666;
+    font-size: 16px;
   }
   .client-list {
     overflow-x: auto;
@@ -178,7 +194,7 @@
     margin-bottom: 20px;
   }
   .empty-state h2 {
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
     color: #333;
   }
   .empty-state p {
@@ -186,25 +202,3 @@
     color: #666;
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('clientSearchInput');
-    const tableRows = document.querySelectorAll('#clientTableBody tr');
-
-    if (searchInput) {
-      searchInput.addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
-
-        tableRows.forEach(row => {
-          const clientName = row.getAttribute('data-name');
-          if (clientName.includes(searchTerm)) {
-            row.style.display = '';
-          } else {
-            row.style.display = 'none';
-          }
-        });
-      });
-    }
-  });
-</script>

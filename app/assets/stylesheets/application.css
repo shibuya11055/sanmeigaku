@@ -6,7 +6,7 @@ html {
 /* フラッシュメッセージのスタイル */
 .flash {
   padding: 12px 20px;
-  margin: 10px auto;
+  margin: 8px auto;
   border-radius: 4px;
   width: 80%;
   max-width: 600px;
@@ -32,7 +32,7 @@ html {
 .flash-close {
   position: absolute;
   top: 50%;
-  right: 10px;
+  right: 8px;
   transform: translateY(-50%);
   background: none;
   border: none;
@@ -50,7 +50,7 @@ html {
 }
 
 @keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(-10px); }
+  0% { opacity: 0; transform: translateY(-8px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
@@ -62,7 +62,7 @@ html {
 .shape-wrapper {
   position: relative;
   display: inline-block;
-  padding: 10px;
+  padding: 8px;
 
   .content {
     position: relative;
@@ -121,7 +121,7 @@ p {
   visibility: hidden; /* はじめは隠しておく */
   position: absolute; /* 絶対配置 */
   left: 100%; /* 親要素の右側に配置 */
-  transform: translate(10px, 50%); /* 余白を追加して右側にずらし、垂直方向を調整 */
+  transform: translate(8px, 50%); /* 余白を追加して右側にずらし、垂直方向を調整 */
   bottom: 50%; /* 親要素の中央に配置 */
   display: inline-block;
   padding: 8px; /* 余白 */
@@ -131,7 +131,7 @@ p {
   color: #fff; /* 文字色 */
   border-radius: 3px; /* 角丸 */
   transition: 0.1s ease-in; /* アニメーション */
-  margin-left: 4px; /* ツールチップを右側に 10px 離す */
+  margin-left: 4px; /* ツールチップを右側に 8px 離す */
   white-space: nowrap;
   text-align: left;
   z-index: 99;
@@ -142,7 +142,7 @@ p {
   content: "";
   position: absolute;
   top: 50%;
-  left: -10px; /* 位置を調整 */
+  left: -8px; /* 位置を調整 */
   transform: translateY(-50%);
   border-width: 5px;
   border-style: solid;
