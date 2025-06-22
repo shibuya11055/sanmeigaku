@@ -26,7 +26,8 @@
     <% else %>
       <div class="subscription-join-card">
         <h2 class="join-title">サブスクリプションに加入</h2>
-        <p class="join-desc">月額100円のベーシックプランで、すべての機能をご利用いただけます。</p>
+        <% basic_plan = Plan.basic_plan %>
+        <p class="join-desc"><%= basic_plan.description %></p>
         <% if current_user.has_any_unjoinable_subscription? %>
           <button class="btn-join" disabled style="opacity:0.5;cursor:not-allowed;">加入済み</button>
         <% else %>

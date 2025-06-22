@@ -12,6 +12,7 @@
 #  status                 :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  plan_id                :integer
 #  stripe_customer_id     :string
 #  stripe_subscription_id :string
 #  user_id                :bigint           not null
@@ -28,9 +29,10 @@ one:
   user: one
   stripe_customer_id: MyString
   stripe_subscription_id: MyString
-  status: MyString
-  plan_name: MyString
-  amount: 1
+  status: active
+  plan_id: 1
+  plan_name: 有料プラン
+  amount: 100
   start_date: 2025-06-09 23:09:13
   end_date: 2025-06-09 23:09:13
 
@@ -38,8 +40,9 @@ two:
   user: two
   stripe_customer_id: MyString
   stripe_subscription_id: MyString
-  status: MyString
-  plan_name: MyString
-  amount: 1
+  status: canceled
+  plan_id: 1
+  plan_name: 有料プラン
+  amount: 100
   start_date: 2025-06-09 23:09:13
   end_date: 2025-06-09 23:09:13

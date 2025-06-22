@@ -10,6 +10,7 @@
 #  status                 :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  plan_id                :integer
 #  stripe_customer_id     :string
 #  stripe_subscription_id :string
 #  user_id                :bigint           not null
@@ -35,15 +36,34 @@ class Subscription < ApplicationRecord
     unpaid: 6
   }
 
+  validates :plan_id, presence: true, on: :create
   validates :stripe_customer_id, presence: true
   validates :stripe_subscription_id, presence: true
   validates :amount, presence: true, numericality: { greater_than: 0 }
   validate :no_duplicate_subscription, on: :create
+  validate :valid_plan_id
 
   scope :active_subscriptions, -> { where(status: statuses[:active]) }
 
+  # ActiveHashのPlanモデルとの関連付け
+  def plan
+    Plan.find(plan_id) if plan_id
+  end
+
+  def plan=(plan)
+    self.plan_id = plan&.id
+    self.plan_name = plan&.name
+    self.amount = plan&.price
+  end
+
   def monthly_amount_in_yen
-    amount
+    # planが設定されている場合はplanの価格を使用、そうでなければamountを使用（後方互換性）
+    plan&.price_in_yen || amount
+  end
+
+  # plan_nameのgetter（後方互換性のため）
+  def plan_name
+    plan&.name || super
   end
 
   def cancel!
@@ -116,6 +136,13 @@ class Subscription < ApplicationRecord
       Time.current
     ).exists?
       errors.add(:base, 'すでに有効・未完了、または解約予定のサブスクリプションが存在します')
+    end
+  end
+
+  def valid_plan_id
+    # plan_idが存在する場合、そのplan_idに対応するPlanレコードが存在するか検証
+    if plan_id.present? && Plan.find_by(id: plan_id).nil?
+      errors.add(:plan_id, '選択されたプランは無効です')
     end
   end
 end

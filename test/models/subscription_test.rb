@@ -10,6 +10,7 @@
 #  status                 :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  plan_id                :integer
 #  stripe_customer_id     :string
 #  stripe_subscription_id :string
 #  user_id                :bigint           not null

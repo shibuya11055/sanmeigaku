@@ -6,11 +6,12 @@
 <div class="subscription-new-container">
   <div class="subscription-card">
     <h1 class="subscription-title">サブスクリプション新規登録</h1>
+    <% basic_plan = Plan.basic_plan %>
     <div class="subscription-plan-info">
       <div class="plan-label">プラン名</div>
-      <div class="plan-value">ベーシックプラン</div>
+      <div class="plan-value"><%= basic_plan.name %></div>
       <div class="plan-label">月額料金</div>
-      <div class="plan-value">100円（税込）</div>
+      <div class="plan-value"><%= basic_plan.formatted_price %>（税込）</div>
     </div>
     <div class="subscription-divider"></div>
     <form id="subscription-form" action="<%= subscriptions_path %>" method="post">

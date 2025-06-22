@@ -29,9 +29,9 @@ class SubscriptionsController < ApplicationController
       stripe_subscription = create_stripe_subscription(customer)
 
       # データベースにサブスクリプションを保存
+      basic_plan = Plan.basic_plan
       @subscription = current_user.subscriptions.build(
-        plan_name: "ベーシックプラン",
-        amount: 100,
+        plan: basic_plan,
         stripe_customer_id: customer.id,
         stripe_subscription_id: stripe_subscription.id,
         status: stripe_subscription.status,
@@ -91,24 +91,27 @@ class SubscriptionsController < ApplicationController
   end
 
   def create_stripe_subscription(customer)
-    # 既存の100円・月額・JPYプランを検索
+    # Planモデルからベーシックプランの情報を取得
+    basic_plan = Plan.basic_plan
+
+    # 既存のプランを検索
     price = Stripe::Price.list(
       lookup_keys: nil,
       limit: 100
     ).data.find do |p|
-      p.unit_amount == 100 &&
-      p.currency == 'jpy' &&
+      p.unit_amount == basic_plan.price &&
+      p.currency == basic_plan.currency &&
       p.recurring &&
-      p.recurring.interval == 'month' &&
-      p.product && Stripe::Product.retrieve(p.product).name == 'ベーシックプラン'
+      p.recurring.interval == basic_plan.interval &&
+      p.product && Stripe::Product.retrieve(p.product).name == basic_plan.stripe_product_name
     end
 
     unless price
       price = Stripe::Price.create(
-        unit_amount: 100, # 100円
-        currency: 'jpy',
-        recurring: { interval: 'month' },
-        product_data: { name: 'ベーシックプラン' }
+        unit_amount: basic_plan.price,
+        currency: basic_plan.currency,
+        recurring: { interval: basic_plan.interval },
+        product_data: { name: basic_plan.stripe_product_name }
       )
     end
 
