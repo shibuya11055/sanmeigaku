@@ -64,6 +64,28 @@
             %>
           </div>
         </div>
+
+        <div class="form-row">
+          <div class="form-group form-group-half">
+            <%= form.label :marital_status, "婚姻状況", class: "form-label" %>
+            <%= form.select :marital_status,
+                options_for_select([
+                  ["未婚", "single"],
+                  ["既婚", "married"],
+                  ["離婚", "divorced"],
+                  ["死別", "widowed"]
+                ], @client.marital_status),
+                { include_blank: "選択してください" },
+                { class: "form-select" }
+            %>
+          </div>
+
+          <div class="form-group form-group-half">
+            <%= form.label :birthplace, "出生地", class: "form-label" %>
+            <%= form.text_field :birthplace, class: "form-control", placeholder: "例：東京都" %>
+            <small class="form-text text-muted">都道府県名など</small>
+          </div>
+        </div>
       </div>
 
       <div class="form-section">
@@ -90,28 +112,6 @@
                 { include_blank: "選択してください" },
                 { class: "form-select" }
             %>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group form-group-half">
-            <%= form.label :marital_status, "婚姻状況", class: "form-label" %>
-            <%= form.select :marital_status,
-                options_for_select([
-                  ["未婚", "single"],
-                  ["既婚", "married"],
-                  ["離婚", "divorced"],
-                  ["死別", "widowed"]
-                ], @client.marital_status),
-                { include_blank: "選択してください" },
-                { class: "form-select" }
-            %>
-          </div>
-
-          <div class="form-group form-group-half">
-            <%= form.label :birthplace, "出生地", class: "form-label" %>
-            <%= form.text_field :birthplace, class: "form-control", placeholder: "例：東京都" %>
-            <small class="form-text text-muted">都道府県名など</small>
           </div>
         </div>
       </div>
