@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: ten_major_stars
+#
+#  id          :integer          not null, primary key
+#  description :text
+#  name        :string           not null
+#  yin_yang    :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  element_id  :bigint           not null
+#
+# Indexes
+#
+#  index_ten_major_stars_on_element_id  (element_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (element_id => elements.id)
+#
 class TenMajorStar < ApplicationRecord
   # 主観か客観かの性質で分かれている
   SELF_IDS = [2, 4, 6, 8, 10]

@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: stem_ten_star_mappings(日干気、他気、十大主星の関係)
+#
+#  id                          :integer          not null, primary key
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  main_stem_id(日干気)        :bigint           not null
+#  sub_stem_id(他気)           :bigint           not null
+#  ten_major_star_id(十大主星) :bigint           not null
+#
+# Indexes
+#
+#  index_stem_ten_star_mappings_on_main_stem_id       (main_stem_id)
+#  index_stem_ten_star_mappings_on_sub_stem_id        (sub_stem_id)
+#  index_stem_ten_star_mappings_on_ten_major_star_id  (ten_major_star_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (main_stem_id => stems.id)
+#  fk_rails_...  (sub_stem_id => stems.id)
+#  fk_rails_...  (ten_major_star_id => ten_major_stars.id)
+#
 class StemTenStarMapping < ApplicationRecord
   belongs_to :main_stem, class_name: 'Stem', foreign_key: 'main_stem_id'
   belongs_to :sub_stem, class_name: 'Stem', foreign_key: 'sub_stem_id'

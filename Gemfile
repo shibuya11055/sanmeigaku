@@ -69,6 +69,9 @@ group :development do
 
   # メール送信をブラウザで確認するためのgem
   gem 'letter_opener_web'
+
+  # Annotate models with schema information
+  gem 'annotaterb'
 end
 
 group :test do

@@ -1,3 +1,35 @@
+# == Schema Information
+#
+# Table name: branches
+#
+#  id                     :integer          not null, primary key
+#  description            :text
+#  first_stem_period_day  :integer
+#  name                   :string           not null
+#  second_stem_period_day :integer
+#  third_stem_period_day  :integer
+#  yin_yang               :integer          not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  element_id             :bigint           not null
+#  first_stem_id          :bigint
+#  second_stem_id         :bigint
+#  third_stem_id          :bigint
+#
+# Indexes
+#
+#  index_branches_on_element_id      (element_id)
+#  index_branches_on_first_stem_id   (first_stem_id)
+#  index_branches_on_second_stem_id  (second_stem_id)
+#  index_branches_on_third_stem_id   (third_stem_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (element_id => elements.id)
+#  fk_rails_...  (first_stem_id => stems.id)
+#  fk_rails_...  (second_stem_id => stems.id)
+#  fk_rails_...  (third_stem_id => stems.id)
+#
 class Branch < ApplicationRecord
   include PhaseRelationship
 

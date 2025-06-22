@@ -4,6 +4,17 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+# == Schema Information
+#
+# Table name: twelve_sub_stars
+#
+#  id                   :integer          not null, primary key
+#  description          :text
+#  energy(エネルギー値) :integer          not null
+#  name                 :string           not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
 one: {}
 # column: value
 #

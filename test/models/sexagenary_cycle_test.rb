@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: sexagenary_cycles
+#
+#  id                                                                                                      :integer          not null, primary key
+#  heavenly_void(0: 戌亥天中殺, 1: 申酉天中殺, 2: 午未天中殺, 3: 辰已天中殺, 4: 寅卯天中殺, 5: 子丑天中殺) :integer          not null
+#  name                                                                                                    :string           not null
+#  created_at                                                                                              :datetime         not null
+#  updated_at                                                                                              :datetime         not null
+#  branch_id                                                                                               :bigint           not null
+#  stem_id                                                                                                 :bigint           not null
+#
+# Indexes
+#
+#  index_sexagenary_cycles_on_branch_id  (branch_id)
+#  index_sexagenary_cycles_on_stem_id    (stem_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (branch_id => branches.id)
+#  fk_rails_...  (stem_id => stems.id)
+#
 require "test_helper"
 
 class SexagenaryCycleTest < ActiveSupport::TestCase

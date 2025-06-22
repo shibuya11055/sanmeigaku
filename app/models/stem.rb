@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: stems
+#
+#  id          :integer          not null, primary key
+#  description :text
+#  name        :string           not null
+#  yin_yang    :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  element_id  :bigint           not null
+#
+# Indexes
+#
+#  index_stems_on_element_id  (element_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (element_id => elements.id)
+#
 class Stem < ApplicationRecord
   include StemConst
 
