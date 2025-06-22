@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # クライアントのリソースルーティングを追加
   resources :clients
 
-  # ユーザー管理のルーティング（単数リソース）
+  # アカウント管理のルーティング（単数リソース）
   resource :user, only: [:show, :edit, :update]
 
   devise_for :users, controllers: {

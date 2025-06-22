@@ -1,32 +1,11 @@
-<% content_for :title, "ユーザー情報 | Unilo" %>
+<% content_for :title, "アカウント管理 | Unilo" %>
 
 <div class="user-profile-container">
-  <!-- プロフィールヘッダー -->
-  <div class="profile-header">
-    <div class="profile-avatar">
-      <div class="avatar-circle">
-        <i class="fas fa-user"></i>
-      </div>
-    </div>
-    <div class="profile-info">
-      <h1 class="profile-name"><%= @user.fullname %></h1>
-      <p class="profile-email">
-        <%= @user.email %>
-        <% if @user.unconfirmed_email %>
-          <span class="confirmation-badge">
-            <i class="fas fa-clock"></i> 確認待ち
-          </span>
-        <% end %>
-      </p>
-      <div class="profile-meta">
-        <span class="join-date">
-          <i class="fas fa-calendar-alt"></i>
-          <%= l(@user.created_at, format: :short) %>から利用開始
-        </span>
-      </div>
-    </div>
-    <div class="profile-actions">
-      <%= link_to edit_user_path, class: "btn btn-primary edit-btn" do %>
+  <!-- ページヘッダー -->
+  <div class="page-header">
+    <h1 class="page-title">アカウント管理</h1>
+    <div class="header-actions">
+      <%= link_to edit_user_path, class: "btn btn-primary" do %>
         <i class="fas fa-edit"></i> プロフィール編集
       <% end %>
     </div>
@@ -144,106 +123,46 @@
     padding: 20px;
   }
 
-  /* プロフィールヘッダー */
-  .profile-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 20px;
-    padding: 40px;
-    color: white;
+  /* ページヘッダー */
+  .page-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
   }
 
-  .profile-avatar {
-    flex-shrink: 0;
+  .page-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
   }
 
-  .avatar-circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(8px);
-  }
-
-  .avatar-circle i {
-    font-size: 40px;
-    color: white;
-  }
-
-  .profile-info {
-    flex: 1;
-  }
-
-  .profile-name {
-    font-size: 32px;
-    font-weight: 700;
-    margin: 0 0 8px 0;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .profile-email {
-    font-size: 18px;
-    margin: 0 0 12px 0;
-    opacity: 0.9;
-    display: flex;
+  .header-actions .btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    transition: all 0.2s;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
   }
 
-  .confirmation-badge {
-    background: rgba(255, 193, 7, 0.9);
-    color: #856404;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .profile-meta {
-    font-size: 14px;
-    opacity: 0.8;
-  }
-
-  .join-date i {
-    margin-right: 6px;
-  }
-
-  .profile-actions {
-    flex-shrink: 0;
-  }
-
-  .edit-btn {
-    background: rgba(255, 255, 255, 0.2);
+  .header-actions .btn-primary {
+    background-color: #5A67D8;
     color: white;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    padding: 12px 24px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(8px);
   }
 
-  .edit-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
-    color: white;
+  .header-actions .btn-primary:hover {
+    background-color: #4C51BF;
     text-decoration: none;
-    transform: translateY(-2px);
+    color: white;
   }
 
   /* 統計情報セクション */
@@ -542,17 +461,18 @@
       padding: 15px;
     }
 
-    .profile-header {
+    .page-header {
       flex-direction: column;
-      text-align: center;
-      padding: 30px 20px;
+      align-items: flex-start;
+      gap: 15px;
     }
 
-    .profile-name {
+    .page-title {
       font-size: 24px;
     }
 
-    .profile-email {
+    .header-actions .btn {
+      width: 100%;
       justify-content: center;
     }
 
@@ -602,23 +522,6 @@
   }
 
   @media (max-width: 480px) {
-    .avatar-circle {
-      width: 80px;
-      height: 80px;
-    }
-
-    .avatar-circle i {
-      font-size: 32px;
-    }
-
-    .profile-name {
-      font-size: 20px;
-    }
-
-    .profile-email {
-      font-size: 16px;
-    }
-
     .stat-card {
       padding: 20px;
     }
