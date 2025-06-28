@@ -3,10 +3,10 @@ class Plan < ActiveHash::Base
     {
       id: 1,
       name: "有料プラン",
-      price: 100,
+      price: 5000,
       currency: "jpy",
       interval: "month",
-      description: "月額100円の有料プランで、すべての機能をご利用いただけます。",
+      description: "月額5000円の有料プランで、すべての機能をご利用いただけます。",
       stripe_product_name: "有料プラン"
     }
   ]

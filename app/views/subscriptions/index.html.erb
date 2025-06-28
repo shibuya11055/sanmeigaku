@@ -2,7 +2,7 @@
 
 <div class="subscription-index-container">
   <div class="subscription-main-card">
-    <h1 class="subscription-title">サブスクリプション管理</h1>
+    <h1 hidden class="subscription-title">サブスクリプション管理</h1>
 
     <% if @active_subscription %>
       <div class="subscription-active-card">
@@ -88,7 +88,7 @@
 
 <style>
 .subscription-index-container {
-  background: #f7f9fb;
+  background: #f8f9fa;
   min-height: 80vh;
   padding: 40px 0;
 }
@@ -96,23 +96,24 @@
   max-width: 800px;
   margin: 0 auto;
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
   padding: 40px 32px 32px 32px;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.08);
 }
 .subscription-title {
   font-size: 2rem;
-  font-weight: 700;
-  color: #222;
+  font-weight: 600;
+  color: #6B46C1;
   margin-bottom: 32px;
   text-align: center;
 }
 .subscription-active-card {
-  background: linear-gradient(90deg, #e0f2fe 0%, #f0fdf4 100%);
-  border-radius: 12px;
+  background: #f8f9fa;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 8px;
   padding: 24px 28px;
   margin-bottom: 32px;
-  box-shadow: 0 2px 8px rgba(16,185,129,0.08);
 }
 .active-card-header {
   display: flex;
@@ -122,90 +123,96 @@
 .active-plan-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #059669;
+  color: #8B5CF6;
   margin-bottom: 6px;
 }
 .active-plan-detail {
-  color: #047857;
+  color: #6c757d;
   font-size: 1.08rem;
   margin-bottom: 2px;
 }
 .active-plan-name {
-  font-weight: 700;
+  font-weight: 600;
+  color: #495057;
 }
 .active-plan-date {
   font-size: 0.98rem;
-  color: #10b981;
+  color: #6c757d;
 }
 .active-card-actions {
   display: flex;
   gap: 8px;
 }
 .btn-detail {
-  background: #2563eb;
+  background: #8B5CF6;
   color: #fff;
   padding: 8px 20px;
   border-radius: 6px;
-  font-weight: 600;
+  font-weight: 500;
   border: none;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
 .btn-detail:hover {
-  background: #1e40af;
+  background: #7C3AED;
+  transform: translateY(-1px);
 }
 .btn-cancel {
-  background: #ef4444;
+  background: #dc3545;
   color: #fff;
   padding: 8px 20px;
   border-radius: 6px;
-  font-weight: 600;
+  font-weight: 500;
   border: none;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
 .btn-cancel:hover {
-  background: #b91c1c;
+  background: #c82333;
+  transform: translateY(-1px);
 }
 .subscription-join-card {
-  background: linear-gradient(90deg, #dbeafe 0%, #f0fdf4 100%);
-  border-radius: 12px;
+  background: #f8f9fa;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 8px;
   padding: 24px 28px;
   margin-bottom: 32px;
-  box-shadow: 0 2px 8px rgba(59,130,246,0.08);
   text-align: center;
 }
 .join-title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #2563eb;
+  color: #8B5CF6;
   margin-bottom: 8px;
 }
 .join-desc {
-  color: #2563eb;
+  color: #6c757d;
   margin-bottom: 18px;
 }
 .btn-join {
-  background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.08rem;
   border: none;
   border-radius: 6px;
   padding: 12px 32px;
   cursor: pointer;
   text-decoration: none;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
 }
 .btn-join:hover {
-  background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 .subscription-history-card {
-  background: #f9fafb;
-  border-radius: 12px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
   padding: 24px 20px 12px 20px;
   margin-top: 24px;
-  box-shadow: 0 2px 8px rgba(59,130,246,0.04);
 }
 .history-header {
   margin-bottom: 12px;
@@ -213,10 +220,10 @@
 .history-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #222;
+  color: #6B46C1;
 }
 .history-desc {
-  color: #888;
+  color: #6c757d;
   font-size: 0.98rem;
 }
 .subscription-table {
@@ -230,47 +237,50 @@
   text-align: left;
 }
 .subscription-table th {
-  background: #e0e7ef;
-  font-weight: 700;
-  color: #222;
-  border-bottom: 2px solid #cbd5e1;
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #6B46C1;
+  border-bottom: 1px solid #dee2e6;
 }
 .subscription-table tr {
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e9ecef;
 }
 .row-active {
-  background: #f0fdf4;
+  background: #fff;
 }
 .row-inactive {
-  background: #f9fafb;
+  background: #f8f9fa;
 }
 .status-badge {
   display: inline-block;
   padding: 4px 12px;
-  border-radius: 999px;
+  border-radius: 6px;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 .status-active {
-  background: #bbf7d0;
-  color: #047857;
+  background: rgba(139, 92, 246, 0.1);
+  color: #8B5CF6;
+  border: 1px solid rgba(139, 92, 246, 0.2);
 }
 .status-inactive {
-  background: #e5e7eb;
-  color: #6b7280;
+  background: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #e9ecef;
 }
 .btn-table-detail {
-  background: #2563eb;
+  background: #8B5CF6;
   color: #fff;
   padding: 6px 16px;
   border-radius: 6px;
-  font-weight: 600;
+  font-weight: 500;
   border: none;
   text-decoration: none;
-  transition: background 0.2s;
   font-size: 0.98rem;
+  transition: all 0.2s ease;
 }
 .btn-table-detail:hover {
-  background: #1e40af;
+  background: #7C3AED;
+  transform: translateY(-1px);
 }
 </style>
