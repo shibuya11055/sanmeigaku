@@ -1,0 +1,1133 @@
+<% content_for :title, "Unilo | 算命学LP" %>
+
+<div class="lp-container">
+  <section class="lp-hero">
+    <div class="lp-logo-row">
+      <div class="lp-symbol-in-hero lp-symbol-in-row">
+        <img src="<%= asset_path('Unilo_icon_without_text.jpg') %>" alt="Uniloロゴ" class="lp-symbol-img lp-symbol-img-row">
+      </div>
+      <div class="lp-logo-title-row">
+        <span class="lp-logo-main-row">Unilo</span>
+        <span class="lp-logo-furi-row">（ユニロ）</span>
+      </div>
+    </div>
+    <h1 class="lp-title">忙しい占い師の“右腕”になる、<br><span class="lp-highlight">鑑定と顧客管理のオールインワンツール</span></h1>
+    <p class="lp-lead">命式計算から顧客管理まで、あなたの仕事をまるごとサポート</p>
+    <div class="lp-notice lp-notice-strong">
+      <div class="lp-notice-icon">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <div class="lp-notice-content">
+        <span class="lp-notice-title">命式算出はAI不使用・伝統理論100%</span><br>
+        <span class="lp-notice-message">
+          <b>Uniloは命式の算出にAIを一切使いません。</b><br>
+          現状AIは正確な命式を出すことができず、信頼できるツールではありません。<br>
+          <span class="lp-notice-point">Uniloは伝統的な算命学理論に基づいた命式を算出します。</span>
+        </span>
+      </div>
+    </div>
+    <a href="<%= new_user_registration_path %>" class="lp-btn-primary">今すぐ無料で始める</a>
+  </section>
+
+  <section class="lp-features">
+    <h2>Uniloの特徴</h2>
+    <div class="lp-feature-list">
+      <div class="lp-feature-item">
+        <i class="fas fa-user-astronaut"></i>
+        <h3>占い師専用設計</h3>
+        <div class="lp-feature-catch">鑑定に集中できるUI設計</div>
+        <p>占い師が現場で使えるレベルの命式算出・分析が可能。顧客管理も充実しています。</p>
+      </div>
+      <div class="lp-feature-item">
+        <i class="fas fa-bolt"></i>
+        <h3>即座に命式表示</h3>
+        <div class="lp-feature-catch">生年月日を入れるだけで数種類の命式を自動生成</div>
+        <p>登録後すぐに、命式を確認できます。</p>
+      </div>
+      <div class="lp-feature-item">
+        <i class="fas fa-users-cog"></i>
+        <h3>顧客管理もラクラク</h3>
+        <div class="lp-feature-catch">顧客情報・命式が一元管理できる</div>
+        <p>顧客ごとに情報を管理でき、分析の効率化をサポートします。</p>
+      </div>
+      <div class="lp-feature-item">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>スマホ・PC対応</h3>
+        <div class="lp-feature-catch">どこでも使えるクラウド型</div>
+        <p>いつでもどこでも、スマートフォンやパソコンからご利用可能です。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-sample-diagrams">
+    <h2 class="lp-diagram-title">Uniloで出力できる本格的な命式図例</h2>
+    <div class="lp-diagram-gallery">
+      <div class="lp-diagram-item">
+        <img src="<%= asset_path('lp/陽占図.png') %>" alt="陽占図" class="lp-diagram-img">
+        <div class="lp-diagram-caption">陽占図</div>
+      </div>
+      <div class="lp-diagram-item">
+        <img src="<%= asset_path('lp/陰占図.png') %>" alt="陰占図" class="lp-diagram-img">
+        <div class="lp-diagram-caption">陰占図</div>
+      </div>
+      <div class="lp-diagram-item">
+        <img src="<%= asset_path('lp/六親図.png') %>" alt="六親図" class="lp-diagram-img">
+        <div class="lp-diagram-caption">六親図</div>
+      </div>
+      <div class="lp-diagram-item">
+        <img src="<%= asset_path('lp/大運表.png') %>" alt="大運表" class="lp-diagram-img">
+        <div class="lp-diagram-caption">大運表</div>
+      </div>
+      <div class="lp-diagram-item">
+        <img src="<%= asset_path('lp/年運表.png') %>" alt="年運表" class="lp-diagram-img">
+        <div class="lp-diagram-caption">年運表</div>
+      </div>
+      <div class="lp-diagram-item">
+        <img src="<%= asset_path('lp/異常干支・位相情報.png') %>" alt="異常干支・位相情報" class="lp-diagram-img">
+        <div class="lp-diagram-caption">異常干支・位相情報</div>
+      </div>
+      <div class="lp-diagram-item">
+        <img src="<%= asset_path('lp/数理法.png') %>" alt="数理法" class="lp-diagram-img">
+        <div class="lp-diagram-caption">数理法</div>
+      </div>
+      <div class="lp-diagram-item">
+        <img src="<%= asset_path('lp/陽占数理法.png') %>" alt="陽占数理法" class="lp-diagram-img">
+        <div class="lp-diagram-caption">陽占数理法</div>
+      </div>
+    </div>
+    <div class="lp-diagram-note">
+      <i class="fas fa-info-circle"></i> Uniloでは、プロの現場でも使える多彩な命式図・運勢表を自動で出力できます。<br>
+    </div>
+  </section>
+
+  <section class="lp-client-management">
+    <h2 class="lp-client-title">占った人の管理もかんたん</h2>
+    <div class="lp-client-content">
+      <div class="lp-client-image-wrapper">
+        <img src="<%= asset_path('lp/顧客管理画面.jpg') %>" alt="顧客管理画面" class="lp-client-img">
+      </div>
+      <div class="lp-client-text">
+        <p>
+          Uniloは、<b>占ったお客様の情報や鑑定履歴を一元管理</b>できます。<br>
+          顧客ごとに命式や過去の鑑定内容をすぐに確認でき、リピーター対応やアフターフォローもスムーズ。<br>
+          <span class="lp-client-point">プロの占い師の現場業務を効率化する顧客管理機能</span>が標準搭載されています。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-compare-section">
+    <h2 class="lp-compare-title">他サービスとの比較</h2>
+    <div class="lp-compare-table-wrapper">
+      <table class="lp-compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>A社</th>
+            <th>B社</th>
+            <th>Unilo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>価格</td>
+            <td>高額<br><span class="lp-compare-note">（数十万円〜）</span></td>
+            <td>高額なスクール受講後に配布</td>
+            <td><b class="lp-compare-strong">月額のみでリーズナブル</b></td>
+          </tr>
+          <tr>
+            <td>利用方法</td>
+            <td>ツール<br>インストール必須</td>
+            <td>スクール卒業者限定<br>配布</td>
+            <td><b class="lp-compare-strong">ブラウザで動作・インストール不要</b></td>
+          </tr>
+          <tr>
+            <td>アップデート</td>
+            <td>アップデート作業が必要</td>
+            <td>アップデート頻度・方法不明</td>
+            <td><b class="lp-compare-strong">常に最新機能を即利用可能</b></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="lp-compare-caption">
+        <i class="fas fa-info-circle"></i> Uniloは「インストール不要」「月額のみ」「常に最新」だから、どなたでも手軽に始められます。
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-plan-section">
+    <h2 class="lp-plan-title">プラン比較</h2>
+    <div class="lp-plan-table-wrapper">
+      <table class="lp-plan-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>無料プラン</th>
+            <th>有料プラン</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>顧客登録</td>
+            <td>10名まで</td>
+            <td><b>無制限</b></td>
+          </tr>
+          <tr>
+            <td>命式生成</td>
+            <td>20回まで</td>
+            <td><b>回数無制限</b></td>
+          </tr>
+          <tr>
+            <td>利用可能な命式図</td>
+            <td>陰占図・陽占図のみ</td>
+            <td><b>全ての命式図</b></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="lp-plan-caption">
+        <i class="fas fa-info-circle"></i> 有料プランなら顧客管理も命式分析も制限なくご利用いただけます。
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-faq">
+    <h2>よくあるご質問</h2>
+    <div class="lp-faq-list">
+      <div class="lp-faq-item">
+        <h3>Q. 命式の算出にAIは使われていますか？</h3>
+        <p>A. いいえ。命式の算出はAIを使わず、伝統的な算命学理論に基づき行っています。</p>
+      </div>
+      <div class="lp-faq-item">
+        <h3>Q. どんな分析ができますか？</h3>
+        <p>A. 命式の自動作成、運勢傾向、仕事・恋愛のアドバイスなど多彩な分析が可能です。</p>
+      </div>
+      <div class="lp-faq-item">
+        <h3>Q. 個人情報は安全ですか？</h3>
+        <p>A. 厳重なセキュリティ体制で管理し、第三者に提供することはありません。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-cta">
+    <h2>まずは無料で体験</h2>
+    <p>Uniloは登録無料。<br>今すぐ命式を算出してみませんか？</p>
+    <a href="<%= new_user_registration_path %>" class="lp-btn-primary">無料で始める</a>
+  </section>
+
+  <section class="lp-footer">
+    <div class="lp-footer-links">
+      <%= link_to '利用規約', terms_of_service_path, class: 'lp-footer-link' %> |
+      <%= link_to 'プライバシーポリシー', privacy_policy_path, class: 'lp-footer-link' %>
+    </div>
+  </section>
+</div>
+
+<style>
+/* --- LP全体モダン化 --- */
+.lp-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 0 60px 0;
+  font-family: 'Inter', 'Noto Sans JP', 'Poppins', 'Montserrat', 'Space Grotesk', sans-serif;
+  background: linear-gradient(120deg, #f8fafc 60%, #ede9fe 100%);
+  border-radius: 36px;
+  box-shadow: 0 8px 40px rgba(139, 92, 246, 0.10);
+  overflow: hidden;
+}
+.lp-hero {
+  text-align: center;
+  padding: 80px 0 56px 0;
+  background: linear-gradient(135deg, #ede9fe 0%, #fff 100%);
+  border-radius: 0 0 48px 48px;
+  margin-bottom: 56px;
+  position: relative;
+  overflow: hidden;
+}
+.lp-hero::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: -80px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, #c4b5fd55 0%, transparent 80%);
+  z-index: 0;
+}
+.lp-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  right: -80px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, #a5b4fc33 0%, transparent 80%);
+  z-index: 0;
+}
+.lp-logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 48px;
+  margin-bottom: 18px;
+  z-index: 2;
+  position: relative;
+  animation: fadeInDown 0.7s cubic-bezier(.23,1.01,.32,1) 0s 1;
+}
+.lp-symbol-in-row {
+  margin-bottom: 0;
+}
+.lp-symbol-img-row {
+  width: 120px;
+  height: 120px;
+  padding: 18px;
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.18);
+}
+.lp-logo-title-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+}
+.lp-logo-main-row {
+  font-size: 6rem;
+  font-weight: 900;
+  color: #5B2C87;
+  letter-spacing: 0.12em;
+  line-height: 1.1;
+  text-shadow: 0 4px 24px #ede9fe;
+}
+.lp-logo-furi-row {
+  font-size: 1.25rem;
+  color: #8B5CF6;
+  font-weight: 600;
+  margin-left: 2px;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+.lp-title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  margin-bottom: 22px;
+  color: #5B2C87;
+  letter-spacing: 0.04em;
+  z-index: 1;
+  position: relative;
+}
+.lp-highlight {
+  color: #8B5CF6;
+  background: linear-gradient(90deg, #8B5CF6 0%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.lp-lead {
+  font-size: 1.3rem;
+  color: #444;
+  margin-bottom: 38px;
+  z-index: 1;
+  position: relative;
+}
+.lp-btn-primary {
+  display: inline-block;
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  color: #fff;
+  font-weight: 700;
+  padding: 20px 56px;
+  border-radius: 40px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(139, 92, 246, 0.16);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  z-index: 1;
+  position: relative;
+}
+.lp-btn-primary:hover {
+  background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 40px rgba(139, 92, 246, 0.22);
+}
+.lp-notice-strong {
+  background: linear-gradient(90deg, #f8fafc 60%, #ede9fe 100%);
+  color: #4B2C6B;
+  border: 2px solid #8B5CF6;
+  border-radius: 18px;
+  padding: 32px 36px;
+  margin: 0 auto 36px auto;
+  max-width: 800px;
+  font-size: 1.12rem;
+  display: flex;
+  align-items: flex-start;
+  box-shadow: 0 6px 32px rgba(139, 92, 246, 0.10);
+  position: relative;
+  z-index: 1;
+}
+.lp-notice-icon {
+  flex-shrink: 0;
+  font-size: 2.8rem;
+  color: #8B5CF6;
+  margin-right: 24px;
+  margin-top: 2px;
+}
+.lp-notice-content {
+  flex: 1;
+}
+.lp-notice-title {
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: #7C3AED;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+.lp-notice-message {
+  color: #4B2C6B;
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+.lp-notice-point {
+  display: inline-block;
+  background: #f3e8ff;
+  color: #8B5CF6;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 8px;
+  margin-top: 8px;
+  font-size: 1.02em;
+}
+@media (max-width: 900px) {
+  .lp-container {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 0 30px 0;
+  }
+  .lp-hero {
+    border-radius: 0 0 24px 24px;
+    padding: 48px 0 28px 0;
+  }
+  .lp-title {
+    font-size: 1.7rem;
+  }
+  .lp-symbol-img {
+    width: 80px;
+    height: 80px;
+    padding: 12px;
+  }
+  .lp-notice-strong {
+    flex-direction: column;
+    padding: 18px 8px;
+    font-size: 0.98rem;
+  }
+  .lp-notice-icon {
+    margin-bottom: 10px;
+    margin-right: 0;
+    font-size: 2rem;
+  }
+}
+@media (max-width: 600px) {
+  .lp-title {
+    font-size: 1.1rem;
+  }
+  .lp-lead {
+    font-size: 0.98rem;
+  }
+  .lp-btn-primary {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+}
+.lp-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px 40px 16px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.lp-hero {
+  text-align: center;
+  padding: 60px 0 40px 0;
+  background: linear-gradient(135deg, #ede9fe 0%, #f8fafc 100%);
+  border-radius: 0 0 32px 32px;
+  margin-bottom: 40px;
+}
+.lp-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: #5B2C87;
+}
+.lp-highlight {
+  color: #8B5CF6;
+  background: linear-gradient(90deg, #8B5CF6 0%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.lp-lead {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 32px;
+}
+.lp-btn-primary {
+  display: inline-block;
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  color: #fff;
+  font-weight: 600;
+  padding: 16px 40px;
+  border-radius: 32px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.12);
+  transition: background 0.2s, transform 0.2s;
+}
+.lp-btn-primary:hover {
+  background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%);
+  transform: translateY(-2px);
+}
+.lp-symbol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 32px 0 16px 0;
+}
+.lp-symbol-in-hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.lp-symbol-img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+  padding: 8px;
+  display: block;
+  transition: box-shadow 0.2s;
+}
+.lp-symbol-img:hover {
+  box-shadow: 0 12px 40px rgba(139, 92, 246, 0.22);
+}
+.lp-symbol-caption {
+  color: #7C3AED;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+.lp-features {
+  margin: 64px 0 48px 0;
+  background: linear-gradient(120deg, #f8f9fa 60%, #ede9fe 100%);
+  border-radius: 32px;
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.10);
+  padding: 48px 0 36px 0;
+  position: relative;
+  overflow: hidden;
+}
+.lp-features::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, #c4b5fd55 0%, transparent 80%);
+  z-index: 0;
+}
+.lp-features::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, #a5b4fc33 0%, transparent 80%);
+  z-index: 0;
+}
+.lp-features h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #5B2C87;
+  margin-bottom: 40px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  position: relative;
+  z-index: 1;
+}
+.lp-feature-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 36px 36px;
+  justify-content: center;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.lp-feature-item {
+  background: linear-gradient(135deg, #fff 60%, #ede9fe 100%);
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(139, 92, 246, 0.10);
+  padding: 36px 28px 28px 28px;
+  text-align: center;
+  width: 270px;
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.18s, box-shadow 0.18s;
+  border: 1.5px solid #ede9fe;
+  position: relative;
+  overflow: hidden;
+}
+.lp-feature-item:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 12px 40px rgba(139, 92, 246, 0.18);
+  border-color: #a5b4fc;
+  background: linear-gradient(135deg, #f3e8ff 60%, #fff 100%);
+}
+.lp-feature-item i {
+  font-size: 2.6rem;
+  color: #8B5CF6;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, #ede9fe 0%, #fff 100%);
+  border-radius: 50%;
+  padding: 18px;
+  box-shadow: 0 2px 12px rgba(139, 92, 246, 0.08);
+  transition: background 0.18s;
+}
+.lp-feature-item:hover i {
+  background: linear-gradient(135deg, #fff 0%, #ede9fe 100%);
+  color: #7C3AED;
+}
+.lp-feature-item h3 {
+  font-size: 1.18rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #5B2C87;
+  letter-spacing: 0.01em;
+}
+.lp-feature-item p {
+  font-size: 1.02rem;
+  color: #555;
+  line-height: 1.7;
+  font-weight: 500;
+}
+.lp-feature-catch {
+    font-weight: 700;
+    color: #7C3AED;
+    font-size: 1.02rem;
+    margin-bottom: 8px;
+    margin-top: -4px;
+    letter-spacing: 0.01em;
+  }
+.lp-cta {
+  text-align: center;
+  margin: 56px 0 40px 0;
+}
+.lp-cta h2 {
+  font-size: 1.4rem;
+  color: #5B2C87;
+  margin-bottom: 16px;
+}
+.lp-cta p {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 24px;
+}
+.lp-faq {
+  margin: 56px 0 32px 0;
+}
+.lp-faq h2 {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #5B2C87;
+  margin-bottom: 24px;
+}
+.lp-faq-list {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.lp-faq-item {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(139, 92, 246, 0.04);
+}
+.lp-faq-item h3 {
+  font-size: 1.05rem;
+  color: #7C3AED;
+  margin-bottom: 6px;
+}
+.lp-faq-item p {
+  font-size: 0.98rem;
+  color: #444;
+}
+.lp-sample-diagrams {
+  margin: 56px 0 32px 0;
+  text-align: center;
+}
+.lp-diagram-title {
+  font-size: 1.3rem;
+  color: #5B2C87;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+.lp-diagram-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.lp-diagram-item {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.08);
+  padding: 16px 16px 10px 16px;
+  width: 240px;
+  min-height: 270px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+.lp-diagram-img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 6px rgba(139, 92, 246, 0.10);
+  background: #f8f9fa;
+}
+.lp-diagram-caption {
+  font-size: 1.05rem;
+  color: #7C3AED;
+  font-weight: 500;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: 0;
+  min-height: 1.8em;
+  width: 100%;
+}
+.lp-diagram-note {
+  margin-top: 10px;
+  color: #444;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.lp-diagram-supplement {
+    display: block;
+    color: #5B2C87;
+    font-size: 0.98rem;
+    margin-top: 6px;
+    font-weight: 500;
+    line-height: 1.7;
+  }
+.lp-client-management {
+  margin: 56px 0 32px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lp-client-title {
+  font-size: 1.3rem;
+  color: #5B2C87;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+.lp-client-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 36px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 0 auto;
+}
+.lp-client-image-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.08);
+  padding: 0;
+  width: 700px;
+  max-width: 90vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lp-client-img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  min-height: 320px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #f8f9fa;
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.10);
+  margin: 0;
+  display: block;
+}
+.lp-client-text {
+  max-width: 600px;
+  width: 100%;
+  text-align: left;
+  font-size: 1.08rem;
+  color: #444;
+  align-self: flex-start;
+  margin: 0 0 0 0;
+}
+.lp-compare-section {
+  margin: 56px 0 32px 0;
+  text-align: center;
+}
+.lp-compare-title {
+  font-size: 1.3rem;
+  color: #5B2C87;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+.lp-compare-table-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lp-compare-table {
+  border-collapse: collapse;
+  min-width: 700px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.08);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.lp-compare-table th, .lp-compare-table td {
+  border: 1px solid #ede9fe;
+  padding: 18px 16px;
+  font-size: 1.05rem;
+  text-align: center;
+}
+.lp-compare-table th {
+  background: #f3e8ff;
+  color: #7C3AED;
+  font-weight: 700;
+}
+.lp-compare-table td {
+  background: #fff;
+  color: #444;
+}
+.lp-compare-table td b {
+  color: #5B2C87;
+}
+.lp-compare-note {
+  font-size: 0.92em;
+  color: #888;
+}
+.lp-compare-caption {
+  color: #444;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.lp-plan-section {
+  margin: 56px 0 32px 0;
+  text-align: center;
+}
+.lp-plan-title {
+  font-size: 1.3rem;
+  color: #5B2C87;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+.lp-plan-table-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lp-plan-table {
+  border-collapse: collapse;
+  min-width: 600px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.08);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.lp-plan-table th, .lp-plan-table td {
+  border: 1px solid #ede9fe;
+  padding: 18px 16px;
+  font-size: 1.05rem;
+  text-align: center;
+}
+.lp-plan-table th {
+  background: #f3e8ff;
+  color: #7C3AED;
+  font-weight: 700;
+}
+.lp-plan-table td {
+  background: #fff;
+  color: #444;
+}
+.lp-plan-table td b {
+  color: #5B2C87;
+}
+.lp-plan-caption {
+  color: #444;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+@media (max-width: 900px) {
+  .lp-feature-list {
+    flex-direction: column;
+    max-width: 98vw;
+    gap: 24px 0;
+  }
+  .lp-feature-item {
+    width: 100%;
+    max-width: 98vw;
+    min-height: 160px;
+  }
+  .lp-features h2 {
+    font-size: 1.3rem;
+  }
+}
+@media (max-width: 600px) {
+  .lp-hero {
+    padding: 36px 0 24px 0;
+  }
+  .lp-title {
+    font-size: 1.5rem;
+  }
+  .lp-feature-item {
+    padding: 20px 10px;
+  }
+  .lp-btn-primary {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+  .lp-diagram-title {
+    font-size: 1.05rem;
+  }
+  .lp-diagram-item {
+    padding: 8px 4px 6px 4px;
+    min-height: 120px;
+    width: 98vw;
+    max-width: 320px;
+  }
+  .lp-diagram-img {
+    height: 80px;
+  }
+  .lp-client-title {
+    font-size: 1.05rem;
+  }
+  .lp-client-img {
+    height: 90px;
+  }
+  .lp-compare-title {
+    font-size: 1.05rem;
+  }
+  .lp-compare-table {
+    min-width: 98vw;
+    font-size: 0.9rem;
+  }
+  .lp-compare-table th, .lp-compare-table td {
+    padding: 6px 2px;
+    font-size: 0.9rem;
+  }
+  .lp-plan-title {
+    font-size: 1.05rem;
+  }
+  .lp-plan-table {
+    min-width: 98vw;
+    font-size: 0.9rem;
+  }
+  .lp-plan-table th, .lp-plan-table td {
+    padding: 6px 2px;
+    font-size: 0.9rem;
+  }
+}
+.lp-notice {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 0 auto 24px auto;
+  max-width: 600px;
+  font-size: 1rem;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.06);
+}
+.lp-notice i {
+  margin-right: 8px;
+}
+.lp-notice-strong {
+  background: #f8f9fa;
+  color: #4B2C6B;
+  border: 2px solid #8B5CF6;
+  border-radius: 14px;
+  padding: 24px 60px;
+  margin: 0 auto 32px auto;
+  max-width: 700px;
+  font-size: 1.08rem;
+  display: flex;
+  align-items: flex-start;
+  box-shadow: 0 4px 24px rgba(139, 92, 246, 0.10);
+  position: relative;
+}
+.lp-notice-icon {
+  flex-shrink: 0;
+  font-size: 2.6rem;
+  color: #8B5CF6;
+  margin-right: 20px;
+  margin-top: 2px;
+}
+.lp-notice-content {
+  flex: 1;
+}
+.lp-notice-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #7C3AED;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+.lp-notice-message {
+  color: #4B2C6B;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+.lp-notice-point {
+  display: inline-block;
+  background: #f3e8ff;
+  color: #8B5CF6;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-top: 6px;
+}
+@media (max-width: 600px) {
+  .lp-notice-strong {
+    flex-direction: column;
+    padding: 16px 10px;
+    font-size: 0.98rem;
+  }
+  .lp-notice-icon {
+    margin-bottom: 10px;
+    margin-right: 0;
+    font-size: 2rem;
+  }
+}
+.lp-footer {
+    text-align: center;
+    margin-top: 48px;
+    color: #888;
+    font-size: 0.95rem;
+    width: 100%;
+    position: relative;
+    left: 0;
+  }
+.lp-compare-strong {
+    color: #8B5CF6;
+    font-weight: 800;
+    font-size: 1.08em;
+    background: #f3e8ff;
+    border-radius: 6px;
+    padding: 2px 8px;
+    display: inline-block;
+  }
+.lp-trust-section {
+  margin: 64px 0 48px 0;
+  text-align: center;
+  background: linear-gradient(120deg, #f8fafc 60%, #ede9fe 100%);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(139, 92, 246, 0.08);
+  padding: 40px 0 32px 0;
+}
+.lp-trust-title {
+  font-size: 1.3rem;
+  color: #5B2C87;
+  margin-bottom: 24px;
+  font-weight: 800;
+}
+.lp-trust-numbers {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.lp-trust-number-item {
+  font-size: 1.15rem;
+  color: #7C3AED;
+  font-weight: 700;
+  background: #f3e8ff;
+  border-radius: 12px;
+  padding: 18px 32px;
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.06);
+  margin-bottom: 8px;
+}
+.lp-trust-number {
+  font-size: 1.5rem;
+  color: #8B5CF6;
+  font-weight: 900;
+}
+.lp-trust-voices {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.lp-trust-voice-item {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.08);
+  padding: 18px 24px;
+  max-width: 320px;
+  font-size: 1.02rem;
+  color: #444;
+  margin-bottom: 8px;
+}
+.lp-trust-voice-text {
+  font-style: italic;
+  margin-bottom: 8px;
+}
+.lp-trust-voice-user {
+  color: #7C3AED;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+.lp-trust-operator {
+  margin-top: 18px;
+  color: #888;
+  font-size: 0.98rem;
+}
+.lp-trust-operator-label {
+  color: #5B2C87;
+  font-weight: 700;
+}
+@media (max-width: 900px) {
+  .lp-trust-numbers, .lp-trust-voices {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+}
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-40px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+</style>

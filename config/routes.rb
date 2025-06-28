@@ -50,6 +50,9 @@ Rails.application.routes.draw do
   get 'terms_of_service', to: 'pages#terms_of_service', as: :terms_of_service
   get 'privacy_policy', to: 'pages#privacy_policy', as: :privacy_policy
 
+  # LP（ランディングページ）
+  get 'lp', to: 'pages#lp', as: :lp
+
   # 開発環境でのメール確認用
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

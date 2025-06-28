@@ -25,7 +25,11 @@
   </head>
 
   <body class="<%= user_signed_in? ? 'signed-in' : 'signed-out' %>">
-    <% if user_signed_in? %>
+    <% # サイドメニューを表示しないページ %>
+    <% no_side_menu_paths = [lp_path, terms_of_service_path, privacy_policy_path] rescue [] %>
+    <% show_side_menu = user_signed_in? && !no_side_menu_paths.include?(request.path) %>
+
+    <% if show_side_menu %>
       <div class="app-container">
         <%= render 'shared/side_menu' %>
         <div class="content-area">
