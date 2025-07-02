@@ -9,5 +9,8 @@ class PagesController < ApplicationController
   end
 
   def lp
+    if user_signed_in?
+      redirect_to clients_path
+    end
   end
 end

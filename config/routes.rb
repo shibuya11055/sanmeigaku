@@ -28,8 +28,8 @@ Rails.application.routes.draw do
   get 'two_factor_authentication', to: 'two_factor_authentication#show'
   post 'two_factor_authentication', to: 'two_factor_authentication#verify'
 
-  # ルートパスをクライアント一覧に変更
-  root to: 'clients#index'
+  # ルートパスをLPページに変更
+  root to: 'pages#lp'
 
   # サブスクリプション管理
   resources :subscriptions, except: [:show] do
