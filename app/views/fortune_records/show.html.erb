@@ -1,0 +1,127 @@
+<% content_for :title, '占いカルテ詳細 | Unilo' %>
+
+<div class="fortune-detail-container">
+  <header class="detail-header">
+    <h1 class="page-title">占いカルテ詳細</h1>
+    <div class="header-actions simple-btn-group">
+      <%= link_to fortune_records_path, class: "btn btn-secondary simple-btn" do %>
+        <i class="fas fa-arrow-left"></i> カルテ一覧へ
+      <% end %>
+      <%= link_to edit_fortune_record_path(@fortune_record), class: "btn btn-primary simple-btn" do %>
+        <i class="fas fa-edit"></i> 編集する
+      <% end %>
+    </div>
+  </header>
+  <div class="fortune-detail-box">
+    <table class="fortune-detail-table">
+      <tr>
+        <th>顧客名</th>
+        <td><%= link_to @fortune_record.client.fullname, client_path(@fortune_record.client), class: 'fortune-link' %></td>
+      </tr>
+      <tr>
+        <th>相談内容カテゴリ</th>
+        <td><%= @fortune_record.category_label %></td>
+      </tr>
+      <tr>
+        <th>相談手段</th>
+        <td><%= @fortune_record.consultation_method_label %></td>
+      </tr>
+      <tr>
+        <th>開始日時</th>
+        <td><%= @fortune_record.start_at.strftime('%Y/%m/%d %H:%M') %></td>
+      </tr>
+      <tr>
+        <th>終了日時</th>
+        <td><%= @fortune_record.end_at.strftime('%Y/%m/%d %H:%M') %></td>
+      </tr>
+      <tr>
+        <th>金額</th>
+        <td><%= number_to_currency(@fortune_record.amount, unit: '¥', format: "%u%n") %></td>
+      </tr>
+      <tr>
+        <th>カルテ内容</th>
+        <td><%= simple_format(@fortune_record.content) %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<style>
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+.fortune-detail-box {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  padding: 32px 24px 18px 24px;
+}
+.fortune-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 18px;
+}
+.fortune-detail-table th, .fortune-detail-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+  text-align: left;
+}
+.fortune-detail-table th {
+  background: #f8f9fa;
+  color: #444;
+  font-weight: 600;
+  width: 180px;
+}
+.fortune-link {
+  color: #1a73e8;
+  text-decoration: underline;
+}
+.simple-btn-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.simple-btn {
+  min-width: 160px;
+  height: 44px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: none;
+  padding: 0 24px;
+  transition: none;
+  i {
+    margin-right: 8px;
+  }
+}
+.btn-secondary.simple-btn {
+  background: #f3f4f6;
+  color: #333;
+}
+.btn-primary.simple-btn {
+  background: #7c3aed;
+  color: #fff;
+}
+.simple-btn:hover, .simple-btn:focus {
+  opacity: 0.92;
+  text-decoration: none;
+}
+</style>

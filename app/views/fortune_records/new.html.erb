@@ -1,0 +1,151 @@
+<% content_for :title, '占いカルテ作成 | Unilo' %>
+
+<div class="fortune-form-container">
+  <header class="form-header">
+    <h1 class="page-title">占いカルテ作成</h1>
+    <%= link_to client_path(@client), class: "btn btn-secondary back-btn" do %>
+      <i class="fas fa-arrow-left"></i> 顧客詳細に戻る
+    <% end %>
+  </header>
+  <div class="fortune-form-wrapper">
+    <%= form_with(model: [@client, @fortune_record], local: true, class: "fortune-form") do |f| %>
+      <% if @fortune_record.errors.any? %>
+        <div class="alert-danger">
+          <h4><%= pluralize(@fortune_record.errors.count, "個") %>のエラーがあります：</h4>
+          <ul>
+            <% @fortune_record.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="form-section">
+        <div class="form-row">
+          <div class="form-group form-group-half">
+            <%= f.label :start_at, '開始日時', class: 'form-label required' %>
+            <%= f.datetime_field :start_at, class: 'form-control', required: true %>
+          </div>
+          <div class="form-group form-group-half">
+            <%= f.label :end_at, '終了日時', class: 'form-label required' %>
+            <%= f.datetime_field :end_at, class: 'form-control', required: true %>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group form-group-half">
+            <%= f.label :amount, '金額', class: 'form-label' %>
+            <%= f.number_field :amount, class: 'form-control' %>
+          </div>
+          <div class="form-group form-group-half">
+            <%= f.label :category, '相談内容カテゴリ', class: 'form-label required' %>
+            <%= f.select :category, FortuneRecord.categories.keys.map { |k| [I18n.t("activerecord.attributes.fortune_record.categories.#{k}"), k] }, {}, class: 'form-control', required: true %>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group form-group-half">
+            <%= f.label :consultation_method, '相談手段', class: 'form-label required' %>
+            <%= f.select :consultation_method, FortuneRecord.consultation_methods.keys.map { |k| [I18n.t("activerecord.attributes.fortune_record.methods.#{k}"), k] }, {}, class: 'form-control', required: true %>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="width:100%">
+            <%= f.label :content, 'カルテ内容', class: 'form-label' %>
+            <%= f.text_area :content, class: 'form-control', rows: 8 %>
+          </div>
+        </div>
+      </div>
+      <div class="form-btn-group">
+        <%= f.submit '登録', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+.back-btn {
+  min-width: 160px;
+  height: 44px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: #f3f4f6;
+  color: #333;
+  gap: 8px;
+}
+.fortune-form-wrapper {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  padding: 32px 24px 24px 24px;
+}
+.form-section {
+  margin-bottom: 18px;
+}
+.form-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.form-group-half {
+  min-width: 0;
+}
+.form-label {
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 6px;
+}
+.form-control {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 15px;
+  background: #f8f9fa;
+  color: #333;
+}
+.form-btn-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  justify-content: flex-end;
+}
+.btn-primary {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+.alert-danger {
+  background: #ffeaea;
+  color: #c00;
+  border-radius: 4px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+}
+</style>

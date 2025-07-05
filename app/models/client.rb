@@ -33,6 +33,7 @@ class Client < ApplicationRecord
   belongs_to :user
   belongs_to :job, optional: true
   belongs_to :occupation, optional: true
+  has_many :fortune_records, dependent: :destroy
 
   # enum定義 - Rails 7の構文
   enum :gender, { male: 0, female: 1 }

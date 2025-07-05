@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   # get "clients/edit"
 
   # クライアントのリソースルーティングを追加
-  resources :clients
+  resources :clients do
+    resources :fortune_records, only: [:new, :create]
+  end
+  resources :fortune_records, only: [:index, :show, :edit, :update, :destroy]
 
   # アカウント管理のルーティング（単数リソース）
   resource :user, only: [:show, :edit, :update]

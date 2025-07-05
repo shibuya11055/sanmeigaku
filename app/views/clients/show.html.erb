@@ -4,12 +4,15 @@
 <div class="client-detail-container">
   <header class="detail-header">
     <h1><%= @client.fullname %>さんの詳細情報</h1>
-    <div class="header-actions">
-      <%= link_to clients_path, class: "btn-secondary" do %>
+    <div class="header-actions simple-btn-group">
+      <%= link_to clients_path, class: "btn btn-secondary simple-btn" do %>
         <i class="fas fa-arrow-left"></i> 顧客一覧に戻る
       <% end %>
-      <%= link_to edit_client_path(@client), class: "btn-primary" do %>
+      <%= link_to edit_client_path(@client), class: "btn btn-primary simple-btn" do %>
         <i class="fas fa-edit"></i> 編集する
+      <% end %>
+      <%= link_to new_client_fortune_record_path(@client), class: 'btn btn-karute simple-btn' do %>
+        <i class="fas fa-file-medical"></i> カルテ作成
       <% end %>
     </div>
   </header>
@@ -96,6 +99,21 @@
             <div class="detail-value"><%= @client.occupation&.name || '未設定' %></div>
           </div>
         </div>
+      </div>
+
+      <div class="detail-section fortune-section">
+        <h2 class="section-title">最近のカルテ</h2>
+        <% if @latest_fortune_records.present? %>
+          <ul class="fortune-record-list">
+            <% @latest_fortune_records.each do |record| %>
+              <li>
+                <%= link_to "#{record.start_at.strftime('%Y/%m/%d %H:%M')} ~ #{record.end_at.strftime('%Y/%m/%d %H:%M')}", fortune_record_path(record), class: 'fortune-record-link' %>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <div class="text-muted">カルテはまだ登録されていません。</div>
+        <% end %>
       </div>
 
       <% if @client.memo.present? %>
@@ -248,16 +266,20 @@
     border: none;
   }
 
-  .btn-primary:hover {
-    background-color: #1765cc;
+
+  .btn-wide {
+    min-width: 160px;
+    height: 44px;
+    font-size: 1rem;
+    padding: 0 24px;
+    box-sizing: border-box;
   }
 
-  .btn-secondary:hover {
-    background-color: #e2e6ea;
-  }
-
-  .btn-danger:hover {
-    background-color: #c82333;
+  .btn-karute {
+    background: #f59e42;
+    color: #fff !important;
+    border: none;
+    box-shadow: 0 2px 8px rgba(245,158,66,0.08);
   }
 
   .detail-section {
@@ -481,5 +503,55 @@
     .fortune-chart {
       font-size: 14px;
     }
+  }
+
+  .simple-btn-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .simple-btn {
+    min-width: 160px;
+    height: 44px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: none;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: none;
+    i {
+      margin-right: 8px;
+    }
+  }
+
+  .btn-secondary.simple-btn {
+    background: #f3f4f6;
+    color: #333;
+  }
+
+  .btn-primary.simple-btn {
+    background: #7c3aed;
+    color: #fff;
+  }
+
+  .btn-karute.simple-btn {
+    background: #f59e42;
+    color: #fff;
+  }
+
+  .simple-btn:hover, .simple-btn:focus {
+    opacity: 0.92;
+    text-decoration: none;
+  }
+
+  .fortune-record-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 </style>

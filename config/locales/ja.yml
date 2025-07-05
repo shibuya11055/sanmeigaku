@@ -18,6 +18,29 @@ ja:
         remember_me: "ログイン状態を保持する"
         current_password: "現在のパスワード"
         fullname: "氏名"
+      fortune_record:
+        start_at: "開始日時"
+        end_at: "終了日時"
+        amount: "金額"
+        content: "カルテ内容"
+        category: "相談内容カテゴリ"
+        consultation_method: "相談手段"
+        categories:
+          love: 恋愛
+          work: 仕事
+          health: 健康
+          family: 家族
+          money: 金運
+          human_relation: 人間関係
+          study: 学業
+          other: その他
+        methods:
+          face_to_face: 対面
+          video_call: ビデオ通話
+          phone: 電話
+          chat: チャット
+          mail: メール
+          other: その他
 
   # Deviseのエラーメッセージをカスタマイズ
   devise:

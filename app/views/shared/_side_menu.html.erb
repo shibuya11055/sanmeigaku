@@ -28,6 +28,12 @@
           <span class="menu-text">顧客管理</span>
         <% end %>
       </li>
+      <li class="side-menu-item <%= current_page?(fortune_records_path) ? 'active' : '' %>">
+        <%= link_to fortune_records_path, class: "menu-link" do %>
+          <i class="fas fa-file-alt"></i>
+          <span class="menu-text">占いカルテ</span>
+        <% end %>
+      </li>
       <li class="side-menu-item <%= current_page?('/fortune_analysis') ? 'active' : '' %>">
         <%= link_to '/fortune_analysis', class: "menu-link" do %>
           <i class="fas fa-chart-line"></i>

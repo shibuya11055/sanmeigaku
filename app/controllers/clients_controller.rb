@@ -51,6 +51,9 @@ class ClientsController < ApplicationController
       @numerological, @beast_type, @total_energy, @numerological_structure = calculator.numerological_calculator
       @phase_method = calculator.phase_method
     end
+
+    # 最新3件のカルテを取得
+    @latest_fortune_records = @client.fortune_records.order(start_at: :desc).limit(3)
   end
 
   def new

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_22_095932) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_02_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -70,6 +70,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_22_095932) do
     t.index ["sexagenary_cycle_day_id"], name: "index_fortune_analyses_on_sexagenary_cycle_day_id"
     t.index ["sexagenary_cycle_month_id"], name: "index_fortune_analyses_on_sexagenary_cycle_month_id"
     t.index ["sexagenary_cycle_year_id"], name: "index_fortune_analyses_on_sexagenary_cycle_year_id"
+  end
+
+  create_table "fortune_records", force: :cascade do |t|
+    t.bigint "client_id", null: false, comment: "クライアントID（外部キー）"
+    t.datetime "start_at", null: false, comment: "占い開始日時"
+    t.datetime "end_at", null: false, comment: "占い終了日時"
+    t.integer "amount", null: false, comment: "占いの金額"
+    t.text "content", null: false, comment: "占いのカルテ（テキスト情報）"
+    t.integer "category", null: false, comment: "相談内容カテゴリ(enum)"
+    t.integer "consultation_method", null: false, comment: "相談手段(enum)"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_fortune_records_on_client_id"
   end
 
   create_table "jobs", comment: "職業マスタテーブル", force: :cascade do |t|
@@ -226,6 +239,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_22_095932) do
   add_foreign_key "fortune_analyses", "sexagenary_cycles", column: "sexagenary_cycle_day_id"
   add_foreign_key "fortune_analyses", "sexagenary_cycles", column: "sexagenary_cycle_month_id"
   add_foreign_key "fortune_analyses", "sexagenary_cycles", column: "sexagenary_cycle_year_id"
+  add_foreign_key "fortune_records", "clients"
   add_foreign_key "sexagenary_cycles", "branches"
   add_foreign_key "sexagenary_cycles", "stems"
   add_foreign_key "stem_lineages", "stems", column: "day_stem_id"
