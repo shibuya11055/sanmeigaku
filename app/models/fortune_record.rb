@@ -2,21 +2,23 @@
 #
 # Table name: fortune_records
 #
-#  id         :bigint           not null, primary key
-#  client_id  :bigint           not null, 外部キー
-#  start_at   :datetime         not null
-#  end_at     :datetime         not null
-#  amount     :integer          not null
-#  content    :text             not null
-#  category   :integer          not null (enum)
-#  method     :integer          not null (enum)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                                    :bigint           not null, primary key
+#  amount(占いの金額)                    :integer          not null
+#  category(相談内容カテゴリ(enum))      :integer          not null
+#  consultation_method(相談手段(enum))   :integer          not null
+#  content(占いのカルテ（テキスト情報）) :text             not null
+#  end_at(占い終了日時)                  :datetime         not null
+#  start_at(占い開始日時)                :datetime         not null
+#  created_at                            :datetime         not null
+#  updated_at                            :datetime         not null
+#  client_id(クライアントID（外部キー）) :bigint           not null
 #
 # Indexes
+#
 #  index_fortune_records_on_client_id  (client_id)
 #
 # Foreign Keys
+#
 #  fk_rails_...  (client_id => clients.id)
 #
 

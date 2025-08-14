@@ -64,6 +64,17 @@
             %>
           </div>
         </div>
+
+        <div class="form-row">
+          <div class="form-group form-group-half">
+            <%= form.label :prefecture_id, '生まれた都道府県', class: 'form-label' %>
+            <%= form.select :prefecture_id, Prefecture.all.map { |p| [p.name, p.id] }, { include_blank: '都道府県' }, class: 'form-control' %>
+          </div>
+          <div class="form-group form-group-half">
+            <%= form.label :birthplace, '生まれた市区町村など', class: 'form-label' %>
+            <%= form.text_field :birthplace, class: 'form-control', placeholder: '例：新宿区' %>
+          </div>
+        </div>
       </div>
 
       <div class="form-section">
@@ -106,12 +117,6 @@
                 { include_blank: "選択してください" },
                 { class: "form-select" }
             %>
-          </div>
-
-          <div class="form-group form-group-half">
-            <%= form.label :birthplace, "出生地", class: "form-label" %>
-            <%= form.text_field :birthplace, class: "form-control", placeholder: "例：東京都" %>
-            <small class="form-text text-muted">都道府県名など</small>
           </div>
         </div>
       </div>

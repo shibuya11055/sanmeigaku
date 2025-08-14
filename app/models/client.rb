@@ -14,6 +14,7 @@
 #  updated_at                                                                                  :datetime         not null
 #  job_id(職業ID)                                                                              :bigint
 #  occupation_id(職種ID)                                                                       :bigint
+#  prefecture_id                                                                               :integer
 #  user_id(所有するユーザーID)                                                                 :bigint           not null
 #
 # Indexes
@@ -30,9 +31,12 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Client < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
+
   belongs_to :user
   belongs_to :job, optional: true
   belongs_to :occupation, optional: true
+  belongs_to_active_hash :prefecture
   has_many :fortune_records, dependent: :destroy
 
   # enum定義 - Rails 7の構文
@@ -44,4 +48,14 @@ class Client < ApplicationRecord
   validates :fullname, presence: true
   validates :birthday, presence: true
   validates :gender, presence: true
+
+  def address
+    if prefecture.present?
+      "#{prefecture.name} #{birthplace}"
+    elsif birthplace.present?
+      birthplace
+    else
+      nil
+    end
+  end
 end
