@@ -1,0 +1,168 @@
+/* 年運・大運の関係性セル（位相用語）の表示 */
+
+.rel-cell {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.rel-cell.rel-cell-void {
+  background-color: #fff0f5;
+}
+
+.rel {
+  position: relative;
+  display: inline-block;
+  padding: 1px 6px;
+  margin: 1px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  line-height: 1.4;
+  white-space: nowrap;
+  font-weight: 600;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+button.rel {
+  appearance: none;
+  background: none;
+  text-align: center;
+}
+
+button.rel:hover,
+button.rel:focus-visible {
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+  transform: translateY(-1px);
+}
+
+/* カテゴリ別カラー */
+.rel-good {
+  background-color: #e6f4ea;
+  border: 1px solid #b7dfbf;
+}
+.rel-good { color: #1e7e34; }
+
+.rel-good-strong {
+  background-color: #d4edda;
+  border: 1px solid #5cb85c;
+}
+.rel-good-strong { color: #0e3c19; font-weight: 700; }
+
+.rel-special {
+  background-color: #ede7f6;
+  border: 1px solid #c4b5e6;
+}
+.rel-special { color: #5b3eb8; }
+
+.rel-caution {
+  background-color: #fff4e5;
+  border: 1px solid #f5c690;
+}
+.rel-caution { color: #b35d0e; }
+
+.rel-bad {
+  background-color: #fce8ea;
+  border: 1px solid #f0b0b6;
+}
+.rel-bad { color: #a71d2a; }
+
+.rel-bad-strong {
+  background-color: #f5d6d8;
+  border: 1px solid #c0282f;
+}
+.rel-bad-strong { color: #6b0000; font-weight: 700; }
+
+.rel-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  width: min(420px, 92vw);
+  height: 100dvh;
+  padding: 24px;
+  overflow-y: auto;
+  background: #fffdfa;
+  border-left: 1px solid #e6dcc9;
+  box-shadow: -16px 0 40px rgba(52, 37, 20, 0.18);
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+}
+
+.rel-panel.is-open {
+  transform: translateX(0);
+}
+
+.rel-panel-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #e6dcc9;
+  border-radius: 50%;
+  background: #fff;
+  color: #4a3a26;
+  cursor: pointer;
+}
+
+.rel-panel-close:hover,
+.rel-panel-close:focus-visible {
+  background: #f8f3e8;
+}
+
+.rel-panel-kicker {
+  margin-bottom: 10px;
+  color: #8a6f3d;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.rel-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 36px;
+  margin-bottom: 20px;
+}
+
+.rel-panel-term.rel {
+  margin: 0;
+  cursor: default;
+}
+
+.rel-panel-category {
+  color: #6a5a42;
+  font-size: 0.86rem;
+}
+
+.rel-panel-section {
+  padding: 16px 0;
+  border-top: 1px solid #ece4d4;
+}
+
+.rel-panel-section h3 {
+  margin: 0 0 8px;
+  color: #4a3a26;
+  font-size: 0.92rem;
+}
+
+.rel-panel-section p {
+  margin: 0;
+  color: #3a2e1c;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+@media (max-width: 600px) {
+  .rel-panel {
+    width: 100vw;
+    padding: 22px 18px;
+  }
+}

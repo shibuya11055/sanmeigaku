@@ -15,40 +15,41 @@ module ApplicationHelper
   end
 
   def relationship_color(relationship, heavenly_void)
-    if relationship.blank?
-      formatted_content = ''
-    else
-      formatted_content = relationship.split("\n").map do |rel|
-        if rel == '天剋地冲'
-          content_tag(:span, rel, style: 'color: red; font-weight: bold;')
-        elsif rel == '害'
-          content_tag(:span, rel, style: 'color: maroon;')
-        elsif rel == '刑' || rel == '刑破' || rel == '冲刑' || rel == '冲' || rel == '害刑'
-          content_tag(:span, rel, style: 'color: maroon;')
-        elsif rel == '破'
-          content_tag(:span, rel, style: 'color: maroon;')
-        elsif rel == '支合'
-          content_tag(:span, rel, style: 'color: navy;')
-        elsif rel == '半会'
-          content_tag(:span, rel, style: 'color: navy;')
-        elsif rel == '大半会'
-          content_tag(:span, rel, style: 'color: navy; font-weight: bold;')
-        elsif rel == '律音'
-          content_tag(:span, rel, style: 'color: #9932CC; font-weight: bold;')
-        elsif rel == '納音'
-          content_tag(:span, rel, style: 'color: olive; font-weight: bold;')
-        elsif rel == '干合'
-          content_tag(:span, rel, style: 'color: fuchsia;')
-        else
-          rel
-        end
-      end.join(' ').html_safe
-    end
+    formatted_content = format_relationship_terms(relationship)
+    td_class = heavenly_void.present? ? 'rel-cell rel-cell-void' : 'rel-cell'
+    content_tag(:td, formatted_content, class: td_class)
+  end
 
-    if heavenly_void.present?
-      content_tag(:td, formatted_content, style: 'background: #FFF0F5;')
-    else
-      content_tag(:td, formatted_content)
-    end
+  # 関係性用語（"干合\n半会" 等）→ サイドパネルを開くボタン群
+  def format_relationship_terms(relationship)
+    return ''.html_safe if relationship.blank?
+
+    relationship.split("\n").reject(&:blank?).map { |term| relationship_term_span(term) }.join(' ').html_safe
+  end
+
+  def relationship_term_span(term)
+    return ''.html_safe if term.blank?
+
+    entry = RelationshipGlossary.lookup(term)
+    # 辞書に無い文字列（天中殺マーク ⚪︎ など）は枠なしのプレーンテキスト
+    return content_tag(:span, term) unless entry
+
+    category_css = RelationshipGlossary.category_css(term)
+    category_label = RelationshipGlossary.category_label(term)
+
+    button_tag term,
+               type: 'button',
+               class: "rel #{category_css}",
+               data: {
+                 action: 'relationship-panel#open',
+                 relationship_panel_term_param: term,
+                 relationship_panel_category_param: category_label,
+                 relationship_panel_category_css_param: category_css,
+                 relationship_panel_short_param: entry['short'],
+                 relationship_panel_detail_param: entry['detail']
+               },
+               aria: {
+                 haspopup: 'dialog'
+               }
   end
 end
