@@ -46,6 +46,7 @@ class FortuneAnalysisController < ApplicationController
         @phase_method = calculator.phase_method
         @yearly_fortune = calculator.yearly_fortune
         @major_fortune = calculator.major_fortune
+        @heavenly_void_wave = calculator.heavenly_void_wave
       end
     end
   end

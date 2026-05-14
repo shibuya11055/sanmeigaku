@@ -1,0 +1,295 @@
+/* 天中殺の波動 */
+.heavenly-void-wave {
+  margin: 16px 12px;
+  padding: 18px 20px;
+  background-color: #fffdfa;
+  border: 1px solid #e8e2d2;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.hvw-header {
+  border-bottom: 1px solid #ece4d4;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+}
+
+.hvw-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #4a3a26;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hvw-title i {
+  color: #8B5CF6;
+}
+
+.hvw-pattern-name {
+  color: #8B5CF6;
+  font-weight: 700;
+}
+
+.hvw-subtitle {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: #8a7860;
+}
+
+/* セクション共通 */
+.hvw-section {
+  margin-top: 14px;
+}
+
+.hvw-section-header {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #4a3a26;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  background-color: #f5efe1;
+  border-left: 3px solid #8B5CF6;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hvw-section-header i {
+  color: #8B5CF6;
+}
+
+/* details (collapsible) */
+details.hvw-section > summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #4a3a26;
+  padding: 8px 10px;
+  background-color: #f5efe1;
+  border-left: 3px solid #c6b78e;
+  border-radius: 4px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+details.hvw-section > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.hvw-section > summary::before {
+  content: '▶';
+  font-size: 0.7rem;
+  color: #c6b78e;
+  transition: transform 0.2s;
+}
+
+details.hvw-section[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+details.hvw-section > summary i {
+  color: #c6b78e;
+}
+
+/* 根拠（学習用） */
+.hvw-reasoning-body {
+  padding: 12px 14px;
+  background-color: #faf8f1;
+  border: 1px solid #ece4d4;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+.hvw-steps {
+  margin: 0 0 10px 0;
+  padding-left: 22px;
+}
+
+.hvw-steps li {
+  margin-bottom: 4px;
+}
+
+.hvw-reasoning-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px dashed #ddd5c2;
+}
+
+.hvw-fact {
+  font-size: 0.85rem;
+  color: #5a4830;
+}
+
+.hvw-fact strong {
+  color: #8B5CF6;
+}
+
+/* パターンの心得 */
+.hvw-summary-text {
+  margin: 0;
+  padding: 10px 14px;
+  background-color: #faf8f1;
+  border: 1px solid #ece4d4;
+  border-radius: 0 0 6px 6px;
+  color: #4a3a26;
+}
+
+/* タイムラインテーブル */
+.hvw-timeline-table-wrap,
+.hvw-reference-body {
+  overflow-x: auto;
+  border: 1px solid #ece4d4;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+.hvw-timeline-table,
+.hvw-reference-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.hvw-timeline-table th,
+.hvw-timeline-table td,
+.hvw-reference-table th,
+.hvw-reference-table td {
+  border-bottom: 1px solid #ece4d4;
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 0.85rem;
+}
+
+.hvw-timeline-table th,
+.hvw-reference-table th {
+  background-color: #f5efe1;
+  color: #5a4830;
+  font-weight: 600;
+  text-align: center;
+}
+
+.hvw-timeline-table .hvw-year,
+.hvw-timeline-table .hvw-age,
+.hvw-timeline-table .hvw-stem-branch,
+.hvw-timeline-table .hvw-phase,
+.hvw-reference-table .hvw-branch-cell {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.hvw-description {
+  color: #4a3a26;
+  line-height: 1.6;
+}
+
+/* 今年の行 */
+.hvw-row.hvw-current {
+  background-color: #fef9e7;
+  font-weight: 500;
+}
+
+.hvw-row.hvw-current .hvw-year {
+  color: #b8860b;
+}
+
+.hvw-now-badge {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 1px 6px;
+  background-color: #b8860b;
+  color: white;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+/* 期のタグ：トーンごとのカラー */
+.hvw-phase-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.hvw-phase-tag.hvw-tone-strong {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #b7dfbf;
+}
+
+.hvw-phase-tag.hvw-tone-active {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #f1d97a;
+}
+
+.hvw-phase-tag.hvw-tone-calm {
+  background-color: #e2e3e5;
+  color: #383d41;
+  border: 1px solid #d1d3d6;
+}
+
+.hvw-phase-tag.hvw-tone-transition {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #b6dde5;
+}
+
+.hvw-phase-tag.hvw-tone-caution {
+  background-color: #ffe5d6;
+  color: #84410d;
+  border: 1px solid #f7c6a5;
+}
+
+.hvw-phase-tag.hvw-tone-void {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f1aeb5;
+}
+
+/* 行の左ボーダーで期のトーンを表現 */
+.hvw-row.hvw-tone-strong { border-left: 3px solid #28a745; }
+.hvw-row.hvw-tone-active { border-left: 3px solid #ffc107; }
+.hvw-row.hvw-tone-calm { border-left: 3px solid #adb5bd; }
+.hvw-row.hvw-tone-transition { border-left: 3px solid #17a2b8; }
+.hvw-row.hvw-tone-caution { border-left: 3px solid #fd7e14; }
+.hvw-row.hvw-tone-void { border-left: 3px solid #dc3545; }
+
+/* 凡例 */
+.hvw-legend-body {
+  padding: 12px 14px;
+  background-color: #faf8f1;
+  border: 1px solid #ece4d4;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 8px;
+}
+
+.hvw-legend-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px;
+}
+
+.hvw-legend-meaning {
+  flex: 1;
+  font-size: 0.85rem;
+  color: #5a4830;
+}

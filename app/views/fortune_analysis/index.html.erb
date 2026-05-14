@@ -73,6 +73,13 @@
       %>
     </div>
 
+    <%# 天中殺の波動 %>
+    <div>
+      <%= render 'fortune_analysis/heavenly_void_wave',
+        heavenly_void_wave: @heavenly_void_wave
+      %>
+    </div>
+
     <%# 詳細 %>
     <%= render 'fortune_analysis/detail',
       youth_sub_star: @youth_sub_star,

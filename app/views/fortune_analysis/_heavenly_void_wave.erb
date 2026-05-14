@@ -1,0 +1,116 @@
+<% if heavenly_void_wave.present? %>
+  <div class="heavenly-void-wave">
+    <div class="hvw-header">
+      <h3 class="hvw-title">
+        <i class="fas fa-wave-square"></i>
+        天中殺の波動 — <span class="hvw-pattern-name"><%= heavenly_void_wave[:full_name] %></span>
+      </h3>
+      <p class="hvw-subtitle">12年周期で巡る運勢の強弱メモリ。あなたの波動パターンの読み方。</p>
+    </div>
+
+    <%# 根拠（学習用：なぜこの天中殺になるのか） %>
+    <details class="hvw-section hvw-reasoning">
+      <summary>
+        <i class="fas fa-book-open"></i> なぜ「<%= heavenly_void_wave[:full_name] %>」になるのか（根拠）
+      </summary>
+      <div class="hvw-reasoning-body">
+        <ol class="hvw-steps">
+          <% heavenly_void_wave[:reasoning][:steps].each do |step| %>
+            <li><%= step %></li>
+          <% end %>
+        </ol>
+        <div class="hvw-reasoning-summary">
+          <span class="hvw-fact">日柱: <strong><%= heavenly_void_wave[:reasoning][:day_pillar] %></strong></span>
+          <span class="hvw-fact">60干支ID: <strong><%= heavenly_void_wave[:reasoning][:cycle_id] %>番</strong></span>
+          <span class="hvw-fact">グループ: <strong><%= heavenly_void_wave[:reasoning][:group_range] %></strong></span>
+          <span class="hvw-fact">→ <strong><%= heavenly_void_wave[:reasoning][:result] %></strong></span>
+        </div>
+      </div>
+    </details>
+
+    <%# パターン全体の解説 %>
+    <div class="hvw-section hvw-summary">
+      <div class="hvw-section-header">
+        <i class="fas fa-scroll"></i> パターンの心得
+      </div>
+      <p class="hvw-summary-text"><%= heavenly_void_wave[:summary] %></p>
+    </div>
+
+    <%# 個人タイムライン：今年から12年分 %>
+    <div class="hvw-section hvw-timeline">
+      <div class="hvw-section-header">
+        <i class="fas fa-stream"></i> あなたの今後12年（<%= heavenly_void_wave[:start_year] %>年〜<%= heavenly_void_wave[:end_year] %>年）
+      </div>
+      <div class="hvw-timeline-table-wrap">
+        <table class="hvw-timeline-table">
+          <thead>
+            <tr>
+              <th>年</th>
+              <th>歳</th>
+              <th>干支</th>
+              <th>期</th>
+              <th>波動の内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% heavenly_void_wave[:personal_timeline].each do |item| %>
+              <tr class="hvw-row hvw-tone-<%= item[:tone] %> <%= 'hvw-current' if item[:is_current_year] %>">
+                <td class="hvw-year">
+                  <%= item[:year] %><% if item[:is_current_year] %><span class="hvw-now-badge">今</span><% end %>
+                </td>
+                <td class="hvw-age"><%= item[:age] %></td>
+                <td class="hvw-stem-branch"><%= item[:stem_and_branch] %></td>
+                <td class="hvw-phase"><span class="hvw-phase-tag hvw-tone-<%= item[:tone] %>"><%= item[:phase] %></span></td>
+                <td class="hvw-description"><%= item[:description] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <%# 参考：教材通りの12支固定順 %>
+    <details class="hvw-section hvw-reference">
+      <summary>
+        <i class="fas fa-table"></i> 参考表：12支順の波動（子年→亥年）
+      </summary>
+      <div class="hvw-reference-body">
+        <table class="hvw-reference-table">
+          <thead>
+            <tr>
+              <th>支</th>
+              <th>月</th>
+              <th>期</th>
+              <th>内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% heavenly_void_wave[:reference_table].each do |item| %>
+              <tr class="hvw-row hvw-tone-<%= item[:tone] %>">
+                <td class="hvw-branch-cell"><%= item[:branch] %>年</td>
+                <td><%= item[:month] %>月</td>
+                <td><span class="hvw-phase-tag hvw-tone-<%= item[:tone] %>"><%= item[:phase] %></span></td>
+                <td class="hvw-description"><%= item[:description] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <%# 期の凡例 %>
+    <details class="hvw-section hvw-legend">
+      <summary>
+        <i class="fas fa-info-circle"></i> 期の意味（凡例）
+      </summary>
+      <div class="hvw-legend-body">
+        <% heavenly_void_wave[:phase_legend].each do |item| %>
+          <div class="hvw-legend-item">
+            <span class="hvw-phase-tag hvw-tone-<%= item[:tone] %>"><%= item[:phase] %></span>
+            <span class="hvw-legend-meaning"><%= item[:meaning] %></span>
+          </div>
+        <% end %>
+      </div>
+    </details>
+  </div>
+<% end %>
