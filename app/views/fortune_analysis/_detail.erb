@@ -21,20 +21,23 @@
 
   <% birth_void_values = birth_voids.values.compact %>
   <% if birth_void_values.present? %>
-    <div class="compact-section">
+    <div class="compact-section" data-controller="birth-void-panel">
       <div class="compact-header void-bg"><i class="fas fa-ban"></i> 宿命天中殺</div>
       <div class="compact-content">
-        <% birth_void_values.each do |value| %>
-          <span class="<%= css_classes({
+        <% birth_voids.each do |key, value| %>
+          <% next if value.blank? %>
+          <% void_class = css_classes({
             'tag-item': true,
             'text-center': has_birth_voids[:has_compatible_void] || has_birth_voids[:has_double_birth_void] || has_birth_voids[:has_complete_void],
             'color-red': value == '生日中殺' || value == '生月中殺' || value == '生年中殺' || value == '日座天中殺' || value == '日居天中殺',
             'green-circle': value == '互換中殺',
             'blue-square': value == '宿命二中殺',
             'complete-void-color': value == '全天中殺'
-          }) %>"><%= value %></span>
+          }) %>
+          <%= birth_void_button(key, value, day_heavenly_void, void_class) %>
         <% end %>
       </div>
+      <%= render 'fortune_analysis/birth_void_side_panel' %>
     </div>
   <% end %>
 

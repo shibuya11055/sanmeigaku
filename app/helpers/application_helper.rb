@@ -99,4 +99,23 @@ module ApplicationHelper
                  haspopup: 'dialog'
                }
   end
+
+  def birth_void_button(key, value, day_heavenly_void, css_class)
+    entry = BirthVoidGlossary.lookup(key, day_heavenly_void)
+    return content_tag(:span, value, class: css_class) unless entry
+
+    button_tag value,
+               type: 'button',
+               class: "#{css_class} birth-void-button",
+               data: {
+                 action: 'birth-void-panel#open',
+                 birth_void_panel_term_param: value,
+                 birth_void_panel_category_param: entry['category'],
+                 birth_void_panel_short_param: entry['short'],
+                 birth_void_panel_detail_param: entry['detail']
+               },
+               aria: {
+                 haspopup: 'dialog'
+               }
+  end
 end
