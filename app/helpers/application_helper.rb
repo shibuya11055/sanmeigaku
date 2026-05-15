@@ -52,4 +52,25 @@ module ApplicationHelper
                  haspopup: 'dialog'
                }
   end
+
+  def abnormal_term_button(term)
+    return ''.html_safe if term.blank?
+
+    entry = AbnormalGlossary.lookup(term)
+    return content_tag(:span, term, class: 'tag-item') unless entry
+
+    button_tag term,
+               type: 'button',
+               class: 'tag-item abnormal-term-button',
+               data: {
+                 action: 'abnormal-panel#open',
+                 abnormal_panel_term_param: term,
+                 abnormal_panel_category_param: entry['category'],
+                 abnormal_panel_short_param: entry['short'],
+                 abnormal_panel_detail_param: entry['detail']
+               },
+               aria: {
+                 haspopup: 'dialog'
+               }
+  end
 end

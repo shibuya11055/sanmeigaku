@@ -1,0 +1,120 @@
+/* 異常干支タグと右サイドパネル */
+
+.tag-item.abnormal-term-button {
+  appearance: none;
+  display: inline-block;
+  padding: 2px 9px;
+  border: 1px solid rgba(255, 107, 107, 0.35);
+  border-radius: 10px;
+  background: #ffeeee;
+  color: #d33b3b;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.tag-item.abnormal-term-button:hover,
+.tag-item.abnormal-term-button:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.18);
+  transform: translateY(-1px);
+}
+
+.abnormal-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  width: min(460px, 92vw);
+  height: 100dvh;
+  padding: 24px;
+  overflow-y: auto;
+  background: #fffdfa;
+  border-left: 1px solid #efd7d7;
+  box-shadow: -16px 0 40px rgba(52, 20, 20, 0.16);
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+}
+
+.abnormal-panel.is-open {
+  transform: translateX(0);
+}
+
+.abnormal-panel-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #efd7d7;
+  border-radius: 50%;
+  background: #fff;
+  color: #6f2e2e;
+  cursor: pointer;
+}
+
+.abnormal-panel-close:hover,
+.abnormal-panel-close:focus-visible {
+  background: #fff2f2;
+}
+
+.abnormal-panel-kicker {
+  margin-bottom: 10px;
+  color: #b84a4a;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.abnormal-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 36px;
+  margin-bottom: 20px;
+}
+
+.abnormal-panel-term {
+  display: inline-block;
+  padding: 2px 9px;
+  border: 1px solid rgba(255, 107, 107, 0.35);
+  border-radius: 10px;
+  background: #ffeeee;
+  color: #d33b3b;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.abnormal-panel-category {
+  color: #775050;
+  font-size: 0.86rem;
+}
+
+.abnormal-panel-section {
+  padding: 16px 0;
+  border-top: 1px solid #f0dddd;
+}
+
+.abnormal-panel-section h3 {
+  margin: 0 0 8px;
+  color: #5a2f2f;
+  font-size: 0.92rem;
+}
+
+.abnormal-panel-section p {
+  margin: 0;
+  color: #3a2e1c;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+@media (max-width: 600px) {
+  .abnormal-panel {
+    width: 100vw;
+    padding: 22px 18px;
+  }
+}

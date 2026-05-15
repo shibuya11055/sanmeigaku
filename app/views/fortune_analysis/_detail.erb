@@ -9,11 +9,12 @@
   </div>
 
   <% if abnormals.present? %>
-    <div class="compact-section">
+    <div class="compact-section" data-controller="abnormal-panel">
       <div class="compact-header abnormal-bg"><i class="fas fa-exclamation-triangle"></i> 異常干支</div>
       <div class="compact-content">
-        <% abnormals.each do |abnormal| %><span class="tag-item"><%= abnormal %></span><% end %>
+        <% abnormals.each do |abnormal| %><%= abnormal_term_button(abnormal) %><% end %>
       </div>
+      <%= render 'fortune_analysis/abnormal_side_panel' %>
     </div>
   <% end %>
 
