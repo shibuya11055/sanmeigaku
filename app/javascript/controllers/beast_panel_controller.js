@@ -15,10 +15,18 @@ export default class extends Controller {
 
   connect() {
     this.closeOnEscape = this.closeOnEscape.bind(this)
+    this.closeOnPanelOpen = this.closeOnPanelOpen.bind(this)
+    document.addEventListener("fortune-panel:open", this.closeOnPanelOpen)
+  }
+
+  disconnect() {
+    document.removeEventListener("fortune-panel:open", this.closeOnPanelOpen)
+    document.removeEventListener("keydown", this.closeOnEscape)
   }
 
   open(event) {
     const { term, reading, structure, stars, short, detail, yinYang, yinYangDetail } = event.params
+    this.announcePanelOpen()
 
     this.termTarget.textContent = term
     this.readingTarget.textContent = reading ? `(${reading})` : ""
@@ -44,5 +52,17 @@ export default class extends Controller {
     if (event.key === "Escape") {
       this.close()
     }
+  }
+
+  closeOnPanelOpen(event) {
+    if (event.detail.panel !== this.panelTarget) {
+      this.close()
+    }
+  }
+
+  announcePanelOpen() {
+    document.dispatchEvent(
+      new CustomEvent("fortune-panel:open", { detail: { panel: this.panelTarget } })
+    )
   }
 }
