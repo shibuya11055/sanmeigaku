@@ -41,9 +41,10 @@
     </div>
   <% end %>
 
-  <div class="compact-section">
+  <div class="compact-section" data-controller="beast-panel">
     <div class="compact-header beast-bg"><i class="fas fa-dragon"></i> 宿命五型</div>
-    <div class="compact-content center"><%= beast_type %></div>
+    <div class="compact-content center"><%= beast_type_button(beast_type) %></div>
+    <%= render 'fortune_analysis/beast_side_panel' %>
   </div>
 
   <% if !stem_unions.values.all? { |union| union[:result].nil? } %>

@@ -118,4 +118,30 @@ module ApplicationHelper
                  haspopup: 'dialog'
                }
   end
+
+  def beast_type_button(beast_type)
+    entry = BeastTypeGlossary.lookup(beast_type)
+    return content_tag(:span, beast_type) unless entry
+
+    type_name = BeastTypeGlossary.normalize_type(beast_type)
+    yin_yang_label = BeastTypeGlossary.yin_yang_label(beast_type)
+
+    button_tag beast_type,
+               type: 'button',
+               class: 'beast-type-button',
+               data: {
+                 action: 'beast-panel#open',
+                 beast_panel_term_param: "#{type_name}型",
+                 beast_panel_reading_param: entry['reading'],
+                 beast_panel_structure_param: entry['structure'],
+                 beast_panel_stars_param: entry['stars'],
+                 beast_panel_short_param: entry['short'],
+                 beast_panel_detail_param: entry['detail'],
+                 beast_panel_yin_yang_param: yin_yang_label,
+                 beast_panel_yin_yang_detail_param: BeastTypeGlossary.yin_yang_detail(beast_type)
+               },
+               aria: {
+                 haspopup: 'dialog'
+               }
+  end
 end
