@@ -1,4 +1,4 @@
-<div data-controller="relationship-panel">
+<div data-controller="relationship-panel yearly-fortune-panel">
   <div class="yearly-fortune">
     <table class="table table-bordered">
       <thead>
@@ -15,7 +15,7 @@
       </thead>
       <tbody>
         <% yearly_fortune.each do |item| %>
-          <tr>
+          <%= tag.tr(**yearly_fortune_row_options(item)) do %>
             <td><%= item[:year_and_age] %></td>
             <td><%= item[:stem_and_branch] %></td>
             <td><%= item[:major_star] %></td>
@@ -24,10 +24,11 @@
             <%= relationship_color(item[:relationship][:month], item[:heavenly_void]) %>
             <%= relationship_color(item[:relationship][:year], item[:heavenly_void]) %>
             <%= relationship_color(item[:heavenly_void], item[:heavenly_void]) %>
-          </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
   </div>
   <%= render 'fortune_analysis/relationship_side_panel' %>
+  <%= render 'fortune_analysis/yearly_fortune_side_panel' %>
 </div>

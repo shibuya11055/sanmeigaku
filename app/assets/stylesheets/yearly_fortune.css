@@ -24,3 +24,164 @@
     }
   }
 }
+
+.yearly-fortune-row {
+  cursor: pointer;
+  transition: background-color 0.14s ease, box-shadow 0.14s ease;
+}
+
+.yearly-fortune-row:hover td,
+.yearly-fortune-row:focus-visible td {
+  background-color: #fff8ea;
+}
+
+.yearly-fortune-row:focus-visible {
+  outline: 2px solid #8a6f3d;
+  outline-offset: -2px;
+}
+
+.yearly-fortune-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  width: min(460px, 92vw);
+  height: 100dvh;
+  padding: 24px;
+  overflow-y: auto;
+  background: #fffdfa;
+  border-left: 1px solid #e6dcc9;
+  box-shadow: -16px 0 40px rgba(52, 37, 20, 0.18);
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+}
+
+.yearly-fortune-panel.is-open {
+  transform: translateX(0);
+}
+
+.yearly-fortune-panel-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #e6dcc9;
+  border-radius: 50%;
+  background: #fff;
+  color: #4a3a26;
+  cursor: pointer;
+}
+
+.yearly-fortune-panel-close:hover,
+.yearly-fortune-panel-close:focus-visible {
+  background: #f8f3e8;
+}
+
+.yearly-fortune-panel-kicker {
+  margin-bottom: 10px;
+  color: #8a6f3d;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.yearly-fortune-panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-right: 36px;
+  margin-bottom: 20px;
+}
+
+.yearly-fortune-panel-year {
+  display: block;
+  color: #2f2517;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.yearly-fortune-panel-cycle {
+  display: inline-block;
+  margin-top: 4px;
+  color: #6a5a42;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.yearly-fortune-panel-void {
+  flex: 0 0 auto;
+  padding: 4px 9px;
+  border: 1px solid #d7ccb8;
+  border-radius: 999px;
+  background: #f8f3e8;
+  color: #6a5a42;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.yearly-fortune-panel-void.is-void {
+  border-color: #f0b0b6;
+  background: #fff0f5;
+  color: #a71d2a;
+}
+
+.yearly-fortune-panel-section {
+  padding: 16px 0;
+  border-top: 1px solid #ece4d4;
+}
+
+.yearly-fortune-panel-section h3 {
+  margin: 0 0 8px;
+  color: #4a3a26;
+  font-size: 0.92rem;
+}
+
+.yearly-fortune-panel-section p {
+  margin: 0;
+  color: #3a2e1c;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.yearly-fortune-panel-section p + p {
+  margin-top: 10px;
+}
+
+.yearly-fortune-panel-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.yearly-fortune-panel-meta > span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 2px 8px;
+  border: 1px solid #e6dcc9;
+  border-radius: 999px;
+  background: #f8f3e8;
+  color: #4a3a26;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.yearly-fortune-panel-people {
+  margin-bottom: 10px !important;
+  color: #6a5a42 !important;
+  font-size: 0.86rem !important;
+}
+
+@media (max-width: 600px) {
+  .yearly-fortune-panel {
+    width: 100vw;
+    padding: 22px 18px;
+  }
+}

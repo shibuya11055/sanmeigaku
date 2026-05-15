@@ -187,4 +187,107 @@ module ApplicationHelper
                  haspopup: 'dialog'
                }
   end
+
+  def yearly_fortune_row_options(item)
+    major_entry = FortuneMajorStarGlossary.lookup(item[:major_star]) || {}
+    sub_entry = FortuneSubStarGlossary.lookup(item[:sub_star]) || {}
+    heavenly_void = item[:heavenly_void].present?
+
+    {
+      class: 'yearly-fortune-row',
+      role: 'button',
+      tabindex: 0,
+      aria: {
+        label: yearly_fortune_row_label(item)
+      },
+      data: {
+        action: 'click->yearly-fortune-panel#open keydown.enter->yearly-fortune-panel#open keydown.space->yearly-fortune-panel#open',
+        yearly_fortune_panel_year_param: item[:year_and_age],
+        yearly_fortune_panel_stem_and_branch_param: item[:stem_and_branch],
+        yearly_fortune_panel_void_label_param: heavenly_void ? '天中殺年' : '通常年',
+        yearly_fortune_panel_summary_param: yearly_fortune_summary(item, major_entry, heavenly_void),
+        yearly_fortune_panel_major_star_param: item[:major_star],
+        yearly_fortune_panel_major_keywords_param: major_entry['keywords'],
+        yearly_fortune_panel_key_people_param: major_entry['key_people'],
+        yearly_fortune_panel_place_people_param: major_entry['fortune_place_people'],
+        yearly_fortune_panel_major_text_param: yearly_fortune_glossary_text(major_entry, heavenly_void),
+        yearly_fortune_panel_sub_star_param: item[:sub_star],
+        yearly_fortune_panel_sub_power_param: sub_entry['power'],
+        yearly_fortune_panel_sub_keywords_param: sub_entry['keywords'],
+        yearly_fortune_panel_sub_text_param: yearly_fortune_glossary_text(sub_entry, heavenly_void),
+        yearly_fortune_panel_day_relationship_param: yearly_fortune_relationship_text(:day, item[:relationship][:day]),
+        yearly_fortune_panel_month_relationship_param: yearly_fortune_relationship_text(:month, item[:relationship][:month]),
+        yearly_fortune_panel_year_relationship_param: yearly_fortune_relationship_text(:year, item[:relationship][:year]),
+        yearly_fortune_panel_void_text_param: yearly_fortune_void_text(heavenly_void)
+      }
+    }
+  end
+
+  def yearly_fortune_row_label(item)
+    "#{item[:year_and_age]} #{item[:stem_and_branch]} の年運読み解きを開く"
+  end
+
+  def yearly_fortune_summary(item, major_entry, heavenly_void)
+    key_people = major_entry['key_people'].presence || '関係人物'
+    place_people = major_entry['fortune_place_people'].presence
+    people_note =
+      if place_people.present? && place_people != key_people
+        "#{key_people}を主人物に、#{place_people}も補助的に確認します。"
+      else
+        "#{key_people}を主人物として確認します。"
+      end
+    void_note =
+      if heavenly_void
+        '天中殺年のため、新規開始や大きな決定は慎重に扱います。'
+      else
+        '通常年として、主星・従星・日月年の位相を組み合わせて読みます。'
+      end
+
+    "#{item[:year_and_age]}は#{item[:major_star]}を主星テーマに、#{item[:sub_star]}は一年のテーマを下支えします。#{people_note}日支は家庭・結果、月支は心、年支は仕事・社会の現象として確認します。#{void_note}"
+  end
+
+  def yearly_fortune_relationship_text(position, relationship)
+    position_label = FortuneRelationshipGlossary.position_label(position)
+
+    if relationship.blank?
+      return "#{position_label}: 目立つ位相はありません。#{FortuneRelationshipGlossary.default_position_text(position)}"
+    end
+
+    terms = relationship.split("\n").reject(&:blank?).map do |term|
+      entry = FortuneRelationshipGlossary.position_entry(term, position)
+      fallback_entry = RelationshipGlossary.lookup(term)
+
+      if entry.present?
+        yearly_fortune_relationship_entry_text(term, entry)
+      elsif fallback_entry.present?
+        "#{term}: #{fallback_entry['short']}"
+      else
+        term
+      end
+    end
+
+    "#{position_label}:\n#{terms.join("\n\n")}"
+  end
+
+  def yearly_fortune_relationship_entry_text(term, entry)
+    text = "#{term}: #{entry['short']}"
+    return text if entry['detail'].blank?
+
+    "#{text}\n#{entry['detail']}"
+  end
+
+  def yearly_fortune_void_text(heavenly_void)
+    return '該当なし。通常の年運として、主星・従星・位相法を中心に読みます。' unless heavenly_void
+
+    '天中殺年に該当します。新しいことを始める、自分の欲望を満たす、将来につながる大きな決定をする、といった行動は慎重に扱います。位相法の出方も平常時より行き過ぎやすいため、良い位相も悪い位相も極端に振れていないかを確認します。継続している日常や積み上げてきた努力は崩さず、普段と違う衝動で動いていないかを確認します。'
+  end
+
+  def yearly_fortune_glossary_text(entry, heavenly_void)
+    return '解説データが未登録です。' if entry.blank?
+
+    short_key = heavenly_void && entry['void_short'].present? ? 'void_short' : 'short'
+    detail_key = heavenly_void && entry['void_detail'].present? ? 'void_detail' : 'detail'
+
+    "#{entry[short_key]}\n#{entry[detail_key]}"
+  end
 end
