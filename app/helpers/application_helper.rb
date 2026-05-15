@@ -140,6 +140,28 @@ module ApplicationHelper
                }
   end
 
+  def natal_phase_button(term, label = nil)
+    entry = NatalPhaseGlossary.lookup(term)
+    display_label = label || term
+    return content_tag(:span, display_label) unless entry
+
+    normalized_term = NatalPhaseGlossary.normalize(term)
+
+    button_tag display_label,
+               type: 'button',
+               class: 'natal-phase-button',
+               data: {
+                 action: 'natal-phase-panel#open',
+                 natal_phase_panel_term_param: normalized_term,
+                 natal_phase_panel_category_param: entry['category'],
+                 natal_phase_panel_short_param: entry['short'],
+                 natal_phase_panel_detail_param: entry['detail']
+               },
+               aria: {
+                 haspopup: 'dialog'
+               }
+  end
+
   def beast_type_button(beast_type)
     entry = BeastTypeGlossary.lookup(beast_type)
     return content_tag(:span, beast_type) unless entry

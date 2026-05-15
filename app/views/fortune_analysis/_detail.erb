@@ -1,4 +1,4 @@
-<div class="ultra-compact-detail">
+<div class="ultra-compact-detail" data-controller="natal-phase-panel">
   <div class="compact-section" data-controller="energy-panel">
     <div class="compact-header energy-bg"><i class="fas fa-star"></i> 三期エネルギー</div>
     <div class="compact-content">
@@ -68,19 +68,24 @@
       <div class="compact-header combined-bg"><i class="fas fa-plus-circle"></i> 位相（合法）</div>
       <div class="compact-content">
         <% if phase_method[:trine].present? %>
-          <div class="info-row"><%= phase_method_text.get_message("trine.#{phase_method[:trine]}") %></div>
+          <% term = phase_method_text.get_message("trine.#{phase_method[:trine]}") %>
+          <div class="info-row"><%= natal_phase_button(term) %></div>
         <% end %>
         <% if phase_method[:half_trine].present? %>
-          <div class="info-row"><%= phase_method_text.get_message("half_trine.#{phase_method[:half_trine][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:half_trine][:pairs].join('_and_')}") %></div>
+          <% term = phase_method_text.get_message("half_trine.#{phase_method[:half_trine][:key]}") %>
+          <div class="info-row"><%= natal_phase_button(term) %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:half_trine][:pairs].join('_and_')}") %></div>
         <% end %>
         <% if phase_method[:combination].present? %>
-          <div class="info-row"><%= phase_method_text.get_message("combination.#{phase_method[:combination][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:combination][:pairs].join('_and_')}") %></div>
+          <% term = phase_method_text.get_message("combination.#{phase_method[:combination][:key]}") %>
+          <div class="info-row"><%= natal_phase_button(term) %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:combination][:pairs].join('_and_')}") %></div>
         <% end %>
         <% if phase_method[:directional].present? %>
-          <div class="info-row"><%= phase_method_text.get_message("directional.#{phase_method[:directional]}") %></div>
+          <% term = phase_method_text.get_message("directional.#{phase_method[:directional]}") %>
+          <div class="info-row"><%= natal_phase_button(term) %></div>
         <% end %>
         <% if phase_method[:half_directional].present? %>
-          <div class="info-row"><%= phase_method_text.get_message("half_directional.#{phase_method[:half_directional][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:half_directional][:pairs].join('_and_')}") %></div>
+          <% term = phase_method_text.get_message("half_directional.#{phase_method[:half_directional][:key]}") %>
+          <div class="info-row"><%= natal_phase_button(term) %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:half_directional][:pairs].join('_and_')}") %></div>
         <% end %>
       </div>
     </div>
@@ -91,26 +96,31 @@
       <div class="compact-header scattered-bg"><i class="fas fa-share-alt"></i> 位相（散法）</div>
       <div class="compact-content">
         <% if phase_method[:clash].present? %>
-          <div class="info-row"><%= phase_method_text.get_message("clash.#{phase_method[:clash][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:clash][:pairs].join('_and_')}") %></div>
+          <% term = phase_method_text.get_message("clash.#{phase_method[:clash][:key]}") %>
+          <div class="info-row"><%= natal_phase_button(term) %> - <%= phase_method_text.get_message("branch_pairs.#{phase_method[:clash][:pairs].join('_and_')}") %></div>
         <% end %>
         <% if phase_method[:harm].present? %>
           <% phase_method[:harm].each do |harm_obj| %>
-            <div class="info-row">害（<%= harm_obj.keys.first.to_s %>）</div>
+            <% term = "害（#{harm_obj.keys.first}）" %>
+            <div class="info-row"><%= natal_phase_button(term) %></div>
           <% end %>
         <% end %>
         <% if phase_method[:punishment].present? %>
           <% phase_method[:punishment][:pairs].each do |pair| %>
-            <div class="info-row"><%= phase_method_text.get_message("punishment.#{phase_method[:punishment][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
+            <% term = phase_method_text.get_message("punishment.#{phase_method[:punishment][:key]}") %>
+            <div class="info-row"><%= natal_phase_button(term) %> - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
           <% end %>
         <% end %>
         <% if phase_method[:self_punishment].present? %>
           <% phase_method[:self_punishment][:pairs].each do |pair| %>
-            <div class="info-row"><%= phase_method_text.get_message("self_punishment.#{phase_method[:self_punishment][:key]}") %> - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
+            <% term = phase_method_text.get_message("self_punishment.#{phase_method[:self_punishment][:key]}") %>
+            <div class="info-row"><%= natal_phase_button(term) %> - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
           <% end %>
         <% end %>
         <% if phase_method[:braking].present? %>
           <% phase_method[:braking].each do |braking_obj| %>
-            <div class="info-row">破（<%= braking_obj.keys.first.to_s %>）</div>
+            <% term = "破（#{braking_obj.keys.first}）" %>
+            <div class="info-row"><%= natal_phase_button(term) %></div>
           <% end %>
         <% end %>
       </div>
@@ -122,24 +132,34 @@
       <div class="compact-header special-bg"><i class="fas fa-magic"></i> 位相（特殊）</div>
       <div class="compact-content">
         <% if phase_method[:strong_half_trine].present? %>
-          <div class="info-row"><%= phase_method_text.get_message('strong_half_trine') %></div>
+          <% term = phase_method_text.get_message('strong_half_trine') %>
+          <div class="info-row"><%= natal_phase_button(term) %></div>
         <% end %>
         <% if phase_method[:ricchin].present? %>
           <% phase_method[:ricchin][:pairs].each do |pair| %>
-            <div class="info-row">律音 - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
+            <div class="info-row"><%= natal_phase_button('律音') %> - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
           <% end %>
         <% end %>
         <% if phase_method[:nacchin].present? %>
           <% phase_method[:nacchin][:pairs].each do |pair| %>
-            <div class="info-row">納音 - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
+            <div class="info-row"><%= natal_phase_button('納音') %> - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
           <% end %>
         <% end %>
         <% if phase_method[:dual_clash].present? %>
           <% phase_method[:dual_clash][:pairs].each do |pair| %>
-            <div class="info-row">天剋地中 - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
+            <div class="info-row"><%= natal_phase_button('天剋地冲', '天剋地中') %> - <%= phase_method_text.get_message("branch_pairs.#{pair.join('_and_')}") %></div>
           <% end %>
         <% end %>
       </div>
     </div>
   <% end %>
+  <% if phase_method[:has_combined] && phase_method[:has_scattered] %>
+    <div class="compact-section">
+      <div class="compact-header special-bg"><i class="fas fa-balance-scale"></i> 位相（複合）</div>
+      <div class="compact-content">
+        <div class="info-row"><%= natal_phase_button('合法と散法の同居') %></div>
+      </div>
+    </div>
+  <% end %>
+  <%= render 'fortune_analysis/natal_phase_side_panel' %>
 </div>

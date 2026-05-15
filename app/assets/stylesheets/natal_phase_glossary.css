@@ -1,0 +1,121 @@
+/* 宿命位相法ボタンと右サイドパネル */
+
+.natal-phase-button {
+  appearance: none;
+  display: inline-block;
+  padding: 2px 9px;
+  border: 1px solid rgba(83, 105, 118, 0.32);
+  border-radius: 10px;
+  background: #eef7f6;
+  color: #285d61;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.natal-phase-button:hover,
+.natal-phase-button:focus-visible {
+  box-shadow: 0 0 0 2px rgba(83, 105, 118, 0.18);
+  transform: translateY(-1px);
+}
+
+.natal-phase-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  width: min(540px, 92vw);
+  height: 100dvh;
+  padding: 24px;
+  overflow-y: auto;
+  background: #fffdfa;
+  border-left: 1px solid #d3e4e0;
+  box-shadow: -16px 0 40px rgba(22, 46, 48, 0.16);
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+}
+
+.natal-phase-panel.is-open {
+  transform: translateX(0);
+}
+
+.natal-phase-panel-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #d3e4e0;
+  border-radius: 50%;
+  background: #fff;
+  color: #285d61;
+  cursor: pointer;
+}
+
+.natal-phase-panel-close:hover,
+.natal-phase-panel-close:focus-visible {
+  background: #eef7f6;
+}
+
+.natal-phase-panel-kicker {
+  margin-bottom: 10px;
+  color: #2f7478;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.natal-phase-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 36px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.natal-phase-panel-term {
+  display: inline-block;
+  padding: 2px 9px;
+  border: 1px solid rgba(83, 105, 118, 0.32);
+  border-radius: 10px;
+  background: #eef7f6;
+  color: #285d61;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.natal-phase-panel-category {
+  color: #536976;
+  font-size: 0.86rem;
+}
+
+.natal-phase-panel-section {
+  padding: 16px 0;
+  border-top: 1px solid #dcebe8;
+}
+
+.natal-phase-panel-section h3 {
+  margin: 0 0 8px;
+  color: #244b4e;
+  font-size: 0.92rem;
+}
+
+.natal-phase-panel-section p {
+  margin: 0;
+  color: #3a2e1c;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+@media (max-width: 600px) {
+  .natal-phase-panel {
+    width: 100vw;
+    padding: 22px 18px;
+  }
+}
