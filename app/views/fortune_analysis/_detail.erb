@@ -48,15 +48,16 @@
   </div>
 
   <% if !stem_unions.values.all? { |union| union[:result].nil? } %>
-    <div class="compact-section">
+    <div class="compact-section" data-controller="relationship-panel">
       <div class="compact-header unions-bg"><i class="fas fa-link"></i> 干合</div>
       <div class="compact-content">
         <% stem_unions.each do |key, union| %>
           <% if union[:result].present? %>
-            <div class="info-row"><b>【<%= union[:title] %>】:</b> <%= union[:before].join('・') %> → <%= union[:result].join('・') %></div>
+            <div class="info-row"><b>【<%= union[:title] %>】:</b> <%= relationship_term_span('干合') %> <%= union[:before].join('・') %> → <%= union[:result].join('・') %></div>
           <% end %>
         <% end %>
       </div>
+      <%= render 'fortune_analysis/relationship_side_panel' %>
     </div>
   <% end %>
 
