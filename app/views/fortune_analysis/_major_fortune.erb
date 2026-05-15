@@ -1,4 +1,4 @@
-<div data-controller="relationship-panel">
+<div data-controller="relationship-panel birth-void-panel">
   <div class="major-fortune">
     <table class="table table-bordered">
       <thead>
@@ -28,12 +28,13 @@
             <%= relationship_color(item[:relationship][:day], item[:heavenly_void]) %>
             <%= relationship_color(item[:relationship][:month], item[:heavenly_void]) %>
             <%= relationship_color(item[:relationship][:year], item[:heavenly_void]) %>
-            <%= relationship_color(item[:heavenly_void], item[:heavenly_void]) %>
-            <td><%= item[:abnormal] %></td>
+            <td class="<%= item[:heavenly_void].present? ? 'rel-cell rel-cell-void' : 'rel-cell' %>"><%= fortune_period_button('大運天中殺', item[:heavenly_void]) %></td>
+            <td><%= fortune_period_button('変剋律', item[:abnormal]) %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
   <%= render 'fortune_analysis/relationship_side_panel' %>
+  <%= render 'fortune_analysis/birth_void_side_panel', panel_label: '運勢の天中殺' %>
 </div>

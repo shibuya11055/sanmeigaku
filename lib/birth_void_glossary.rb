@@ -18,6 +18,10 @@ class BirthVoidGlossary
     GLOSSARY[glossary_key] || GLOSSARY[DIRECT_KEYS[key.to_sym]] || GLOSSARY[GROUPED_KEYS[key.to_sym]]
   end
 
+  def self.lookup_term(term)
+    GLOSSARY[term]
+  end
+
   def self.glossary_key(key, heavenly_void)
     grouped_key = GROUPED_KEYS[key.to_sym]
     return DIRECT_KEYS[key.to_sym] unless grouped_key

@@ -119,6 +119,27 @@ module ApplicationHelper
                }
   end
 
+  def fortune_period_button(term, value)
+    return ''.html_safe if value.blank?
+
+    entry = BirthVoidGlossary.lookup_term(term)
+    return content_tag(:span, value) unless entry
+
+    button_tag value,
+               type: 'button',
+               class: 'tag-item birth-void-button',
+               data: {
+                 action: 'birth-void-panel#open',
+                 birth_void_panel_term_param: term,
+                 birth_void_panel_category_param: entry['category'],
+                 birth_void_panel_short_param: entry['short'],
+                 birth_void_panel_detail_param: entry['detail']
+               },
+               aria: {
+                 haspopup: 'dialog'
+               }
+  end
+
   def beast_type_button(beast_type)
     entry = BeastTypeGlossary.lookup(beast_type)
     return content_tag(:span, beast_type) unless entry
