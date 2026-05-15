@@ -1,0 +1,124 @@
+/* 三期エネルギーの星名ボタンと右サイドパネル */
+
+.energy-star-button {
+  appearance: none;
+  display: inline-block;
+  padding: 2px 9px;
+  border: 1px solid rgba(197, 149, 48, 0.32);
+  border-radius: 10px;
+  background: #fff7d6;
+  color: #9a6700;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.energy-star-button:hover,
+.energy-star-button:focus-visible {
+  box-shadow: 0 0 0 2px rgba(197, 149, 48, 0.18);
+  transform: translateY(-1px);
+}
+
+.energy-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  width: min(480px, 92vw);
+  height: 100dvh;
+  padding: 24px;
+  overflow-y: auto;
+  background: #fffdfa;
+  border-left: 1px solid #eadca8;
+  box-shadow: -16px 0 40px rgba(52, 42, 20, 0.16);
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+}
+
+.energy-panel.is-open {
+  transform: translateX(0);
+}
+
+.energy-panel-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #eadca8;
+  border-radius: 50%;
+  background: #fff;
+  color: #73540a;
+  cursor: pointer;
+}
+
+.energy-panel-close:hover,
+.energy-panel-close:focus-visible {
+  background: #fff8dc;
+}
+
+.energy-panel-kicker {
+  margin-bottom: 10px;
+  color: #9a6700;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.energy-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 36px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.energy-panel-term {
+  display: inline-block;
+  padding: 2px 9px;
+  border: 1px solid rgba(197, 149, 48, 0.32);
+  border-radius: 10px;
+  background: #fff7d6;
+  color: #9a6700;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.energy-panel-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #6d5b2e;
+  font-size: 0.86rem;
+}
+
+.energy-panel-section {
+  padding: 16px 0;
+  border-top: 1px solid #eee2b8;
+}
+
+.energy-panel-section h3 {
+  margin: 0 0 8px;
+  color: #5b4512;
+  font-size: 0.92rem;
+}
+
+.energy-panel-section p {
+  margin: 0;
+  color: #3a2e1c;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+@media (max-width: 600px) {
+  .energy-panel {
+    width: 100vw;
+    padding: 22px 18px;
+  }
+}

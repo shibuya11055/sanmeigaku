@@ -1,11 +1,12 @@
 <div class="ultra-compact-detail">
-  <div class="compact-section">
+  <div class="compact-section" data-controller="energy-panel">
     <div class="compact-header energy-bg"><i class="fas fa-star"></i> 三期エネルギー</div>
     <div class="compact-content">
-      <span class="energy-item"><b>若年期</b>: <%= youth_sub_star.name %>・<%= @youth_sub_star.energy %></span>
-      <span class="energy-item"><b>中年期</b>: <%= middle_age_sub_star.name %>・<%= @middle_age_sub_star.energy %></span>
-      <span class="energy-item"><b>晩年期</b>: <%= old_age_sub_star.name %>・<%= @old_age_sub_star.energy %></span>
+      <span class="energy-item"><b>若年期</b>: <%= twelve_sub_star_button(youth_sub_star, 'youth') %>・<%= youth_sub_star.energy %></span>
+      <span class="energy-item"><b>中年期</b>: <%= twelve_sub_star_button(middle_age_sub_star, 'middle') %>・<%= middle_age_sub_star.energy %></span>
+      <span class="energy-item"><b>晩年期</b>: <%= twelve_sub_star_button(old_age_sub_star, 'old') %>・<%= old_age_sub_star.energy %></span>
     </div>
+    <%= render 'fortune_analysis/energy_side_panel' %>
   </div>
 
   <% if abnormals.present? %>

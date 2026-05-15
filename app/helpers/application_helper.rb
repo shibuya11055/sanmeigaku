@@ -73,4 +73,30 @@ module ApplicationHelper
                  haspopup: 'dialog'
                }
   end
+
+  def twelve_sub_star_button(star, period)
+    return ''.html_safe unless star
+
+    entry = TwelveSubStarGlossary.lookup(star.name)
+    return content_tag(:span, star.name) unless entry
+
+    period_label = TwelveSubStarGlossary.period_label(period)
+
+    button_tag star.name,
+               type: 'button',
+               class: 'energy-star-button',
+               data: {
+                 action: 'energy-panel#open',
+                 energy_panel_term_param: star.name,
+                 energy_panel_reading_param: entry['reading'],
+                 energy_panel_power_param: entry['power'],
+                 energy_panel_period_param: period_label,
+                 energy_panel_short_param: entry['short'],
+                 energy_panel_basic_param: entry['basic'],
+                 energy_panel_period_text_param: entry[period]
+               },
+               aria: {
+                 haspopup: 'dialog'
+               }
+  end
 end
