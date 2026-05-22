@@ -1,0 +1,114 @@
+/* 日干支ヘッダーと右サイドパネル */
+
+.table-bordered th.day-pillar-header-trigger {
+  background-color: #eef7df;
+  color: #4d6c38;
+  cursor: pointer;
+  transition: background-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.table-bordered th.day-pillar-header-trigger:hover,
+.table-bordered th.day-pillar-header-trigger:focus-visible {
+  background-color: #e4f1d4;
+  box-shadow: inset 0 0 0 2px rgba(92, 125, 74, 0.28);
+  outline: none;
+}
+
+.day-pillar-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  width: min(500px, 92vw);
+  height: 100dvh;
+  padding: 24px;
+  overflow-y: auto;
+  background: #fffdfa;
+  border-left: 1px solid #dbe8cf;
+  box-shadow: -16px 0 40px rgba(32, 54, 20, 0.16);
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+}
+
+.day-pillar-panel.is-open {
+  transform: translateX(0);
+}
+
+.day-pillar-panel-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #dbe8cf;
+  border-radius: 50%;
+  background: #fff;
+  color: #4d6c38;
+  cursor: pointer;
+}
+
+.day-pillar-panel-close:hover,
+.day-pillar-panel-close:focus-visible {
+  background: #f1f8e9;
+}
+
+.day-pillar-panel-kicker {
+  margin-bottom: 10px;
+  color: #4d6c38;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.day-pillar-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 36px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.day-pillar-panel-term {
+  display: inline-block;
+  padding: 2px 9px;
+  border: 1px solid rgba(92, 125, 74, 0.32);
+  border-radius: 10px;
+  background: #f1f8e9;
+  color: #4d6c38;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.day-pillar-panel-meta {
+  color: #55664c;
+  font-size: 0.86rem;
+}
+
+.day-pillar-panel-section {
+  padding: 16px 0;
+  border-top: 1px solid #e0ebd7;
+}
+
+.day-pillar-panel-section h3 {
+  margin: 0 0 8px;
+  color: #3f5c2f;
+  font-size: 0.92rem;
+}
+
+.day-pillar-panel-section p {
+  margin: 0;
+  color: #3a2e1c;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+@media (max-width: 600px) {
+  .day-pillar-panel {
+    width: 100vw;
+    padding: 22px 18px;
+  }
+}

@@ -188,6 +188,31 @@ module ApplicationHelper
                }
   end
 
+  def day_pillar_header_options(sexagenary_cycle)
+    entry = DayPillarGlossary.lookup(sexagenary_cycle)
+    pillar_name = DayPillarGlossary.pillar_name(sexagenary_cycle)
+    return {} unless entry
+
+    {
+      class: 'day-pillar-header-trigger',
+      role: 'button',
+      tabindex: 0,
+      data: {
+        action: 'click->day-pillar-panel#open keydown.enter->day-pillar-panel#open keydown.space->day-pillar-panel#open',
+        day_pillar_panel_term_param: "#{pillar_name}・日番号#{entry['number']}",
+        day_pillar_panel_meta_param: DayPillarGlossary.meta(entry),
+        day_pillar_panel_keywords_param: entry['keywords'],
+        day_pillar_panel_short_param: entry['short'],
+        day_pillar_panel_detail_param: entry['detail'],
+        day_pillar_panel_advice_param: entry['advice']
+      },
+      aria: {
+        haspopup: 'dialog',
+        label: "#{pillar_name}の日干支解説を開く"
+      }
+    }
+  end
+
   def yearly_fortune_row_options(item)
     major_entry = FortuneMajorStarGlossary.lookup(item[:major_star]) || {}
     sub_entry = FortuneSubStarGlossary.lookup(item[:sub_star]) || {}

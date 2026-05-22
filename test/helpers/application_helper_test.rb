@@ -54,4 +54,23 @@ class ApplicationHelperTest < ActionView::TestCase
 
     assert_includes text, '位相法の出方も平常時より行き過ぎ'
   end
+
+  test 'day pillar header options open panel with day pillar reading' do
+    options = day_pillar_header_options('甲子')
+
+    assert_equal 'day-pillar-header-trigger', options[:class]
+    assert_equal 'button', options[:role]
+    assert_equal 0, options[:tabindex]
+    assert_includes options[:data][:action], 'click->day-pillar-panel#open'
+    assert_includes options[:data][:action], 'keydown.enter->day-pillar-panel#open'
+    assert_equal '甲子・日番号1', options[:data][:day_pillar_panel_term_param]
+    assert_equal '日番号1 / 戌亥天中殺 / 天恍星', options[:data][:day_pillar_panel_meta_param]
+    assert_includes options[:data][:day_pillar_panel_keywords_param], '学習・芸術・後半運'
+  end
+
+  test 'day pillar glossary returns metadata for special pillars' do
+    entry = DayPillarGlossary.lookup('甲戌')
+
+    assert_equal '日番号11 / 申酉天中殺 / 天印星 / 日座中殺', DayPillarGlossary.meta(entry)
+  end
 end

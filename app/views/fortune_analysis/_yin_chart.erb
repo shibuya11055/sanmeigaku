@@ -1,11 +1,13 @@
-<div class="yin-field">
+<div class="yin-field" data-controller="day-pillar-panel">
   <div class="void">
     <%= day_heavenly_void %>
   </div>
   <div class="yin-chart">
     <table class="table-bordered">
       <tr>
-        <th>日<br/>(<%= result.sexagenary_cycle_day_id %>)</th>
+        <%= content_tag(:th, day_pillar_header_options(result.sexagenary_cycle_day)) do %>
+          日<br/>(<%= result.sexagenary_cycle_day_id %>)
+        <% end %>
         <th>月<br/>(<%= result.sexagenary_cycle_month_id %>)</th>
         <th>年<br/>(<%= result.sexagenary_cycle_year_id %>)</th>
       </tr>
@@ -124,4 +126,6 @@
   <div class="void">
     <%= year_heavenly_void %>
   </div>
+
+  <%= render 'fortune_analysis/day_pillar_side_panel' %>
 </div>
