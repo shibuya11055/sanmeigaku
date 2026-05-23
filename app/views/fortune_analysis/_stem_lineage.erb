@@ -1,111 +1,92 @@
-<div class="stem-lineage">
-  <div class="container">
-    <!-- 第一段（祖父母） -->
+<div class="stem-lineage" data-controller="stem-lineage-panel">
+  <div class="stem-lineage-header">
     <div>
-      祖父
-      <div class="box"><%= stem_lineage[:f_grandfather][:text]%></div>
+      <h2 class="stem-lineage-title">六親図</h2>
     </div>
-    <div>
-      祖母
-      <div class="box"><%= stem_lineage[:f_grandmother][:text]%></div>
-    </div>
-    <div>
-      祖母
-      <div class="box"><%= stem_lineage[:m_grandmother][:text]%></div>
-    </div>
-    <div>
-      祖父
-      <div class="box"><%= stem_lineage[:m_grandfather][:text]%></div>
-    </div>
-    <div></div>
+  </div>
 
+  <div class="container" aria-label="六親図">
+    <!-- 第一段（祖父母） -->
+    <%= stem_lineage_node(stem_lineage, :f_grandfather) %>
+    <%= stem_lineage_node(stem_lineage, :f_grandmother) %>
+    <%= stem_lineage_node(stem_lineage, :m_grandmother) %>
+    <%= stem_lineage_node(stem_lineage, :m_grandfather) %>
+    <div></div>
+    <div></div>
 
     <!-- 矢印 -->
     <div></div>
     <div class="arrow">↓</div>
     <div class="arrow">↓</div>
+    <div></div>
     <div></div>
     <div></div>
 
     <!-- 第二段（両親と義父母） -->
     <div></div>
-    <div>
-      父
-      <div class="box"><%= stem_lineage[:father][:text]%></div>
-    </div>
-    <div>
-      母
-      <div class="box"><%= stem_lineage[:mother][:text]%></div>
-    </div>
-    <div>
-      義母
-      <div class="box"><%= stem_lineage[:mother_in_law][:text]%></div>
-    </div>
-    <div>
-      義父
-      <div class="box"><%= stem_lineage[:father_in_law][:text]%></div>
-    </div>
+    <%= stem_lineage_node(stem_lineage, :father) %>
+    <%= stem_lineage_node(stem_lineage, :mother) %>
+    <%= stem_lineage_node(stem_lineage, :mother_in_law) %>
+    <%= stem_lineage_node(stem_lineage, :father_in_law) %>
     <div></div>
 
     <!-- 矢印 -->
     <div></div>
     <div class="arrow">↓</div>
     <div class="arrow">↓</div>
+    <div></div>
     <div></div>
     <div></div>
 
     <!-- 第三段（自分と配偶者） -->
+    <%= stem_lineage_node(stem_lineage, :siblings) %>
+    <div class="stem-lineage-node stem-lineage-self">
+      <span class="stem-lineage-role">自分</span>
+      <div class="stem-lineage-box stem-lineage-box-self">
+        <span class="stem-lineage-stems"><%= day_stem.name %></span>
+      </div>
+    </div>
+    <%= stem_lineage_node(stem_lineage, :spouse) %>
     <div></div>
-    <div>
-      自分
-      <div class="box"><%= day_stem.name%></div>
-    </div>
-    <div>
-      配偶者
-      <div class="box"><%= stem_lineage[:spouse][:text]%></div>
-    </div>
     <div></div>
     <div></div>
 
     <!-- 矢印 -->
-    <% if @gender == 'female' %>
+    <% if gender == 'female' %>
       <div></div>
       <div class="arrow">↓</div>
       <div></div>
       <div></div>
       <div></div>
-    <% elsif @gender == 'male' %>
+      <div></div>
+    <% elsif gender == 'male' %>
       <div></div>
       <div></div>
       <div class="arrow">↓</div>
+      <div></div>
       <div></div>
       <div></div>
     <% end %>
 
     <!-- 第四段（子供とその配偶者） -->
-    <% if @gender == 'female' %>
-      <div>
-        配偶者
-        <div class="box"><%= stem_lineage[:child_spouse][:text]%></div>
-      </div>
-      <div>
-        子供
-        <div class="box"><%= stem_lineage[:child][:text]%></div>
-      </div>
+    <% if gender == 'female' %>
+      <%= stem_lineage_node(stem_lineage, :child_spouse) %>
+      <%= stem_lineage_node(stem_lineage, :child) %>
       <div></div>
       <div></div>
       <div></div>
-    <% elsif @gender == 'male' %>
+      <div></div>
+    <% elsif gender == 'male' %>
       <div></div>
       <div></div>
-      <div>
-        子供
-        <div class="box"><%= stem_lineage[:child][:text]%></div>
-      </div>
-      <div>
-        配偶者
-        <div class="box"><%= stem_lineage[:child_spouse][:text]%></div>
-      </div>
+      <%= stem_lineage_node(stem_lineage, :child) %>
+      <%= stem_lineage_node(stem_lineage, :child_spouse) %>
+      <div></div>
+      <div></div>
     <% end %>
   </div>
+
+  <%= stem_lineage_summary_chips(stem_lineage) %>
+
+  <%= render 'fortune_analysis/stem_lineage_side_panel' %>
 </div>

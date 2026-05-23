@@ -213,6 +213,234 @@ module ApplicationHelper
     }
   end
 
+  def stem_lineage_node(stem_lineage, role_key)
+    person = stem_lineage[role_key]
+    return content_tag(:div) if person.blank?
+
+    content_tag(:div, class: 'stem-lineage-node') do
+      safe_join(
+        [
+          content_tag(:span, StemLineageGlossary.role_label(role_key), class: 'stem-lineage-role'),
+          stem_lineage_person_button(person)
+        ]
+      )
+    end
+  end
+
+  def stem_lineage_person_button(person)
+    match_type = person[:origin_match_type]
+
+    button_tag(
+      type: 'button',
+      class: "stem-lineage-box stem-lineage-box-#{match_type}",
+      data: stem_lineage_panel_data(person),
+      aria: {
+        haspopup: 'dialog',
+        label: "#{StemLineageGlossary.role_label(person[:key])}の六親解説を開く"
+      }
+    ) do
+      safe_join(
+        [
+          content_tag(:span, "原 #{person[:origin_stem_name] || '-'} / 宿 #{person[:resolved_stem_name] || '-'}", class: 'stem-lineage-stems'),
+          content_tag(:span, StemLineageGlossary.match_type_label(match_type), class: "stem-lineage-badge stem-lineage-badge-#{match_type}")
+        ]
+      )
+    end
+  end
+
+  def stem_lineage_panel_data(person)
+    {
+      action: 'stem-lineage-panel#open',
+      stem_lineage_panel_term_param: "#{StemLineageGlossary.role_label(person[:key])}: #{person[:text]}",
+      stem_lineage_panel_meta_param: stem_lineage_panel_meta(person),
+      stem_lineage_panel_match_param: stem_lineage_match_text(person),
+      stem_lineage_panel_positions_param: stem_lineage_positions_text(person),
+      stem_lineage_panel_method_param: stem_lineage_method_text(person),
+      stem_lineage_panel_focus_param: StemLineageGlossary.role(person[:key])['focus'],
+      stem_lineage_panel_reading_param: stem_lineage_result_text(person),
+      stem_lineage_panel_shared_param: stem_lineage_shared_text(person),
+      stem_lineage_panel_questions_param: stem_lineage_questions_text(person)
+    }
+  end
+
+  def stem_lineage_panel_meta(person)
+    values = [
+      "原点 #{person[:origin_stem_name] || '-'}",
+      "宿命 #{person[:resolved_stem_name] || '-'}",
+      StemLineageGlossary.match_type_label(person[:origin_match_type])
+    ]
+
+    values.join(' / ')
+  end
+
+  def stem_lineage_match_text(person)
+    entry = StemLineageGlossary.match_type(person[:origin_match_type])
+    return '解説データが未登録です。' if entry.blank?
+
+    "#{entry['short']}\n#{entry['detail']}"
+  end
+
+  def stem_lineage_positions_text(person)
+    positions = person[:positions] || []
+    return '宿命内に該当位置はありません。' if positions.blank?
+
+    positions.map do |position|
+      "#{position[:label]}（#{position[:area]} / #{position[:layer]}）: #{position[:stem_name]}"
+    end.join("\n")
+  end
+
+  def stem_lineage_method_text(person)
+    resolve_entry = StemLineageGlossary.resolve_type(person[:resolve_type])
+    target = person[:target_stem_name].presence || 'なし'
+    lines = ["探索干: #{target}", "#{StemLineageGlossary.resolve_type_label(person[:resolve_type])}: #{resolve_entry['detail']}"]
+
+    if person[:resolve_type] == :place && person[:fallback_position].present?
+      fallback = person[:fallback_position]
+      lines << "補充場所: #{fallback[:label]}（#{fallback[:area]}）"
+    end
+
+    lines.join("\n")
+  end
+
+  def stem_lineage_result_text(person)
+    lines = [
+      StemLineageGlossary.role(person[:key])['reading'],
+      StemLineageGlossary.role_result(person[:key], person[:origin_match_type])
+    ].compact
+
+    position_results = stem_lineage_position_result_texts(person)
+    lines << "宿命内の出方:\n#{position_results.join("\n")}" if position_results.present?
+
+    lines.join("\n\n")
+  end
+
+  def stem_lineage_position_result_texts(person)
+    positions = person[:positions] || []
+    grouped_positions = positions.group_by { |position| stem_lineage_position_group(position) }
+    grouped_positions = grouped_positions.reject { |position_group, _grouped| position_group.blank? }
+
+    grouped_positions.filter_map do |position_group, grouped|
+      result = StemLineageGlossary.role_position_result(person[:key], person[:origin_match_type], position_group)
+      next if result.blank?
+
+      labels = grouped.map { |position| position[:label] }.join('・')
+      "・#{labels}: #{result}"
+    end
+  end
+
+  def stem_lineage_position_group(position)
+    return position[:group] if position[:group].present?
+
+    key = position[:key].to_s
+    return :day_stem if key == 'day_stem'
+    return :month_stem if key == 'month_stem'
+    return :year_stem if key == 'year_stem'
+    return :day_branch if key.start_with?('day_branch') || key == 'day_qi_stem'
+    return :month_branch if key.start_with?('month_branch')
+    return :year_branch if key.start_with?('year_branch') || key == 'year_qi_stem'
+
+    nil
+  end
+
+  def stem_lineage_shared_text(person)
+    lines = []
+
+    if person[:shared_role_keys].present?
+      shared_labels = person[:shared_role_keys].map { |key| StemLineageGlossary.role_label(key) }
+      lines << "同じ干を共有: #{shared_labels.join('・')}"
+      lines << StemLineageGlossary.shared_result(stem_lineage_shared_scenario(person))
+    end
+
+    if person[:multi_position]
+      lines << StemLineageGlossary.multi_position_result(person[:key])
+    end
+
+    lines.compact_blank.presence&.join("\n") || '特記事項なし。'
+  end
+
+  def stem_lineage_shared_scenario(person)
+    role_keys = ([person[:key]] + person[:shared_role_keys]).map(&:to_sym)
+
+    return :father_spouse if role_keys.include?(:father) && role_keys.include?(:spouse)
+    return :child_mother_in_law if role_keys.include?(:child) && role_keys.include?(:mother_in_law)
+    return :child_shared if role_keys.include?(:child)
+    return :core_priority if role_keys.any? { |key| StemLineageGlossary.role_priority(key) == 'core' } &&
+                             role_keys.any? { |key| StemLineageGlossary.role_priority(key) == 'extended' }
+
+    :default
+  end
+
+  def stem_lineage_questions_text(person)
+    questions = StemLineageGlossary.role(person[:key])['questions'] || []
+    return '確認質問は未登録です。' if questions.blank?
+
+    questions.map { |question| "・#{question}" }.join("\n")
+  end
+
+  def stem_lineage_summary_chips(stem_lineage)
+    chips = stem_lineage_summary_items(stem_lineage)
+    return ''.html_safe if chips.blank?
+
+    content_tag(:div, class: 'stem-lineage-insights', aria: { label: '六親図の注目ポイント' }) do
+      safe_join(chips.map { |chip| stem_lineage_chip(chip) })
+    end
+  end
+
+  def stem_lineage_summary_items(stem_lineage)
+    people = StemLineageCalculator::LINEAGE_ROLE_KEYS.filter_map { |key| stem_lineage[key] }
+    chips = stem_lineage_shared_group_chips(people)
+
+    people.each do |person|
+      next if person[:origin_match_type] == :exact
+
+      chips << {
+        level: person[:origin_match_type],
+        text: "#{StemLineageGlossary.role_label(person[:key])}: #{StemLineageGlossary.match_type_label(person[:origin_match_type])}"
+      }
+    end
+
+    people.select { |person| person[:multi_position] }.each do |person|
+      chips << {
+        level: :multi,
+        text: "#{StemLineageGlossary.role_label(person[:key])}: 複数位置"
+      }
+    end
+
+    chips
+  end
+
+  def stem_lineage_shared_group_chips(people)
+    groups = Hash.new { |hash, key| hash[key] = [] }
+    names = {}
+
+    people.each do |person|
+      person[:resolved_stem_ids].each do |stem_id|
+        groups[stem_id] << person[:key]
+        names[stem_id] = stem_lineage_resolved_stem_name(person, stem_id)
+      end
+    end
+
+    groups.filter_map do |stem_id, role_keys|
+      next if role_keys.uniq.size < 2
+
+      labels = role_keys.uniq.map { |key| StemLineageGlossary.role_label(key) }
+      {
+        level: :shared,
+        text: "#{names[stem_id]}: #{labels.join('・')}が共有"
+      }
+    end
+  end
+
+  def stem_lineage_chip(chip)
+    content_tag(:span, chip[:text], class: "stem-lineage-insight stem-lineage-insight-#{chip[:level]}")
+  end
+
+  def stem_lineage_resolved_stem_name(person, stem_id)
+    stem = person[:resolved_stems]&.find { |resolved_stem| resolved_stem[:id] == stem_id }
+
+    stem&.dig(:name) || person[:resolved_stem_name]
+  end
+
   def yearly_fortune_row_options(item)
     major_entry = FortuneMajorStarGlossary.lookup(item[:major_star]) || {}
     sub_entry = FortuneSubStarGlossary.lookup(item[:sub_star]) || {}

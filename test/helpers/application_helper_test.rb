@@ -73,4 +73,76 @@ class ApplicationHelperTest < ActionView::TestCase
 
     assert_equal '日番号11 / 申酉天中殺 / 天印星 / 日座中殺', DayPillarGlossary.meta(entry)
   end
+
+  test 'stem lineage panel data exposes reading context' do
+    person = {
+      key: :mother,
+      text: '辛・庚',
+      origin_stem_name: '辛',
+      target_stem_name: '辛',
+      resolved_stem_name: '庚',
+      origin_match_type: :yin_yang,
+      resolve_type: :yin_yang,
+      positions: [
+        { key: :year_stem, label: '年干', area: '父の場所', layer: '天干', stem_name: '庚' }
+      ],
+      fallback_position: nil,
+      shared_role_keys: [:father],
+      multi_position: false
+    }
+
+    data = stem_lineage_panel_data(person)
+
+    assert_equal 'stem-lineage-panel#open', data[:action]
+    assert_equal '母: 辛・庚', data[:stem_lineage_panel_term_param]
+    assert_includes data[:stem_lineage_panel_meta_param], '陰陽'
+    assert_includes data[:stem_lineage_panel_positions_param], '年干'
+    assert_includes data[:stem_lineage_panel_reading_param], '母が陰陽干で成立'
+    assert_includes data[:stem_lineage_panel_reading_param], '晩年に縁が出る'
+    assert_includes data[:stem_lineage_panel_shared_param], '父'
+    assert_includes data[:stem_lineage_panel_shared_param], '同じ気を複数の人物で分け合う'
+    assert_includes data[:stem_lineage_panel_questions_param], '母が生活面'
+  end
+
+  test 'stem lineage result text combines role and position specific readings' do
+    person = {
+      key: :spouse,
+      origin_match_type: :exact,
+      positions: [
+        { key: :day_branch_third_stem, label: '日支本元', area: '家庭・座下', layer: '地支', stem_name: '己' }
+      ]
+    }
+
+    text = stem_lineage_result_text(person)
+
+    assert_includes text, '配偶者が正干で成立'
+    assert_includes text, '日支にあるため'
+    assert_includes text, '家庭が安定しないと本人自身も大きく揺れます'
+  end
+
+  test 'stem lineage summary chips include shared stems and weak links' do
+    stem_lineage = {
+      mother: {
+        key: :mother,
+        resolved_stem_name: '庚',
+        resolved_stem_ids: [7],
+        origin_match_type: :yin_yang,
+        multi_position: false
+      },
+      father: {
+        key: :father,
+        resolved_stem_name: '庚',
+        resolved_stem_ids: [7],
+        origin_match_type: :exact,
+        multi_position: true
+      }
+    }
+
+    items = stem_lineage_summary_items(stem_lineage)
+    labels = items.map { |item| item[:text] }
+
+    assert_includes labels, '庚: 母・父が共有'
+    assert_includes labels, '母: 陰陽'
+    assert_includes labels, '父: 複数位置'
+  end
 end

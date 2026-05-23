@@ -1,18 +1,328 @@
 .stem-lineage {
-  margin: 12px;
+  margin: 16px 12px;
+  max-width: 760px;
+}
+
+.stem-lineage-header {
+  margin-bottom: 10px;
+}
+
+.stem-lineage-title {
+  margin: 0;
+  color: #262626;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.stem-lineage-lead {
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.stem-lineage-insights {
   display: flex;
-  .container {
-    display: grid;
-    grid-template-columns: repeat(5, 60px);
-    grid-gap: 4px;
-    text-align: center;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  max-width: 560px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #eeeeee;
+}
+
+.stem-lineage-insights::before {
+  content: '注目ポイント';
+  flex: 0 0 100%;
+  color: #525252;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.stem-lineage-insight {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 8px;
+  border: 1px solid #d4d4d4;
+  border-radius: 999px;
+  background: #fafafa;
+  color: #404040;
+  font-size: 0.72rem;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.stem-lineage-insight-shared,
+.stem-lineage-insight-multi {
+  border-color: #f59e0b;
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.stem-lineage-insight-yin_yang,
+.stem-lineage-insight-other {
+  border-color: #facc15;
+  background: #fefce8;
+  color: #854d0e;
+}
+
+.stem-lineage-insight-place {
+  border-color: #93c5fd;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.stem-lineage-insight-missing {
+  border-color: #d1d5db;
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.stem-lineage .container {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(82px, 1fr));
+  gap: 6px;
+  text-align: center;
+  align-items: center;
+}
+
+.stem-lineage-node {
+  min-width: 0;
+}
+
+.stem-lineage-role {
+  display: block;
+  margin-bottom: 3px;
+  color: #525252;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.stem-lineage-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  min-height: 48px;
+  padding: 6px 5px;
+  border: 1px solid #d4d4d4;
+  border-radius: 6px;
+  background-color: white;
+  color: #262626;
+  font: inherit;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.stem-lineage-box:hover,
+.stem-lineage-box:focus-visible {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.14);
+  outline: none;
+}
+
+.stem-lineage-box-self {
+  cursor: default;
+  background: #fafafa;
+  border-color: #a3a3a3;
+  font-weight: 700;
+}
+
+.stem-lineage-box-self:hover {
+  box-shadow: none;
+}
+
+.stem-lineage-box-exact {
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+
+.stem-lineage-box-yin_yang {
+  border-color: #fde047;
+  background: #fefce8;
+}
+
+.stem-lineage-box-place {
+  border-color: #93c5fd;
+  background: #eff6ff;
+}
+
+.stem-lineage-box-other {
+  border-color: #fdba74;
+  background: #fff7ed;
+}
+
+.stem-lineage-box-missing {
+  border-color: #d4d4d4;
+  background: #f5f5f5;
+  color: #737373;
+}
+
+.stem-lineage-stems {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: normal;
+}
+
+.stem-lineage-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.stem-lineage-badge-exact {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.stem-lineage-badge-yin_yang {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.stem-lineage-badge-place {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.stem-lineage-badge-other {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.stem-lineage-badge-missing {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+.stem-lineage .arrow {
+  text-align: center;
+  color: #737373;
+  font-size: 0.9rem;
+}
+
+.stem-lineage-supplement {
+  max-width: 180px;
+  margin-top: 10px;
+}
+
+.stem-lineage-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  width: min(440px, 92vw);
+  height: 100vh;
+  padding: 24px;
+  overflow-y: auto;
+  background: #fff;
+  border-left: 1px solid #e5e7eb;
+  box-shadow: -16px 0 32px rgba(15, 23, 42, 0.16);
+  transform: translateX(100%);
+  transition: transform 0.2s ease;
+}
+
+.stem-lineage-panel.is-open {
+  transform: translateX(0);
+}
+
+.stem-lineage-panel-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #fff;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.stem-lineage-panel-close:hover,
+.stem-lineage-panel-close:focus-visible {
+  border-color: #7c3aed;
+  color: #7c3aed;
+  outline: none;
+}
+
+.stem-lineage-panel-kicker {
+  margin-bottom: 8px;
+  color: #7c3aed;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.stem-lineage-panel-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 36px;
+  margin-bottom: 18px;
+}
+
+.stem-lineage-panel-term {
+  color: #171717;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.stem-lineage-panel-meta {
+  color: #6b7280;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.stem-lineage-panel-section {
+  padding: 14px 0;
+  border-top: 1px solid #f3f4f6;
+}
+
+.stem-lineage-panel-section h3 {
+  margin: 0 0 8px;
+  color: #374151;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.stem-lineage-panel-section p {
+  color: #262626;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  white-space: pre-line;
+}
+
+@media (max-width: 720px) {
+  .stem-lineage-header {
+    margin-bottom: 8px;
   }
-  .box {
-    border: 1px solid lightgray;
-    padding: 4px;
-    background-color: white;
+
+  .stem-lineage-insights {
+    max-width: none;
   }
-  .arrow {
-    text-align: center;
+
+  .stem-lineage .container {
+    grid-template-columns: repeat(6, minmax(64px, 1fr));
+    gap: 4px;
+    overflow-x: auto;
+  }
+
+  .stem-lineage-box {
+    min-height: 52px;
+  }
+
+  .stem-lineage-stems {
+    font-size: 0.72rem;
   }
 }
