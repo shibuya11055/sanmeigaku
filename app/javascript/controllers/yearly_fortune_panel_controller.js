@@ -20,6 +20,10 @@ export default class extends Controller {
     "monthRelationship",
     "yearRelationship",
     "voidText",
+    "healthLabel",
+    "healthSummary",
+    "healthDetail",
+    "healthChips",
   ]
 
   connect() {
@@ -58,6 +62,11 @@ export default class extends Controller {
       monthRelationship,
       yearRelationship,
       voidText,
+      healthLabel,
+      healthLevel,
+      healthSummary,
+      healthDetail,
+      healthChips,
     } = event.params
 
     this.announcePanelOpen()
@@ -65,7 +74,7 @@ export default class extends Controller {
     this.yearTarget.textContent = year
     this.stemAndBranchTarget.textContent = stemAndBranch
     this.voidLabelTarget.textContent = voidLabel
-    this.voidLabelTarget.classList.toggle("is-void", voidLabel === "天中殺年")
+    this.voidLabelTarget.classList.toggle("is-void", (voidLabel || "").includes("天中殺"))
     this.summaryTarget.textContent = summary
     this.majorStarTarget.textContent = majorStar
     this.majorKeywordsTarget.textContent = majorKeywords
@@ -80,6 +89,11 @@ export default class extends Controller {
     this.monthRelationshipTarget.textContent = monthRelationship
     this.yearRelationshipTarget.textContent = yearRelationship
     this.voidTextTarget.textContent = voidText
+    this.healthLabelTarget.textContent = healthLabel || "安定"
+    this.healthLabelTarget.className = `yearly-fortune-panel-health fortune-health-badge fortune-health-badge-${healthLevel || "normal"}`
+    this.healthSummaryTarget.textContent = healthSummary
+    this.healthDetailTarget.textContent = healthDetail
+    this.healthChipsTarget.textContent = healthChips
 
     this.panelTarget.classList.add("is-open")
     this.panelTarget.setAttribute("aria-hidden", "false")

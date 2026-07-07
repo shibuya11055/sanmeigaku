@@ -145,4 +145,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_includes labels, '母: 陰陽'
     assert_includes labels, '父: 複数位置'
   end
+
+  test 'fortune health badge reflects attention level' do
+    html = fortune_health_badge(level: 'attention', label: '要注意')
+
+    assert_includes html, 'fortune-health-badge-attention'
+    assert_includes html, '要注意'
+  end
 end

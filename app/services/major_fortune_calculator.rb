@@ -111,6 +111,8 @@ class MajorFortuneCalculator
       }
 
       {
+        stem: major_stem,
+        branch: major_branch,
         stem_and_branch: stem_and_branch,
         age: age,
         year: year,

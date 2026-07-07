@@ -1,4 +1,4 @@
-<div data-controller="relationship-panel birth-void-panel">
+<div data-controller="relationship-panel birth-void-panel yearly-fortune-panel">
   <div class="major-fortune">
     <table class="table table-bordered">
       <thead>
@@ -14,11 +14,12 @@
           <th>年</th>
           <th>天中殺</th>
           <th>変剋律</th>
+          <th>健康</th>
         </tr>
       </thead>
       <tbody>
         <% major_fortune.each_with_index do |item, i| %>
-          <tr>
+          <%= tag.tr(**major_fortune_row_options(item, i)) do %>
             <td><%= "大#{i + 1}" %></td>
             <td><%= item[:stem_and_branch] %></td>
             <td><%= item[:age] %></td>
@@ -30,11 +31,13 @@
             <%= relationship_color(item[:relationship][:year], item[:heavenly_void]) %>
             <td class="<%= item[:heavenly_void].present? ? 'rel-cell rel-cell-void' : 'rel-cell' %>"><%= fortune_period_button('大運天中殺', item[:heavenly_void]) %></td>
             <td><%= fortune_period_button('変剋律', item[:abnormal]) %></td>
-          </tr>
+            <td><%= fortune_health_badge(item[:health]) %></td>
+          <% end %>
         <% end %>
       </tbody>
     </table>
   </div>
   <%= render 'fortune_analysis/relationship_side_panel' %>
   <%= render 'fortune_analysis/birth_void_side_panel', panel_label: '運勢の天中殺' %>
+  <%= render 'fortune_analysis/yearly_fortune_side_panel', panel_label: '大運読み解き' %>
 </div>

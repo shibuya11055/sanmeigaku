@@ -1,9 +1,11 @@
-<aside class="yearly-fortune-panel" data-yearly-fortune-panel-target="panel" aria-hidden="true" aria-label="年運読み解き">
+<% panel_label = local_assigns.fetch(:panel_label, '年運読み解き') %>
+
+<aside class="yearly-fortune-panel" data-yearly-fortune-panel-target="panel" aria-hidden="true" aria-label="<%= panel_label %>">
   <button type="button" class="yearly-fortune-panel-close" data-action="yearly-fortune-panel#close" aria-label="閉じる">
     <i class="fas fa-xmark"></i>
   </button>
 
-  <div class="yearly-fortune-panel-kicker">年運読み解き</div>
+  <div class="yearly-fortune-panel-kicker"><%= panel_label %></div>
   <div class="yearly-fortune-panel-heading">
     <div>
       <span class="yearly-fortune-panel-year" data-yearly-fortune-panel-target="year"></span>
@@ -52,5 +54,15 @@
   <section class="yearly-fortune-panel-section">
     <h3>天中殺</h3>
     <p data-yearly-fortune-panel-target="voidText"></p>
+  </section>
+
+  <section class="yearly-fortune-panel-section">
+    <h3>健康注意</h3>
+    <div class="yearly-fortune-panel-meta">
+      <span data-yearly-fortune-panel-target="healthChips"></span>
+      <span class="yearly-fortune-panel-health" data-yearly-fortune-panel-target="healthLabel"></span>
+    </div>
+    <p data-yearly-fortune-panel-target="healthSummary"></p>
+    <p data-yearly-fortune-panel-target="healthDetail"></p>
   </section>
 </aside>

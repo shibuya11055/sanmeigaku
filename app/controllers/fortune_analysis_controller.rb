@@ -43,9 +43,23 @@ class FortuneAnalysisController < ApplicationController
 
         @stem_lineage = calculator.stem_lineage
         @numerological, @beast_type, @total_energy, @numerological_structure = calculator.numerological_calculator
+        @numerological_health = NumerologicalHealthCalculator.call(@numerological, @day_stem, @month_branch)
         @phase_method = calculator.phase_method
         @yearly_fortune = calculator.yearly_fortune
         @major_fortune = calculator.major_fortune
+        health_forecast = FortuneHealthForecastCalculator.call(
+          day_stem: @day_stem,
+          month_stem: @month_stem,
+          year_stem: @year_stem,
+          day_branch: @day_branch,
+          month_branch: @month_branch,
+          year_branch: @year_branch,
+          yearly_fortune: @yearly_fortune,
+          major_fortune: @major_fortune,
+          natal_health: @numerological_health
+        )
+        @yearly_fortune = health_forecast[:yearly_fortune]
+        @major_fortune = health_forecast[:major_fortune]
         @heavenly_void_wave = calculator.heavenly_void_wave
       end
     end

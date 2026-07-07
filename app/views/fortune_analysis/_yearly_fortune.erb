@@ -11,6 +11,7 @@
           <th>月</th>
           <th>年</th>
           <th>天中殺</th>
+          <th>健康</th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +25,7 @@
             <%= relationship_color(item[:relationship][:month], item[:heavenly_void]) %>
             <%= relationship_color(item[:relationship][:year], item[:heavenly_void]) %>
             <%= relationship_color(item[:heavenly_void], item[:heavenly_void]) %>
+            <td><%= fortune_health_badge(item[:health]) %></td>
           <% end %>
         <% end %>
       </tbody>

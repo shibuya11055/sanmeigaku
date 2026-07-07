@@ -30,14 +30,64 @@
   transition: background-color 0.14s ease, box-shadow 0.14s ease;
 }
 
+.major-fortune-row {
+  cursor: pointer;
+  transition: background-color 0.14s ease, box-shadow 0.14s ease;
+}
+
 .yearly-fortune-row:hover td,
-.yearly-fortune-row:focus-visible td {
+.yearly-fortune-row:focus-visible td,
+.major-fortune-row:hover td,
+.major-fortune-row:focus-visible td {
   background-color: #fff8ea;
 }
 
-.yearly-fortune-row:focus-visible {
+.yearly-fortune-row:focus-visible,
+.major-fortune-row:focus-visible {
   outline: 2px solid #8a6f3d;
   outline-offset: -2px;
+}
+
+.health-row-attention td {
+  box-shadow: inset 0 0 0 999px rgba(255, 240, 245, 0.32);
+}
+
+.health-row-watch td {
+  box-shadow: inset 0 0 0 999px rgba(255, 248, 234, 0.36);
+}
+
+.fortune-health-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 24px;
+  padding: 2px 8px;
+  border: 1px solid #d7ccb8;
+  border-radius: 999px;
+  background: #f8f3e8;
+  color: #6a5a42;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.fortune-health-badge-attention {
+  border-color: #f0a7ad;
+  background: #fff0f5;
+  color: #a71d2a;
+}
+
+.fortune-health-badge-watch {
+  border-color: #e7c87c;
+  background: #fff8df;
+  color: #8a5d00;
+}
+
+.fortune-health-badge-normal {
+  border-color: #cbdcc7;
+  background: #f1f8f0;
+  color: #335b3c;
 }
 
 .yearly-fortune-panel {
@@ -177,6 +227,10 @@
   margin-bottom: 10px !important;
   color: #6a5a42 !important;
   font-size: 0.86rem !important;
+}
+
+.yearly-fortune-panel-health {
+  flex: 0 0 auto;
 }
 
 @media (max-width: 600px) {

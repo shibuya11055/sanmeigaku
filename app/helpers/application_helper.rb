@@ -447,7 +447,7 @@ module ApplicationHelper
     heavenly_void = item[:heavenly_void].present?
 
     {
-      class: 'yearly-fortune-row',
+      class: "yearly-fortune-row health-row-#{fortune_health_level(item)}",
       role: 'button',
       tabindex: 0,
       aria: {
@@ -471,7 +471,52 @@ module ApplicationHelper
         yearly_fortune_panel_day_relationship_param: yearly_fortune_relationship_text(:day, item[:relationship][:day]),
         yearly_fortune_panel_month_relationship_param: yearly_fortune_relationship_text(:month, item[:relationship][:month]),
         yearly_fortune_panel_year_relationship_param: yearly_fortune_relationship_text(:year, item[:relationship][:year]),
-        yearly_fortune_panel_void_text_param: yearly_fortune_void_text(heavenly_void)
+        yearly_fortune_panel_void_text_param: yearly_fortune_void_text(heavenly_void),
+        yearly_fortune_panel_health_label_param: fortune_health_label(item),
+        yearly_fortune_panel_health_level_param: fortune_health_level(item),
+        yearly_fortune_panel_health_summary_param: fortune_health_summary(item),
+        yearly_fortune_panel_health_detail_param: fortune_health_detail(item),
+        yearly_fortune_panel_health_chips_param: fortune_health_chips(item)
+      }
+    }
+  end
+
+  def major_fortune_row_options(item, index)
+    major_entry = FortuneMajorStarGlossary.lookup(item[:major_star]) || {}
+    sub_entry = FortuneSubStarGlossary.lookup(item[:sub_star]) || {}
+    heavenly_void = item[:heavenly_void].present?
+
+    {
+      class: "major-fortune-row health-row-#{fortune_health_level(item)}",
+      role: 'button',
+      tabindex: 0,
+      aria: {
+        label: "大#{index + 1} #{item[:age]}歳からの大運読み解きを開く"
+      },
+      data: {
+        action: 'click->yearly-fortune-panel#open keydown.enter->yearly-fortune-panel#open keydown.space->yearly-fortune-panel#open',
+        yearly_fortune_panel_year_param: "大#{index + 1} #{item[:age]}歳〜 / #{item[:year]}年代",
+        yearly_fortune_panel_stem_and_branch_param: item[:stem_and_branch],
+        yearly_fortune_panel_void_label_param: heavenly_void ? '大運天中殺' : '通常大運',
+        yearly_fortune_panel_summary_param: major_fortune_summary(item, major_entry, heavenly_void),
+        yearly_fortune_panel_major_star_param: item[:major_star],
+        yearly_fortune_panel_major_keywords_param: major_entry['keywords'],
+        yearly_fortune_panel_key_people_param: major_entry['key_people'],
+        yearly_fortune_panel_place_people_param: major_entry['fortune_place_people'],
+        yearly_fortune_panel_major_text_param: yearly_fortune_glossary_text(major_entry, heavenly_void),
+        yearly_fortune_panel_sub_star_param: item[:sub_star],
+        yearly_fortune_panel_sub_power_param: sub_entry['power'],
+        yearly_fortune_panel_sub_keywords_param: sub_entry['keywords'],
+        yearly_fortune_panel_sub_text_param: yearly_fortune_glossary_text(sub_entry, heavenly_void),
+        yearly_fortune_panel_day_relationship_param: yearly_fortune_relationship_text(:day, item[:relationship][:day]),
+        yearly_fortune_panel_month_relationship_param: yearly_fortune_relationship_text(:month, item[:relationship][:month]),
+        yearly_fortune_panel_year_relationship_param: yearly_fortune_relationship_text(:year, item[:relationship][:year]),
+        yearly_fortune_panel_void_text_param: major_fortune_void_text(heavenly_void),
+        yearly_fortune_panel_health_label_param: fortune_health_label(item),
+        yearly_fortune_panel_health_level_param: fortune_health_level(item),
+        yearly_fortune_panel_health_summary_param: fortune_health_summary(item),
+        yearly_fortune_panel_health_detail_param: fortune_health_detail(item),
+        yearly_fortune_panel_health_chips_param: fortune_health_chips(item)
       }
     }
   end
@@ -497,6 +542,25 @@ module ApplicationHelper
       end
 
     "#{item[:year_and_age]}は#{item[:major_star]}を主星テーマに、#{item[:sub_star]}は一年のテーマを下支えします。#{people_note}日支は家庭・結果、月支は心、年支は仕事・社会の現象として確認します。#{void_note}"
+  end
+
+  def major_fortune_summary(item, major_entry, heavenly_void)
+    key_people = major_entry['key_people'].presence || '関係人物'
+    place_people = major_entry['fortune_place_people'].presence
+    people_note =
+      if place_people.present? && place_people != key_people
+        "#{key_people}を主人物に、#{place_people}も補助的に確認します。"
+      else
+        "#{key_people}を主人物として確認します。"
+      end
+    void_note =
+      if heavenly_void
+        '大運天中殺を含むため、この10年の新規拡大や強い自己主張は慎重に扱います。'
+      else
+        '通常大運として、主星・従星・日月年の位相を10年単位のテーマとして読みます。'
+      end
+
+    "#{item[:age]}歳からの大運は#{item[:major_star]}を主星テーマに、#{item[:sub_star]}が10年のエネルギーを支えます。#{people_note}日支は家庭・結果、月支は心、年支は仕事・社会の現象として確認します。#{void_note}"
   end
 
   def yearly_fortune_relationship_text(position, relationship)
@@ -535,6 +599,12 @@ module ApplicationHelper
     '天中殺年に該当します。新しいことを始める、自分の欲望を満たす、将来につながる大きな決定をする、といった行動は慎重に扱います。位相法の出方も平常時より行き過ぎやすいため、良い位相も悪い位相も極端に振れていないかを確認します。継続している日常や積み上げてきた努力は崩さず、普段と違う衝動で動いていないかを確認します。'
   end
 
+  def major_fortune_void_text(heavenly_void)
+    return '該当なし。通常の大運として、主星・従星・位相法を中心に読みます。' unless heavenly_void
+
+    '大運天中殺に該当します。十年単位で現実の枠が外れやすく、拡大も不安定さも大きくなります。新規の形作りより、受け身で流れを整えること、過去から継続しているものを丁寧に扱うことを優先します。体調面では、切り替わり時期や年運天中殺・害が重なる年を特に確認します。'
+  end
+
   def yearly_fortune_glossary_text(entry, heavenly_void)
     return '解説データが未登録です。' if entry.blank?
 
@@ -542,5 +612,36 @@ module ApplicationHelper
     detail_key = heavenly_void && entry['void_detail'].present? ? 'void_detail' : 'detail'
 
     "#{entry[short_key]}\n#{entry[detail_key]}"
+  end
+
+  def fortune_health_badge(health)
+    health ||= {}
+    level = health[:level] || 'normal'
+    label = health[:label] || '安定'
+
+    content_tag(:span, label, class: "fortune-health-badge fortune-health-badge-#{level}")
+  end
+
+  def fortune_health_level(item)
+    item.dig(:health, :level) || 'normal'
+  end
+
+  def fortune_health_label(item)
+    item.dig(:health, :label) || '安定'
+  end
+
+  def fortune_health_summary(item)
+    item.dig(:health, :summary) || '健康注意の強い条件は少なめです。'
+  end
+
+  def fortune_health_detail(item)
+    item.dig(:health, :detail) || '医療判断ではなく、鑑定時に生活習慣・ストレス・既往歴を確認するための補助情報です。'
+  end
+
+  def fortune_health_chips(item)
+    chips = item.dig(:health, :chips) || []
+    return '特記事項なし' if chips.blank?
+
+    chips.join(' / ')
   end
 end

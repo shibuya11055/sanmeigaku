@@ -1,0 +1,70 @@
+<aside class="health-panel" data-health-panel-target="panel" aria-hidden="true" aria-label="数理法健康読み">
+  <button type="button" class="health-panel-close" data-action="health-panel#close" aria-label="閉じる">
+    <i class="fas fa-xmark"></i>
+  </button>
+
+  <div class="health-panel-kicker">数理法健康読み</div>
+  <div class="health-panel-heading">
+    <span class="health-panel-term">最大気 <%= numerological_health[:dominant][:label] %></span>
+    <span class="health-panel-meta"><%= numerological_health[:dominant][:percentage] %>% / 月支 <%= numerological_health[:month_branch] %></span>
+  </div>
+
+  <section class="health-panel-section">
+    <h3>この人の数理結果</h3>
+    <div class="health-panel-meta-list">
+      <span>最大気 <%= numerological_health[:dominant][:label] %> <%= numerological_health[:dominant][:percentage] %>%</span>
+      <span>日干 <%= numerological_health[:self_element][:label] %></span>
+      <span>月支 <%= numerological_health[:month_branch] %></span>
+    </div>
+    <p><%= numerological_health[:overview] %></p>
+  </section>
+
+  <section class="health-panel-section">
+    <h3>最大気から見る負担</h3>
+    <div class="health-panel-meta-list">
+      <span>点数 <%= numerological_health[:dominant][:points] %></span>
+      <span><%= numerological_health[:dominant][:glossary]['color'] %></span>
+      <span><%= numerological_health[:dominant][:glossary]['direction'] %></span>
+    </div>
+    <p><%= numerological_health[:dominant][:glossary]['excess'] %></p>
+    <p><%= numerological_health[:dominant][:glossary]['organs'] %></p>
+    <p><%= numerological_health[:dominant][:glossary]['risks'] %></p>
+  </section>
+
+  <section class="health-panel-section">
+    <h3>最小気から見る消耗</h3>
+    <% numerological_health[:weak_elements].each do |element| %>
+      <div class="health-panel-subheading">
+        <span><%= element[:label] %></span>
+        <span>点数 <%= element[:points] %></span>
+        <span><%= element[:percentage] %>%</span>
+      </div>
+      <p><%= element[:glossary]['deficiency'] %></p>
+      <p><%= element[:glossary]['organs'] %></p>
+      <p><%= element[:glossary]['risks'] %></p>
+    <% end %>
+  </section>
+
+  <section class="health-panel-section">
+    <h3>最大気 × 月支の体質傾向</h3>
+    <div class="health-panel-subheading">
+      <span><%= numerological_health[:dominant][:label] %> × 月支 <%= numerological_health[:month_branch] %></span>
+      <span>生月支から見る補助判断</span>
+    </div>
+    <p><%= numerological_health[:dominant_branch_detail] || numerological_health[:dominant_branch_reading] %></p>
+    <% if numerological_health[:dominant_branch_reading].present? %>
+      <p class="health-panel-summary-note">鑑定メモ: <%= numerological_health[:dominant_branch_reading] %></p>
+    <% end %>
+  </section>
+
+  <section class="health-panel-section">
+    <h3>食・色の補助</h3>
+    <p>最大気の関連: <%= numerological_health[:dominant][:glossary]['foods'] %></p>
+    <p>色: <%= numerological_health[:dominant][:glossary]['color'] %> / 情: <%= numerological_health[:dominant][:glossary]['emotion'] %></p>
+  </section>
+
+  <section class="health-panel-section">
+    <h3>注意</h3>
+    <p>医療判断ではなく、鑑定時に生活習慣・ストレス・既往歴を確認するための補助情報です。</p>
+  </section>
+</aside>

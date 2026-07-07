@@ -67,6 +67,10 @@ class YearlyFortuneCalculator
       heavenly_void = build_heavenly_void(yearly_branch_name)
 
       {
+        year: year,
+        age: age,
+        stem: yearly_stem_name,
+        branch: yearly_branch_name,
         year_and_age: "#{year}(#{age}歳)",
         stem_and_branch: stem_and_branch,
         major_star: major_star,

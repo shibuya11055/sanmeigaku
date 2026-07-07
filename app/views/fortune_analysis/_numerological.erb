@@ -1,4 +1,14 @@
-<div class="numerological">
+<div class="numerological" data-controller="health-panel">
+  <% if local_assigns[:numerological_health].present? %>
+    <div class="numerological-toolbar">
+      <div class="numerological-toolbar-title">数理法</div>
+      <button type="button" class="health-panel-trigger" data-action="health-panel#open" aria-haspopup="dialog">
+        <i class="fas fa-notes-medical"></i>
+        健康を見る
+      </button>
+    </div>
+  <% end %>
+
   <table>
     <thead>
       <tr>
@@ -38,4 +48,8 @@
       </tr>
     </tbody>
   </table>
+
+  <% if local_assigns[:numerological_health].present? %>
+    <%= render 'fortune_analysis/numerological_health_side_panel', numerological_health: numerological_health %>
+  <% end %>
 </div>
