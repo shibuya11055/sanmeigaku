@@ -188,6 +188,31 @@ module ApplicationHelper
                }
   end
 
+  def numerological_structure_button(key, value, label = nil, numerological_structure = nil)
+    entry = NumerologicalStructureGlossary.lookup(key)
+    display_label = label || entry&.dig('term') || key.to_s
+    text = value.nil? ? display_label : "#{display_label}: #{value}"
+
+    return content_tag(:span, text) unless entry
+
+    button_tag text,
+               type: 'button',
+               class: 'numerological-structure-button',
+               data: {
+                 action: 'numerological-structure-panel#open',
+                 numerological_structure_panel_term_param: entry['term'],
+                 numerological_structure_panel_category_param: entry['category'],
+                 numerological_structure_panel_summary_param: entry['summary'],
+                 numerological_structure_panel_detail_param: entry['detail'],
+                 numerological_structure_panel_reading_param: entry['reading'],
+                 numerological_structure_panel_result_param: NumerologicalStructureReading.call(numerological_structure, key)
+               },
+               aria: {
+                 haspopup: 'dialog',
+                 label: "#{entry['term']}の解説を開く"
+               }
+  end
+
   def day_pillar_header_options(sexagenary_cycle)
     entry = DayPillarGlossary.lookup(sexagenary_cycle)
     pillar_name = DayPillarGlossary.pillar_name(sexagenary_cycle)

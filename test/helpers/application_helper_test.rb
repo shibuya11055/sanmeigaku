@@ -1,6 +1,32 @@
 require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
+  test 'numerological structure button opens glossary panel' do
+    structure = {
+      struggle: 10,
+      input: 8,
+      ego: 14,
+      expression: 31,
+      get: 28,
+      back_structure: 18,
+      center_structure: 14,
+      front_structure: 59,
+      control_by: 10,
+      generates: 39,
+      control: 28,
+      self: 35,
+      other: 65
+    }
+    html = numerological_structure_button(:active, 59, nil, structure)
+
+    assert_includes html, 'numerological-structure-button'
+    assert_includes html, '能動的: 59'
+    assert_includes html, 'numerological-structure-panel#open'
+    assert_includes html, 'data-numerological-structure-panel-term-param="能動的"'
+    assert_includes html, '前に出る構造'
+    assert_includes html, '行動の動機が自分側'
+  end
+
   test 'yearly fortune relationship text uses position specific reading' do
     day_text = yearly_fortune_relationship_text(:day, '害')
     month_text = yearly_fortune_relationship_text(:month, '害')

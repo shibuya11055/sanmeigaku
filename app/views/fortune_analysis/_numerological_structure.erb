@@ -1,4 +1,9 @@
-<div class="numerological-structure">
+<div class="numerological-structure" data-controller="numerological-structure-panel">
+  <div class="numerological-structure-toolbar">
+    <div class="numerological-structure-toolbar-title">陽占数理法</div>
+    <%= numerological_structure_button(:overview, nil, '表の見方', numerological_structure) %>
+  </div>
+
   <table>
     <tr>
       <% numerological_structure[:stem_names].each do |name| %>
@@ -21,25 +26,27 @@
       <% end %>
     </tr>
     <tr>
-      <td colspan="2"><%= "闘争: #{numerological_structure[:struggle]}" %></td>
-      <td colspan="2"><%= "入力: #{numerological_structure[:input]}" %></td>
-      <td colspan="2"><%= "自我: #{numerological_structure[:ego]}" %></td>
-      <td colspan="2"><%= "表現: #{numerological_structure[:expression]}" %></td>
-      <td colspan="2"><%= "取得: #{numerological_structure[:get]}" %></td>
+      <td colspan="2"><%= numerological_structure_button(:struggle, numerological_structure[:struggle], nil, numerological_structure) %></td>
+      <td colspan="2"><%= numerological_structure_button(:input, numerological_structure[:input], nil, numerological_structure) %></td>
+      <td colspan="2"><%= numerological_structure_button(:ego, numerological_structure[:ego], nil, numerological_structure) %></td>
+      <td colspan="2"><%= numerological_structure_button(:expression, numerological_structure[:expression], nil, numerological_structure) %></td>
+      <td colspan="2"><%= numerological_structure_button(:get, numerological_structure[:get], nil, numerological_structure) %></td>
     </tr>
     <tr>
-      <td colspan="4"><%= "受動的: #{numerological_structure[:back_structure]}" %></td>
-      <td colspan="2"><%= "中心: #{numerological_structure[:center_structure]}" %></td>
-      <td colspan="4"><%= "能動的: #{numerological_structure[:front_structure]}" %></td>
+      <td colspan="4"><%= numerological_structure_button(:passive, numerological_structure[:back_structure], nil, numerological_structure) %></td>
+      <td colspan="2"><%= numerological_structure_button(:center, numerological_structure[:center_structure], nil, numerological_structure) %></td>
+      <td colspan="4"><%= numerological_structure_button(:active, numerological_structure[:front_structure], nil, numerological_structure) %></td>
     </tr>
     <tr>
-      <td colspan="2"><%= "受剋: #{numerological_structure[:control_by]}" %></td>
-      <td colspan="6"><%= "相生: #{numerological_structure[:generates]}" %></td>
-      <td colspan="2"><%= "打剋: #{numerological_structure[:control]}" %></td>
+      <td colspan="2"><%= numerological_structure_button(:control_by, numerological_structure[:control_by], nil, numerological_structure) %></td>
+      <td colspan="6"><%= numerological_structure_button(:generates, numerological_structure[:generates], nil, numerological_structure) %></td>
+      <td colspan="2"><%= numerological_structure_button(:control, numerological_structure[:control], nil, numerological_structure) %></td>
     </tr>
     <tr>
-      <td colspan="5"><%= "主: #{numerological_structure[:self]}" %></td>
-      <td colspan="5"><%= "客: #{numerological_structure[:other]}" %></td>
+      <td colspan="5"><%= numerological_structure_button(:self, numerological_structure[:self], nil, numerological_structure) %></td>
+      <td colspan="5"><%= numerological_structure_button(:other, numerological_structure[:other], nil, numerological_structure) %></td>
     </tr>
   </table>
+
+  <%= render 'fortune_analysis/numerological_structure_side_panel' %>
 </div>
