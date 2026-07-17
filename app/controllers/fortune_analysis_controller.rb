@@ -6,14 +6,13 @@ class FortuneAnalysisController < ApplicationController
 
     # 日付パラメータがある場合は計算結果を表示
     if params[:date].present?
-      @result = FortuneAnalysis.preload(
-        sexagenary_cycle_year: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } },
-        sexagenary_cycle_month: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } },
-        sexagenary_cycle_day: { stem: {}, branch: { first_stem: {}, second_stem: {}, third_stem: {} } }
-      ).find_by(birthday: @date)
+      if Sanmeigaku::NatalChartCalculator.analysis_supported?(birth_date: @date, gender: @gender)
+        @result = Sanmeigaku::NatalChartCalculator.call(birth_date: @date)
+      else
+        @calculation_error = Sanmeigaku::NatalChartCalculator::UNSUPPORTED_ANALYSIS_MESSAGE
+      end
 
       if @result
-        # 結果が見つかった場合のみ計算処理を実行
         @year_heavenly_void = @result.sexagenary_cycle_year.heavenly_void
         @day_heavenly_void = @result.sexagenary_cycle_day.heavenly_void
 

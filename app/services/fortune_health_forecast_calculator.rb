@@ -303,7 +303,7 @@ class FortuneHealthForecastCalculator
   end
 
   def stems_by_name
-    @stems_by_name ||= Stem.preload(:element).index_by(&:name)
+    @stems_by_name ||= Sanmeigaku::StaticData.stems.index_by(&:name)
   end
 
   def stems_by_id
@@ -311,12 +311,14 @@ class FortuneHealthForecastCalculator
   end
 
   def branches_by_name
-    @branches_by_name ||= Branch.all.index_by(&:name)
+    @branches_by_name ||= Sanmeigaku::StaticData.branches.index_by(&:name)
   end
 
   def energy_mapping
-    @energy_mapping ||= StemTwelveStarMapping.eager_load(:twelve_sub_star).each_with_object({}) do |mapping, hash|
-      hash[[mapping.stem_id, mapping.branch_id]] = mapping.twelve_sub_star.energy
+    @energy_mapping ||= Sanmeigaku::StaticData.stems.each_with_object({}) do |stem, hash|
+      Sanmeigaku::StaticData.branches.each do |branch|
+        hash[[stem.id, branch.id]] = Sanmeigaku::StaticData.energy(stem.id, branch.id)
+      end
     end
   end
 end

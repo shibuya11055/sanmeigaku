@@ -270,6 +270,22 @@ User → /subscriptions/new
 
 ## 10. 既知の課題 / 改善余地
 
+### 命式計算とDB
+
+`FortuneAnalysisController` と `ClientsController` の計算経路は、`Sanmeigaku::NatalChartCalculator` と
+`Sanmeigaku::StaticData` を使って命式を算出する。年柱・月柱・日柱、蔵干、星、年運・大運に
+必要な静的マスタはRubyの値オブジェクトとして保持され、鑑定画面の表示時に
+`fortune_analyses` テーブルを参照しない。
+
+`FortuneAnalysisCalculator#calculate` は既存のseedやデータ補正向けにDB保存を行う互換APIとして残している。
+保存を伴わない計算が必要な場合は `calculate_chart`、または
+`Sanmeigaku::NatalChartCalculator.call` を使う。既存の `fortune_analyses` レコードは
+seedやデータ補正用に残しており、クライアント画面も静的計算を利用するため、移行時に一括削除は行わない。
+
+月入日マスタの前後年が存在しない境界日（1925年1月、2044年12月の一部）は、
+不完全な計算を続行せず、画面に対応範囲の案内を表示する。
+これは対応範囲を機械的に狭めるのではなく、対応方針3（画面で案内する）を採用したもの。
+
 - **コントローラのインスタンス変数が肥大**：`ClientsController#show` と `FortuneAnalysisController#index` でほぼ同じインスタンス変数群を組み立てている。Decorator または ViewModel への抽出余地あり。
 - **`StripeWebhooksController` の対応イベントが少ない**：`invoice.payment_failed` / `customer.subscription.deleted` 等の追加検討。
 - **テストカバレッジ**：算命学計算サービスの直接テストが薄い。Calculator 単体テストを増やすのが望ましい。

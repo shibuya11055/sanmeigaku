@@ -41,8 +41,8 @@ class RelationshipCalculator
 
         if nacchin.nil?
           # 天剋地冲（干の陰陽が同じ、かつ相剋の関係）
-          yin_yang = StemDefinition.find_by(name: stem_name).yin_yang
-          year_stem_yin_yang = StemDefinition.find_by(name: sub_stem_name).yin_yang
+          yin_yang = Sanmeigaku::StaticData.stem_by_name(stem_name).yin_yang
+          year_stem_yin_yang = Sanmeigaku::StaticData.stem_by_name(sub_stem_name).yin_yang
           dual_clash = Stem::STEM_CONFLICTS.include?(stem_name + sub_stem_name) && yin_yang == year_stem_yin_yang ? '天剋地冲' : nil
         end
 

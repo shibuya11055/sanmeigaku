@@ -22,7 +22,7 @@ class MajorFortuneCalculator
     @month_branch = month_branch
     @year_branch = year_branch
     @day_heavenly_void = day_heavenly_void.gsub('天中殺', '')
-    @max_num = SexagenaryCycle::MAX_NUMBER
+    @max_num = Sanmeigaku::StaticData::CYCLES.length
   end
 
   def self.call(date, result, gender, day_stem, month_stem, year_stem, day_branch, month_branch, year_branch, day_heavenly_void)
@@ -65,16 +65,19 @@ class MajorFortuneCalculator
 
     days_diff = if @is_reverse_sequence
       if is_over_entry_day
-        # その月の月入日を超えているなら、誕生日 - その月の月入日となる
+        # その月の月入日以降なら、誕生日 - その月の月入日となる
         (date.to_date - Date.new(date.year, date.month, this_entry_day)).to_i
       else
-        # 超えていないなら、前月の月入日
-        ((date.to_date) - (LunarCalendarEntry.lunar_birth_day_previous_month_with_datetime(date).to_date)).to_i
+        # その月の月入日前なら、前月の月入日
+        (date.to_date - LunarCalendarEntry.lunar_birth_day_previous_month_with_datetime(date).to_date).to_i
       end
+    elsif is_over_entry_day
+      (LunarCalendarEntry.lunar_birth_day_next_month_with_datetime(date).to_date - date.to_date).to_i
     else
-      ((LunarCalendarEntry.lunar_birth_day_next_month_with_datetime(date).to_date) - (date.to_date)).to_i
+      (Date.new(date.year, date.month, this_entry_day) - date.to_date).to_i
     end
 
+    # 高尾式では端数を四捨五入する。朱学院式に合わせる場合は、順行は .ceil、逆行は (days_diff / 3).floor + 1 を使う。
     age = (days_diff / 3.to_f).round
     age = age.zero? ? 1 : age
     age = age > 10 ? 10 : age
@@ -102,8 +105,8 @@ class MajorFortuneCalculator
       year = (date.year + age) / 10 * 10
       major_stem, major_branch = build_major_stem_and_branch(i)
       stem_and_branch = major_stem + major_branch
-      major_star = MajorStarMapping.find_by(main_stem: day_stem.name, sub_stem: major_stem).ten_major_star
-      sub_star = SubStarMapping.find_by(stem: day_stem.name, branch: major_branch).twelve_sub_star
+      major_star = Sanmeigaku::StaticData.ten_major_star_for(day_stem, Sanmeigaku::StaticData.stem_by_name(major_stem)).name
+      sub_star = Sanmeigaku::StaticData.twelve_sub_star_for(day_stem, Sanmeigaku::StaticData.branch_by_name(major_branch)).name
       relationship = {
         day: RelationshipCalculator.call(day_stem.name, day_branch.name, major_stem, major_branch),
         month: RelationshipCalculator.call(month_stem.name, month_branch.name, major_stem, major_branch),
@@ -128,9 +131,9 @@ class MajorFortuneCalculator
   def build_major_stem_and_branch(num)
     cycle_num = num.zero? ? @first_num : build_cycle_num(num)
 
-    major_cycle = CycleMapping.find(cycle_num)
-    major_stem = major_cycle.stem
-    major_branch = major_cycle.branch
+    major_cycle = Sanmeigaku::StaticData.cycle(cycle_num)
+    major_stem = major_cycle.stem.name
+    major_branch = major_cycle.branch.name
 
     [major_stem, major_branch]
   end

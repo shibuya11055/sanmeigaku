@@ -3,7 +3,11 @@
 <%= render 'fortune_analysis/input_field', date: @date, gender: @gender %>
 
 <div class="result-field">
-  <% if @result.present? %>
+  <% if @calculation_error.present? %>
+    <div class="no-fortune-data">
+      <p><%= @calculation_error %></p>
+    </div>
+  <% elsif @result.present? %>
     <%# 詳細サマリー %>
     <div class="fortune-result-section fortune-result-section--summary">
       <%= render 'fortune_analysis/detail',

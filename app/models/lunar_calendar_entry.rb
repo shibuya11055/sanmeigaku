@@ -40,6 +40,11 @@ class LunarCalendarEntry < ActiveHash::Base
     { year: 1961, entries: [5,4,6,5,6,6,7,8,8,8,8,7] },
     { year: 1962, entries: [6,4,6,5,6,6,7,8,8,9,8,7] },
     { year: 1963, entries: [6,4,6,5,6,6,8,8,8,9,8,8] },
+    # 1964年9月の白露は、国立天文台の暦要項では「9月7日24時40分」。
+    # 通常時刻では9月8日0時40分相当のため、日付マスタでは9月8日扱いとする。
+    # 9/7を月入日とする外部サイトとの差は、高尾式/朱学院式のロジック差ではなく、
+    # 節入日時を日付へ変換する方法の差。Railsとyang_center_star_jsは同じ8日を採用する。
+    # https://eco.mtk.nao.ac.jp/koyomi/yoko/pdf/yoko1964.pdf
     { year: 1964, entries: [6,5,5,5,5,6,7,7,8,8,7,7] },
     { year: 1965, entries: [5,4,6,5,6,6,7,8,8,8,8,7] },
     { year: 1966, entries: [6,4,6,5,6,6,7,8,8,9,8,7] },
@@ -184,15 +189,10 @@ class LunarCalendarEntry < ActiveHash::Base
 
   def self.current_year?(birth_date)
     year = birth_date.year
-    boundary_date = Date.new(year, 2, 7)
-
-    # 2月7日以降であれば干支歴で今年であることが確定する（2044年までのデータで）
-    return true if birth_date >= boundary_date
-
-    # 1月であれば干支歴で去年であることが確定する
     return false if birth_date.month == 1
+    return true if birth_date.month > 2
 
-    # 誕生日が2月の初日以降であれば今年である
-    birth_date.day <= self.find_by(year: year).entries[1]
+    # 2月は月入日当日以降を干支歴の当年として扱う
+    birth_date.day >= find_by(year: year).entries[1]
   end
 end

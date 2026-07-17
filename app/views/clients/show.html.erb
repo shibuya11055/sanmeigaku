@@ -171,7 +171,7 @@
           </div>
         <% else %>
           <div class="no-fortune-data">
-            <p>この生年月日の算命学データが見つかりません。</p>
+            <p><%= @calculation_error || 'この生年月日の算命学データが見つかりません。' %></p>
             <p>日付：<%= @client.birthday&.strftime('%Y年%m月%d日') %></p>
           </div>
         <% end %>

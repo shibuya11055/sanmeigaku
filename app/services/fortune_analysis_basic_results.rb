@@ -32,9 +32,9 @@ class FortuneAnalysisBasicResults
 
   # 十二大従星
   def branch_and_stem_sub_star
-    youth_sub_star = StemTwelveStarMapping.find_by!(stem: day_stem, branch: year_branch).twelve_sub_star
-    middle_age_sub_star = StemTwelveStarMapping.find_by!(stem: day_stem, branch: month_branch).twelve_sub_star
-    old_age_sub_star = StemTwelveStarMapping.find_by!(stem: day_stem, branch: day_branch).twelve_sub_star
+    youth_sub_star = Sanmeigaku::StaticData.twelve_sub_star_for(day_stem, year_branch)
+    middle_age_sub_star = Sanmeigaku::StaticData.twelve_sub_star_for(day_stem, month_branch)
+    old_age_sub_star = Sanmeigaku::StaticData.twelve_sub_star_for(day_stem, day_branch)
 
     return youth_sub_star, middle_age_sub_star, old_age_sub_star
   end
@@ -64,14 +64,13 @@ class FortuneAnalysisBasicResults
 
   # 干合
   def stem_unions
-    stem = Stem.new
-    day_and_month_ids = stem.union_ids(day_stem.id, month_stem.id)
-    day_and_year_ids = stem.union_ids(day_stem.id, year_stem.id)
-    month_and_year_ids = stem.union_ids(month_stem.id, year_stem.id)
+    day_and_month_ids = Sanmeigaku::StaticData.union_ids(day_stem.id, month_stem.id)
+    day_and_year_ids = Sanmeigaku::StaticData.union_ids(day_stem.id, year_stem.id)
+    month_and_year_ids = Sanmeigaku::StaticData.union_ids(month_stem.id, year_stem.id)
 
-    day_and_month_union_names = day_and_month_ids.present? ? Stem.find(day_and_month_ids).map(&:name) : nil
-    day_and_year_union_names = day_and_year_ids.present? ? Stem.find(day_and_year_ids).map(&:name) : nil
-    month_and_year_union_names = month_and_year_ids.present? ? Stem.find(month_and_year_ids).map(&:name) : nil
+    day_and_month_union_names = union_names(day_and_month_ids)
+    day_and_year_union_names = union_names(day_and_year_ids)
+    month_and_year_union_names = union_names(month_and_year_ids)
 
     {
       day_and_month: {
@@ -102,6 +101,10 @@ class FortuneAnalysisBasicResults
     else
       branch.third_stem
     end
+  end
+
+  def union_names(ids)
+    ids&.map { |id| Sanmeigaku::StaticData.stem(id).name }
   end
 
   def qi_days

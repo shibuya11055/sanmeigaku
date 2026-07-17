@@ -17,19 +17,19 @@ class NumerologicalCalculator
     @day_branch = day_branch
     @month_branch = month_branch
     @year_branch = year_branch
-    stem_twelve_star_mapping = StemTwelveStarMapping.eager_load(:twelve_sub_star)
-                                                    .where(branch_id: [day_branch.id, month_branch.id, year_branch.id])
-
-    @energy_mapping_hash = stem_twelve_star_mapping.each_with_object({}) do |mapping, hash|
-      hash[[mapping.stem_id, mapping.branch_id]] = mapping.twelve_sub_star.energy
+    @energy_mapping_hash = Sanmeigaku::StaticData.stems.each_with_object({}) do |stem, hash|
+      Sanmeigaku::StaticData.branches.each do |branch|
+        hash[[stem.id, branch.id]] = Sanmeigaku::StaticData.energy(stem.id, branch.id)
+      end
     end
 
-    stem_ten_star_mapping = StemTenStarMapping.eager_load(:ten_major_star)
-    @stem_ten_star_mapping_hash = stem_ten_star_mapping.all.each_with_object({}) do |mapping, hash|
-      hash[[mapping.main_stem_id, mapping.sub_stem_id]] = mapping.ten_major_star
+    @stem_ten_star_mapping_hash = Sanmeigaku::StaticData.stems.each_with_object({}) do |main_stem, hash|
+      Sanmeigaku::StaticData.stems.each do |sub_stem|
+        hash[[main_stem.id, sub_stem.id]] = Sanmeigaku::StaticData.ten_major_star_for(main_stem, sub_stem)
+      end
     end
 
-    @init_stems = Stem.all.order(:id)
+    @init_stems = Sanmeigaku::StaticData.stems
   end
 
   def self.call(day_stem, month_stem, year_stem, day_branch, month_branch, year_branch)
@@ -61,7 +61,7 @@ class NumerologicalCalculator
   end
 
   def build_data
-    stems = init_stems.preload(:element)
+    stems = init_stems
     stem_data = stems.each_with_object({}) do |stem, hash|
       element_name = stem.element.name
       day_branch_point = day_branch_point(stem.id)
@@ -106,7 +106,7 @@ class NumerologicalCalculator
     }
 
     beast_type = beast_type(star_pair_percentages)
-    total_energy = stem_data.values.map{ |v| v[:all_points] }.sum
+    total_energy = stem_data.values.map { |v| v[:all_points] }.sum
 
 
     [stem_data, beast_type, total_energy]
@@ -154,7 +154,7 @@ class NumerologicalCalculator
     end
 
     # STRUCTURE_IDSの順序で並び替え、元のキーを保持
-    sorted_pairs = TenMajorStar::STRUCTURE_IDS.map do |id|
+    sorted_pairs = Sanmeigaku::StaticData::STRUCTURE_IDS.map do |id|
       dup_stem_data.find { |key, data| data[:ten_major_star].id == id }
     end
 
@@ -168,8 +168,8 @@ class NumerologicalCalculator
     ego_point = dup_stem_data_values.sum { |data| data[:type] == :ego ? data[:yang_energy] : 0 }
     expression_point = dup_stem_data_values.sum { |data| data[:type] == :expression ?  data[:yang_energy] : 0 }
     get_point = dup_stem_data_values.sum { |data| data[:type] == :get ? data[:yang_energy] : 0 }
-    self_point = dup_stem_data_values.sum { |data| TenMajorStar::SELF_IDS.include?(data[:ten_major_star].id) ?  data[:yang_energy] : 0 }
-    other_point = dup_stem_data_values.sum { |data| TenMajorStar::OTHER_IDS.include?(data[:ten_major_star].id) ? data[:yang_energy] : 0 }
+    self_point = dup_stem_data_values.sum { |data| Sanmeigaku::StaticData::SELF_IDS.include?(data[:ten_major_star].id) ?  data[:yang_energy] : 0 }
+    other_point = dup_stem_data_values.sum { |data| Sanmeigaku::StaticData::OTHER_IDS.include?(data[:ten_major_star].id) ? data[:yang_energy] : 0 }
 
     yang_structure = {
       stem_names: dup_stem_data.keys,

@@ -57,8 +57,8 @@ class YearlyFortuneCalculator
       yearly_stem_name = year_data[:stem]
       age = year - first_year
       stem_and_branch = year_data[:stem_and_branch]
-      major_star = MajorStarMapping.find_by(main_stem: day_stem.name, sub_stem: year_data[:stem]).ten_major_star
-      sub_star = SubStarMapping.find_by(stem: day_stem.name, branch: yearly_branch_name).twelve_sub_star
+      major_star = Sanmeigaku::StaticData.ten_major_star_for(day_stem, Sanmeigaku::StaticData.stem_by_name(yearly_stem_name)).name
+      sub_star = Sanmeigaku::StaticData.twelve_sub_star_for(day_stem, Sanmeigaku::StaticData.branch_by_name(yearly_branch_name)).name
       relationship = {
         day: RelationshipCalculator.call(day_stem.name, day_branch.name, yearly_stem_name, yearly_branch_name),
         month: RelationshipCalculator.call(month_stem.name, month_branch.name, yearly_stem_name, yearly_branch_name),

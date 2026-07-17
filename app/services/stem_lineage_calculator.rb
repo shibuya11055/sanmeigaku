@@ -35,7 +35,7 @@ class StemLineageCalculator
     @year_qi_stem = year_qi_stem
     @day_qi_stem = day_qi_stem
     @gender = gender
-    @original_linage = StemLineage.eager_load_all_stems.find_by(day_stem: day_stem)
+    @original_linage = Sanmeigaku::StaticData.lineage_for(day_stem)
   end
 
   def self.call(day_stem, month_stem, year_stem, day_branch, month_branch, year_branch, year_qi_stem, day_qi_stem, gender)

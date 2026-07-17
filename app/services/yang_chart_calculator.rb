@@ -30,7 +30,7 @@ class YangChartCalculator
 
     # 十大主星の取得
     ten_stars = stems.transform_values do |sub_stem|
-      StemTenStarMapping.find_by!(main_stem: day_stem, sub_stem: sub_stem).ten_major_star
+      Sanmeigaku::StaticData.ten_major_star_for(day_stem, sub_stem)
     end
 
     # 方角ごとの意味
@@ -49,7 +49,7 @@ class YangChartCalculator
     }
 
     twelve_stars = branches.transform_values do |branch|
-      StemTwelveStarMapping.find_by!(stem: day_stem, branch: branch).twelve_sub_star
+      Sanmeigaku::StaticData.twelve_sub_star_for(day_stem, branch)
     end
 
     return ten_stars, twelve_stars
