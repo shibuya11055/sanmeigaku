@@ -223,9 +223,272 @@
 
 .result-field {
   margin-top: 20px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), max-content));
+  align-items: start;
+  gap: 16px;
+  box-sizing: border-box;
+  padding: 0 12px 24px 0;
+  transition: padding-right 0.22s ease, padding-bottom 0.22s ease;
+  --fortune-open-panel-width: 540px;
+  --fortune-bottom-panel-height: min(56dvh, 520px);
+}
+
+.fortune-result-section {
+  min-width: 0;
+  max-width: 100%;
+  width: fit-content;
+  overflow: visible;
+}
+
+.fortune-result-section--wide {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.fortune-result-section--summary {
+  width: min(380px, 100%);
+}
+
+.fortune-result-section--lineage {
+  grid-column: 1 / -1;
+  width: fit-content;
+  overflow-x: auto;
+}
+
+.fortune-result-section--structure {
+  grid-column: span 2;
+}
+
+.fortune-result-section--wide,
+.fortune-result-section--numeric,
+.fortune-result-section--lineage,
+.fortune-result-section--structure {
+  overflow-x: auto;
+  scrollbar-gutter: stable;
+}
+
+.fortune-result-section > table,
+.fortune-result-section > .yin-field,
+.fortune-result-section > .stem-lineage,
+.fortune-result-section > .numerological,
+.fortune-result-section > .numerological-structure,
+.fortune-result-section > .hvw-card,
+.fortune-result-section > .ultra-compact-detail {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.fortune-result-section--summary > .ultra-compact-detail {
+  width: 100%;
+  max-width: 380px;
+  margin-top: 0;
+}
+
+.fortune-result-section--summary .compact-content {
+  align-items: center;
+}
+
+.result-field:has(.day-pillar-panel.is-open, .birth-void-panel.is-open, .stem-lineage-panel.is-open, .beast-panel.is-open, .health-panel.is-open, .numerological-structure-panel.is-open, .yearly-fortune-panel.is-open, .energy-panel.is-open, .rel-panel.is-open, .abnormal-panel.is-open, .natal-phase-panel.is-open) {
+  grid-template-columns: minmax(0, 1fr);
+  padding-right: calc(var(--fortune-open-panel-width) + 20px);
+}
+
+.result-field:has(.day-pillar-panel.is-open, .birth-void-panel.is-open, .stem-lineage-panel.is-open, .beast-panel.is-open, .health-panel.is-open, .numerological-structure-panel.is-open, .yearly-fortune-panel.is-open, .energy-panel.is-open, .rel-panel.is-open, .abnormal-panel.is-open, .natal-phase-panel.is-open) .fortune-result-section {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+@media (max-width: 1180px) {
+  .result-field {
+    gap: 14px;
+    padding-right: 8px;
+    --fortune-panel-safe-left: 250px;
+  }
+
+  .result-field:has(.day-pillar-panel.is-open, .birth-void-panel.is-open, .stem-lineage-panel.is-open, .beast-panel.is-open, .health-panel.is-open, .numerological-structure-panel.is-open, .yearly-fortune-panel.is-open, .energy-panel.is-open, .rel-panel.is-open, .abnormal-panel.is-open, .natal-phase-panel.is-open) {
+    padding-right: 8px;
+    padding-bottom: calc(var(--fortune-bottom-panel-height) + 16px);
+  }
+
+  .result-field .day-pillar-panel,
+  .result-field .birth-void-panel,
+  .result-field .stem-lineage-panel,
+  .result-field .beast-panel,
+  .result-field .health-panel,
+  .result-field .numerological-structure-panel,
+  .result-field .yearly-fortune-panel,
+  .result-field .energy-panel,
+  .result-field .rel-panel,
+  .result-field .abnormal-panel,
+  .result-field .natal-phase-panel {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: var(--fortune-panel-safe-left);
+    box-sizing: border-box;
+    width: calc(100vw - var(--fortune-panel-safe-left));
+    height: var(--fortune-bottom-panel-height);
+    max-height: var(--fortune-bottom-panel-height);
+    padding: 20px;
+    border-left: 0;
+    border-top: 1px solid #d9dfef;
+    box-shadow: 0 -8px 18px rgba(34, 42, 66, 0.08);
+    transform: translateY(100%);
+  }
+
+  .result-field .day-pillar-panel.is-open,
+  .result-field .birth-void-panel.is-open,
+  .result-field .stem-lineage-panel.is-open,
+  .result-field .beast-panel.is-open,
+  .result-field .health-panel.is-open,
+  .result-field .numerological-structure-panel.is-open,
+  .result-field .yearly-fortune-panel.is-open,
+  .result-field .energy-panel.is-open,
+  .result-field .rel-panel.is-open,
+  .result-field .abnormal-panel.is-open,
+  .result-field .natal-phase-panel.is-open {
+    transform: translateY(0);
+  }
+}
+
+body:has(.content-area.collapsed-margin) .result-field {
+  --fortune-panel-safe-left: 60px;
+}
+
+@media (max-width: 768px) {
+  .result-field {
+    grid-template-columns: minmax(0, 1fr);
+    --fortune-panel-safe-left: 60px;
+  }
+
+  .fortune-result-section,
+  .fortune-result-section--summary,
+  .fortune-result-section--structure,
+  .fortune-result-section--wide {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .fortune-result-section--summary > .ultra-compact-detail {
+    max-width: 100%;
+  }
+}
+
+html,
+body,
+.content-area {
+  scrollbar-color: #c9ced8 #fffdfa;
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.content-area::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.content-area::-webkit-scrollbar-track {
+  background: #fffdfa;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.content-area::-webkit-scrollbar-thumb {
+  background: #c9ced8;
+  border: 2px solid #fffdfa;
+  border-radius: 999px;
+}
+
+.result-field .day-pillar-panel,
+.result-field .birth-void-panel,
+.result-field .stem-lineage-panel,
+.result-field .beast-panel,
+.result-field .health-panel,
+.result-field .numerological-structure-panel,
+.result-field .yearly-fortune-panel,
+.result-field .energy-panel,
+.result-field .rel-panel,
+.result-field .abnormal-panel,
+.result-field .natal-phase-panel {
+  scrollbar-color: #c9ced8 transparent;
+  scrollbar-width: thin;
+}
+
+.result-field .day-pillar-panel::-webkit-scrollbar,
+.result-field .birth-void-panel::-webkit-scrollbar,
+.result-field .stem-lineage-panel::-webkit-scrollbar,
+.result-field .beast-panel::-webkit-scrollbar,
+.result-field .health-panel::-webkit-scrollbar,
+.result-field .numerological-structure-panel::-webkit-scrollbar,
+.result-field .yearly-fortune-panel::-webkit-scrollbar,
+.result-field .energy-panel::-webkit-scrollbar,
+.result-field .rel-panel::-webkit-scrollbar,
+.result-field .abnormal-panel::-webkit-scrollbar,
+.result-field .natal-phase-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.result-field .day-pillar-panel::-webkit-scrollbar-track,
+.result-field .birth-void-panel::-webkit-scrollbar-track,
+.result-field .stem-lineage-panel::-webkit-scrollbar-track,
+.result-field .beast-panel::-webkit-scrollbar-track,
+.result-field .health-panel::-webkit-scrollbar-track,
+.result-field .numerological-structure-panel::-webkit-scrollbar-track,
+.result-field .yearly-fortune-panel::-webkit-scrollbar-track,
+.result-field .energy-panel::-webkit-scrollbar-track,
+.result-field .rel-panel::-webkit-scrollbar-track,
+.result-field .abnormal-panel::-webkit-scrollbar-track,
+.result-field .natal-phase-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.result-field .day-pillar-panel::-webkit-scrollbar-thumb,
+.result-field .birth-void-panel::-webkit-scrollbar-thumb,
+.result-field .stem-lineage-panel::-webkit-scrollbar-thumb,
+.result-field .beast-panel::-webkit-scrollbar-thumb,
+.result-field .health-panel::-webkit-scrollbar-thumb,
+.result-field .numerological-structure-panel::-webkit-scrollbar-thumb,
+.result-field .yearly-fortune-panel::-webkit-scrollbar-thumb,
+.result-field .energy-panel::-webkit-scrollbar-thumb,
+.result-field .rel-panel::-webkit-scrollbar-thumb,
+.result-field .abnormal-panel::-webkit-scrollbar-thumb,
+.result-field .natal-phase-panel::-webkit-scrollbar-thumb {
+  background: #c9ced8;
+  border: 2px solid #fffdfa;
+  border-radius: 999px;
+}
+
+.result-field .day-pillar-panel,
+.result-field .birth-void-panel,
+.result-field .stem-lineage-panel,
+.result-field .beast-panel,
+.result-field .health-panel,
+.result-field .numerological-structure-panel,
+.result-field .yearly-fortune-panel,
+.result-field .energy-panel,
+.result-field .rel-panel,
+.result-field .abnormal-panel,
+.result-field .natal-phase-panel {
+  box-shadow: -8px 0 18px rgba(34, 42, 66, 0.08);
+}
+
+@media (max-width: 1180px) {
+  .result-field .day-pillar-panel,
+  .result-field .birth-void-panel,
+  .result-field .stem-lineage-panel,
+  .result-field .beast-panel,
+  .result-field .health-panel,
+  .result-field .numerological-structure-panel,
+  .result-field .yearly-fortune-panel,
+  .result-field .energy-panel,
+  .result-field .rel-panel,
+  .result-field .abnormal-panel,
+  .result-field .natal-phase-panel {
+    box-shadow: 0 -8px 18px rgba(34, 42, 66, 0.08);
+  }
 }
 
 .yin-field {

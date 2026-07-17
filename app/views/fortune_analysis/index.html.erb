@@ -4,8 +4,24 @@
 
 <div class="result-field">
   <% if @result.present? %>
+    <%# 詳細サマリー %>
+    <div class="fortune-result-section fortune-result-section--summary">
+      <%= render 'fortune_analysis/detail',
+        youth_sub_star: @youth_sub_star,
+        middle_age_sub_star: @middle_age_sub_star,
+        old_age_sub_star: @old_age_sub_star,
+        abnormals: @abnormals,
+        birth_voids: @birth_voids,
+        day_heavenly_void: @day_heavenly_void,
+        has_birth_voids: @has_birth_voids,
+        stem_unions: @stem_unions,
+        beast_type: @beast_type,
+        phase_method: @phase_method
+      %>
+    </div>
+
     <%# 陰占図 %>
-    <div>
+    <div class="fortune-result-section fortune-result-section--chart">
       <%= render 'fortune_analysis/yin_chart',
         day_heavenly_void: @day_heavenly_void,
         result: @result,
@@ -24,7 +40,7 @@
     </div>
 
     <%# 六親図 %>
-    <div>
+    <div class="fortune-result-section fortune-result-section--lineage">
       <%= render 'fortune_analysis/stem_lineage',
         stem_lineage: @stem_lineage,
         day_stem: @day_stem,
@@ -33,7 +49,7 @@
     </div>
 
     <%# 陽占図 %>
-    <div>
+    <div class="fortune-result-section fortune-result-section--chart">
       <%= render 'fortune_analysis/yang_chart',
         ten_stars: @ten_stars,
         ten_stars_relations: @ten_stars_relations,
@@ -43,7 +59,7 @@
     </div>
 
     <%# 数理法 %>
-    <div>
+    <div class="fortune-result-section fortune-result-section--numeric">
       <%= render 'fortune_analysis/numerological',
         numerological: @numerological,
         day_branch: @day_branch,
@@ -55,45 +71,32 @@
     </div>
 
     <%# 数理構造 %>
-    <div>
+    <div class="fortune-result-section fortune-result-section--structure">
       <%= render 'fortune_analysis/numerological_structure',
         numerological_structure: @numerological_structure
       %>
     </div>
 
     <%# 年運 %>
-    <div>
+    <div class="fortune-result-section fortune-result-section--wide">
       <%= render 'fortune_analysis/yearly_fortune',
         yearly_fortune: @yearly_fortune
       %>
     </div>
 
     <%# 大運 %>
-    <div>
+    <div class="fortune-result-section fortune-result-section--wide">
       <%= render 'fortune_analysis/major_fortune',
         major_fortune: @major_fortune
       %>
     </div>
 
     <%# 天中殺の波動 %>
-    <div>
+    <div class="fortune-result-section fortune-result-section--wide">
       <%= render 'fortune_analysis/heavenly_void_wave',
         heavenly_void_wave: @heavenly_void_wave
       %>
     </div>
 
-    <%# 詳細 %>
-    <%= render 'fortune_analysis/detail',
-      youth_sub_star: @youth_sub_star,
-      middle_age_sub_star: @middle_age_sub_star,
-      old_age_sub_star: @old_age_sub_star,
-      abnormals: @abnormals,
-      birth_voids: @birth_voids,
-      day_heavenly_void: @day_heavenly_void,
-      has_birth_voids: @has_birth_voids,
-      stem_unions: @stem_unions,
-      beast_type: @beast_type,
-      phase_method: @phase_method
-    %>
   <% end %>
 </div>
