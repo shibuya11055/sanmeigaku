@@ -46,12 +46,15 @@
           <span class="menu-text">アカウント管理</span>
         <% end %>
       </li>
+      <%# サブスクリプションメニュー（Stripe利用停止に伴い非表示） %>
+      <% if false %>
       <li class="side-menu-item <%= current_page?(subscriptions_path) ? 'active' : '' %>">
         <%= link_to subscriptions_path, class: "menu-link" do %>
           <i class="fas fa-credit-card"></i>
           <span class="menu-text">サブスクリプション</span>
         <% end %>
       </li>
+      <% end %>
     </ul>
 
     <div class="side-menu-divider"></div>

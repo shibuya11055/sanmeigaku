@@ -32,13 +32,13 @@ Rails.application.routes.draw do
   # ルートパスをLPページに変更
   root to: 'pages#lp'
 
-  # サブスクリプション管理
-  resources :subscriptions, except: [:show] do
-    member do
-      patch :cancel
-      patch :resume
-    end
-  end
+  # サブスクリプション管理（Stripe利用停止に伴い無効化）
+  # resources :subscriptions, except: [:show] do
+  #   member do
+  #     patch :cancel
+  #     patch :resume
+  #   end
+  # end
 
   # 他のルーティング
   get 'fortune_analysis', to: 'fortune_analysis#index'
@@ -59,6 +59,9 @@ Rails.application.routes.draw do
     mount LetterOpenerWeb::Engine, at: '/letter_opener'
   end
 
-  # Stripe Webhook受信用のルート
-  post 'stripe/webhook', to: 'stripe_webhooks#receive'
+  # Stripe Webhook受信用のルート（Stripe利用停止に伴い無効化）
+  # post 'stripe/webhook', to: 'stripe_webhooks#receive'
+
+  # ヘルスチェック用エンドポイント（Railway等のロードバランサから利用）
+  get 'up', to: 'rails/health#show', as: :rails_health_check
 end
