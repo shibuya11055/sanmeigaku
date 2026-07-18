@@ -52,14 +52,12 @@ Unilo（`sanmeigaku`）のアーキテクチャ概要をまとめます。
 
 - 認証は `ApplicationController` で **オプトアウト方式**（全コントローラに `authenticate_user!`、skip したい所だけ skip）。
 - 本番では HTTP Basic 認証も全体に被せる（α/β 期の閲覧制限）。
-- 命式系コントローラ（`ClientsController#show` / `FortuneAnalysisController#index`）は、`FortuneAnalysis` を `preload` で深く読んだあとに `FortuneAnalysisBasicResults` と `FortuneAnalysisCalculateWrapper` に処理を委譲する。
+- 命式系コントローラ（`ClientsController#show` / `FortuneAnalysisController#index`）は、`Sanmeigaku::NatalChartCalculator` で命式を都度算出し、`FortuneAnalysisBasicResults` と `FortuneAnalysisCalculateWrapper` に処理を委譲する。
 
 ### 2.3 Domain 層（Models + Services）
 
-- **マスタモデル**（DB 永続）: `Element` / `Stem` / `Branch` / `SexagenaryCycle` / `TenMajorStar` / `TwelveSubStar` + 各種 mapping
-- **算命学コア**（DB 永続）: `FortuneAnalysis`（生年月日 → 年/月/日柱）
 - **ユーザ・業務**（DB 永続）: `User` / `Client` / `FortuneRecord` / `Subscription`
-- **静的マスタ**（ActiveHash、コード内データ）: `Prefecture` / `Plan` / `LunarCalendarEntry` / `YearlyDayNumber` / `CycleMapping` / `ElementRelation`
+- **静的マスタ**（ActiveHash / Ruby値オブジェクト、コード内データ）: `Prefecture` / `Plan` / `LunarCalendarEntry` / `YearlyDayNumber` / `CycleMapping` / `ElementRelation` / `Sanmeigaku::StaticData`
 - **Calculator サービス**: 鑑定の各種要素を別クラスに分離（後述）
 
 ### 2.4 Infrastructure 層
@@ -78,24 +76,14 @@ User ──< Client ──< FortuneRecord
   │
   └──< Subscription (Stripe 連動)
 
-Client.birthday → FortuneAnalysis（birthday で lookup） ──┬─ sexagenary_cycle_year
-                                                          ├─ sexagenary_cycle_month
-                                                          └─ sexagenary_cycle_day
-
-SexagenaryCycle ──┬─ stem (Stem)
-                  └─ branch (Branch) ──┬─ first_stem  (Stem) ＋ first_stem_period_day
-                                       ├─ second_stem (Stem) ＋ second_stem_period_day
-                                       └─ third_stem  (Stem) ＋ third_stem_period_day
-
-Stem ──< StemTenStarMapping >── TenMajorStar
-Stem,Branch ──< StemTwelveStarMapping >── TwelveSubStar
-Stem ──< StemLineage (六親図、家族の干推定)
+Client.birthday ──▶ Sanmeigaku::NatalChartCalculator
+                         │
+                         ├─ Sanmeigaku::StaticData（干・支・60干支・星・六親）
+                         └─ LunarCalendarEntry / YearlyDayNumber（ActiveHash）
 ```
 
-- **`FortuneAnalysis.birthday` は事実上の自然キー**。鑑定計算はここから始まる。
-- **`Branch.first/second/third_stem`** は蔵干（藏干）。`first_stem_period_day` は「月入日からその干に該当する日数」。
-- **`SexagenaryCycle.heavenly_void`** は 6 種の天中殺（戌亥 / 申酉 / 午未 / 辰巳 / 寅卯 / 子丑）。
-- **`StemLineage`** は六親法用テーブル。日干 → 父母・祖父母・配偶者・子・子の配偶者の干を 14 列で持つ巨大テーブル。
+- **`Sanmeigaku::StaticData`** は干・支・60干支・星・六親・蔵干を値オブジェクトとして保持する。
+- **`Sanmeigaku::NatalChartCalculator`** は生年月日から年柱・月柱・日柱をDBへ保存せずに算出する。
 
 ### 主な Enum
 
@@ -107,8 +95,6 @@ Stem ──< StemLineage (六親図、家族の干推定)
 | `FortuneRecord.category` | `love/work/health/family/money/human_relation/study/other` |
 | `FortuneRecord.consultation_method` | `face_to_face/video_call/phone/chat/mail/other`（`prefix: true`）|
 | `Subscription.status` | `incomplete/incomplete_expired/trialing/active/past_due/canceled/unpaid` |
-| `Stem.yin_yang` | `'陰': 0, '陽': 1`（シンボルが日本語）|
-| `SexagenaryCycle.heavenly_void` | `'戌亥'/'申酉'/'午未'/'辰巳'/'寅卯'/'子丑'` |
 
 ## 4. 算命学の計算フロー
 
@@ -118,8 +104,7 @@ Stem ──< StemLineage (六親図、家族の干推定)
 入力: Client.birthday (生年月日), Client.gender (性別)
    │
    ▼
-[1] FortuneAnalysis.find_by(birthday: ...)         ← 年/月/日柱の SexagenaryCycle を取得
-   │   preload(year/month/day → stem, branch → first/second/third_stem)
+[1] Sanmeigaku::NatalChartCalculator.call(...)     ← 年/月/日柱を静的データから算出
    │
    ▼
 [2] FortuneAnalysisBasicResults.new(...)           ← 共通の基礎データ
@@ -148,7 +133,7 @@ View へ受け渡し（@変数として）
 ### 蔵干の計算（`FortuneAnalysisBasicResults#birth_qi`）
 
 1. **月入日からの経過日数** を計算（`LunarCalendarEntry.lunar_birth_day` + `lunar_birth_last_day_previous_month` / `lunar_birth_day_previous_month`）
-2. 経過日数を **`Branch.first/second/third_stem_period_day`** と比較し、どの蔵干に該当するか判定
+2. 経過日数を **`Sanmeigaku::StaticData::Branch` の蔵干期間** と比較し、どの蔵干に該当するか判定
 
 ### 月入日（節入日）データ
 
@@ -274,13 +259,10 @@ User → /subscriptions/new
 
 `FortuneAnalysisController` と `ClientsController` の計算経路は、`Sanmeigaku::NatalChartCalculator` と
 `Sanmeigaku::StaticData` を使って命式を算出する。年柱・月柱・日柱、蔵干、星、年運・大運に
-必要な静的マスタはRubyの値オブジェクトとして保持され、鑑定画面の表示時に
-`fortune_analyses` テーブルを参照しない。
+必要な静的マスタはRubyの値オブジェクトとして保持され、鑑定画面の表示時に計算用DBテーブルを参照しない。
 
-`FortuneAnalysisCalculator#calculate` は既存のseedやデータ補正向けにDB保存を行う互換APIとして残している。
-保存を伴わない計算が必要な場合は `calculate_chart`、または
-`Sanmeigaku::NatalChartCalculator.call` を使う。既存の `fortune_analyses` レコードは
-seedやデータ補正用に残しており、クライアント画面も静的計算を利用するため、移行時に一括削除は行わない。
+旧 `fortune_analyses` と算命学マスタテーブルは、`RemoveLegacyCalculationTables` マイグレーションで削除する。
+事前生成・DB補正用の旧計算APIと `db:seed` の命式生成処理も廃止した。
 
 月入日マスタの前後年が存在しない境界日（1925年1月、2044年12月の一部）は、
 不完全な計算を続行せず、画面に対応範囲の案内を表示する。

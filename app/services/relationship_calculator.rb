@@ -21,9 +21,9 @@ class RelationshipCalculator
     dual_clash = nil
 
     # 位相
-    relationship = Branch::RELATIONSHIPS_HASH[branch_name.to_sym][sub_branch_name.to_sym]
+    relationship = PhaseRelationship::RELATIONSHIPS_HASH[branch_name.to_sym][sub_branch_name.to_sym]
     # 干合
-    union = Stem::UNION_NAMES.include?(stem_name + sub_stem_name) ? '干合' : nil
+    union = StemConst::UNION_NAMES.include?(stem_name + sub_stem_name) ? '干合' : nil
     # 律音
     ricchin = stem_name == sub_stem_name && branch_name == sub_branch_name ? '律音' : nil
 
@@ -43,7 +43,7 @@ class RelationshipCalculator
           # 天剋地冲（干の陰陽が同じ、かつ相剋の関係）
           yin_yang = Sanmeigaku::StaticData.stem_by_name(stem_name).yin_yang
           year_stem_yin_yang = Sanmeigaku::StaticData.stem_by_name(sub_stem_name).yin_yang
-          dual_clash = Stem::STEM_CONFLICTS.include?(stem_name + sub_stem_name) && yin_yang == year_stem_yin_yang ? '天剋地冲' : nil
+          dual_clash = StemConst::STEM_CONFLICTS.include?(stem_name + sub_stem_name) && yin_yang == year_stem_yin_yang ? '天剋地冲' : nil
         end
 
         if nacchin.present? || dual_clash.present?

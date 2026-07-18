@@ -36,7 +36,7 @@ bin/rubocop -A              # 自動修正できる箇所を反映
 - **基底クラスは `ApplicationController`**。認証は `before_action :authenticate_user!` が自動適用済み（`skip_authenticate?` 例外）。新規コントローラで認証を外す場合は `skip_before_action :authenticate_user!, only: [...]` を明示する。
 - **Strong Parameters**: `xxx_params` メソッドにまとめる。`params.require(:foo).permit(...)` 形式。
 - **`render` vs `redirect_to`**: 失敗時のフォーム再表示は `render :new, status: :unprocessable_entity`（[fortune_records_controller.rb:21](app/controllers/fortune_records_controller.rb)）の形を推奨。`save!` を使うと例外が出て 500 になるため、フォーム再描画したいときは `save`（非破壊）+ `status: :unprocessable_entity` を使う。
-- **クエリ最適化**: `FortuneAnalysis` のように年月日柱 + stem + branch + 蔵干（first/second/third_stem）まで連鎖する場合、`preload` でツリーごと読み込む（[clients_controller.rb:13–17](app/controllers/clients_controller.rb)）。
+- **命式計算**: DBの事前生成レコードを参照せず、`Sanmeigaku::NatalChartCalculator` と静的マスタから都度算出する。
 - **インスタンス変数の数を増やしすぎない**: 命式系のコントローラはどうしても多くなるが、必要なら View モデル / Decorator を検討する。
 
 ### Model

@@ -57,11 +57,9 @@ class MajorFortuneCalculatorTest < ActiveSupport::TestCase
   private
 
   def major_fortune_start(date, gender)
-    fortune_analysis_calculator = FortuneAnalysisCalculator.new(date)
-    month_num = fortune_analysis_calculator.send(:build_month_num)
-    year_num = fortune_analysis_calculator.send(:build_year_num)
-    year_stem_name = CycleMapping.find(year_num).stem
-    year_stem = StemDefinition.find_by(name: year_stem_name)
+    result = Sanmeigaku::NatalChartCalculator.call(birth_date: date)
+    month_num = result.sexagenary_cycle_month_id
+    year_stem = result.sexagenary_cycle_year.stem
     calculator = MajorFortuneCalculator.new(
       date,
       Result.new(month_num),

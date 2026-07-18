@@ -75,7 +75,7 @@ class PhaseMethodCalculator
 
   # 三合
   def build_trine
-    Branch::TRINE_IDS.each do |key, trine_ids|
+    PhaseRelationship::TRINE_IDS.each do |key, trine_ids|
       if trine_ids.sort == all_branch_ids.sort
         return key
       end
@@ -86,7 +86,7 @@ class PhaseMethodCalculator
 
   # 半会
   def build_half_trine
-    pair_method_result(Branch::TRINE_IDS)
+    pair_method_result(PhaseRelationship::TRINE_IDS)
   end
 
   # 大半会
@@ -109,12 +109,12 @@ class PhaseMethodCalculator
 
   # 支合
   def build_combination
-    pair_method_result(Branch::COMBINATION_IDS)
+    pair_method_result(PhaseRelationship::COMBINATION_IDS)
   end
 
   # 方三位
   def build_directional
-    Branch::DIRECTIONAL_IDS.each do |key, directional_ids|
+    PhaseRelationship::DIRECTIONAL_IDS.each do |key, directional_ids|
       if directional_ids.sort == all_branch_ids.sort
         return key
       end
@@ -125,12 +125,12 @@ class PhaseMethodCalculator
 
   # 準方三位
   def build_half_directional
-    pair_method_result(Branch::DIRECTIONAL_IDS)
+    pair_method_result(PhaseRelationship::DIRECTIONAL_IDS)
   end
 
   # 対冲
   def build_clash
-    Branch::CLASH_IDS.each do |key, clash_ids_array|
+    PhaseRelationship::CLASH_IDS.each do |key, clash_ids_array|
       clash_ids_array.each do |clash_ids|
         result = pair_method_result_without_key(clash_ids)
         if result.present?
@@ -143,7 +143,7 @@ class PhaseMethodCalculator
 
   # 害
   def build_harm
-    Branch::HARM_IDS.each do |harm_ids|
+    PhaseRelationship::HARM_IDS.each do |harm_ids|
       harm_result = nil
       result = pair_method_result_without_key(harm_ids)
       if result.present?
@@ -169,7 +169,7 @@ class PhaseMethodCalculator
 
   # 刑
   def build_punishment
-    Branch::PUNISHMENT_IDS.each do |key, punishment_ids|
+    PhaseRelationship::PUNISHMENT_IDS.each do |key, punishment_ids|
       next if key == :self_punishment
 
       if key == :prosperous
@@ -189,7 +189,7 @@ class PhaseMethodCalculator
 
   # 自刑
   def build_self_punishment
-    Branch::PUNISHMENT_IDS[:self_punishment].each do |key, punishment_ids|
+    PhaseRelationship::PUNISHMENT_IDS[:self_punishment].each do |key, punishment_ids|
       result = find_matching_pairs(punishment_ids)
       if result.present?
         return { key: key, pairs: result[:pairs] }
@@ -201,7 +201,7 @@ class PhaseMethodCalculator
 
   # 破
   def build_braking
-    Branch::BRAKE_IDS.each do |brake_ids|
+    PhaseRelationship::BRAKE_IDS.each do |brake_ids|
       result = pair_method_result_without_key(brake_ids)
       if result.present?
         brake_result = result[:pairs].map do |pair|
@@ -264,7 +264,7 @@ class PhaseMethodCalculator
   # 天剋地冲
   def build_dual_clash(clash_pairs)
     dual_clash_pairs = []
-    conflicts = Stem::STEM_CONFLICTS
+    conflicts = StemConst::STEM_CONFLICTS
 
     clash_pairs.each do |pair|
       if pair == [:day, :month] && day_stem.yin_yang == month_stem.yin_yang && conflicts.include?(day_stem.name + month_stem.name)

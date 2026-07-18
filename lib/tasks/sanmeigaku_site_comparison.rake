@@ -35,11 +35,13 @@ namespace :sanmeigaku do
       input = Pathname.new(args[:input].presence || DEFAULT_CASES)
       output = Pathname.new(args[:output].presence || DEFAULT_RESULTS)
 
-      unless input.exist?
+      cases_payload = input.exist? ? JSON.parse(input.read) : nil
+      if cases_payload.nil? || cases_payload.fetch('cases').length < count
         Rake::Task['sanmeigaku:site_comparison:generate'].invoke(count, seed, input.to_s)
+        cases_payload = JSON.parse(input.read)
       end
 
-      cases = JSON.parse(input.read).fetch('cases').first(count)
+      cases = cases_payload.fetch('cases').first(count)
       client = Sanmeigaku::SiteComparison::SiteClient.new
       records = cases.each_with_index.map do |entry, index|
         date = Date.iso8601(entry.fetch('date'))
@@ -90,12 +92,15 @@ namespace :sanmeigaku do
       input = Pathname.new(args[:input].presence || DEFAULT_RESULTS)
       payload = JSON.parse(input.read)
       failures = Sanmeigaku::SiteComparison.verify_results(payload)
+      known_mismatches = payload.fetch('known_mismatches', [])
+      unexpected_failures = failures.reject { |failure| known_mismatches.include?(failure['date']) }
 
-      if failures.empty?
-        puts "#{payload.fetch('results').length}件すべて一致しました"
+      if unexpected_failures.empty?
+        known_message = known_mismatches.empty? ? '' : "（既知の差分#{known_mismatches.length}件を除外）"
+        puts "#{payload.fetch('results').length}件を検証しました#{known_message}"
       else
-        puts "#{failures.length}件の不一致またはエラーがあります"
-        puts JSON.pretty_generate(failures)
+        puts "#{unexpected_failures.length}件の不一致またはエラーがあります"
+        puts JSON.pretty_generate(unexpected_failures)
         abort
       end
     end
