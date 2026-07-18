@@ -2,12 +2,12 @@ class Plan < ActiveHash::Base
   self.data = [
     {
       id: 1,
-      name: "有料プラン",
+      name: '有料プラン',
       price: 4980,
-      currency: "jpy",
-      interval: "month",
-      description: "月額4980円の有料プランで、すべての機能をご利用いただけます。",
-      stripe_product_name: "有料プラン"
+      currency: 'jpy',
+      interval: 'month',
+      description: '月額4980円の有料プランで、すべての機能をご利用いただけます。',
+      stripe_product_name: '有料プラン'
     }
   ]
 

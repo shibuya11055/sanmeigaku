@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
     # 現在のパスワードが正しいかチェック
     unless @user.valid_password?(params[:user][:current_password])
-      @user.errors.add(:current_password, "が正しくありません")
+      @user.errors.add(:current_password, 'が正しくありません')
       render :edit, status: :unprocessable_entity
       return
     end

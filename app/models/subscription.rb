@@ -130,7 +130,7 @@ class Subscription < ApplicationRecord
   def no_duplicate_subscription
     # 有効・未完了・トライアル中、または「キャンセル済みでend_dateが未来」のサブスクがあれば新規作成不可
     if user && user.subscriptions.where(
-      "(status IN (?) OR (status = ? AND end_date > ?))",
+      '(status IN (?) OR (status = ? AND end_date > ?))',
       [Subscription.statuses[:active], Subscription.statuses[:incomplete], Subscription.statuses[:trialing]],
       Subscription.statuses[:canceled],
       Time.current

@@ -7,7 +7,7 @@ class ClientsController < ApplicationController
 
     # 検索パラメータがある場合は名前で絞り込み
     if params[:search].present?
-      @clients = @clients.where("fullname LIKE ?", "%#{params[:search]}%")
+      @clients = @clients.where('fullname LIKE ?', "%#{params[:search]}%")
     end
   end
 
