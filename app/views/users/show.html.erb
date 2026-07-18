@@ -29,15 +29,7 @@
           </div>
           <div class="detail-row">
             <span class="detail-label">メールアドレス</span>
-            <span class="detail-value">
-              <%= @user.email %>
-              <% if @user.unconfirmed_email %>
-                <div class="confirmation-notice">
-                  <i class="fas fa-info-circle"></i>
-                  新しいメールアドレス（<%= @user.unconfirmed_email %>）の確認待ち
-                </div>
-              <% end %>
-            </span>
+            <span class="detail-value"><%= @user.email %></span>
           </div>
           <div class="detail-row">
             <span class="detail-label">最終更新</span>

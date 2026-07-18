@@ -157,7 +157,7 @@ test/              # Minitest
 ### 認証フロー
 
 - `ApplicationController` で `before_action :authenticate_user!` を**全コントローラに**適用。
-- 認証スキップは `skip_authenticate?`（Devise の認証関連ページ）または明示的な `skip_before_action :authenticate_user!`（`PagesController#lp` / `#terms_of_service` / `#privacy_policy`、`StripeWebhooksController`、`TwoFactorAuthenticationController`）で行う。
+- 認証スキップは `skip_authenticate?`（Devise の認証関連ページ）または明示的な `skip_before_action :authenticate_user!`（`StripeWebhooksController`、`TwoFactorAuthenticationController`）で行う。`PagesController` のLP・利用規約・プライバシーポリシーは認証必須。
 - 本番では `Rails.env.production?` のとき HTTP Basic 認証を全リクエストに要求（`BASIC_AUTH_USER` / `BASIC_AUTH_PASSWORD` 環境変数）。
 - 2要素認証は ROTP ベースの TOTP（`User#enable_two_factor!` / `verify_otp` / バックアップコード）。`TwoFactorAuthenticationController` がログイン中間ステップを担当。
 
@@ -169,9 +169,10 @@ test/              # Minitest
 
 ### Devise カスタマイズ
 
-- `users/registrations` `users/passwords` `users/confirmations` `users/unlocks` `users/sessions` をそれぞれ独自コントローラに差し替え（`app/controllers/users/`）。
+- `users/registrations` `users/unlocks` `users/sessions` をそれぞれ独自コントローラに差し替え（`app/controllers/users/`）。
 - `fullname` をサインアップ / 更新の許可パラメータに追加（`ApplicationController#configure_permitted_parameters`）。
-- 確認メール（confirmable）有効。
+- 確認メール（confirmable）は使用せず、登録後すぐにアカウントを有効化する。
+- パスワード再設定メール（recoverable）は使用しない。ログイン後のユーザー編集画面での変更は可能。
 
 ### 静的マスタは ActiveHash
 

@@ -65,7 +65,7 @@ Unilo（`sanmeigaku`）のアーキテクチャ概要をまとめます。
 - **PostgreSQL** (`pg`)
 - **Solid Cache / Queue / Cable** で外部 Redis / Sidekiq を不要にしている
 - **Stripe API**（同期 + Webhook）
-- **メール**（Devise 確認 / リセット）: 本番は適切な SMTP、開発は `letter_opener_web`
+- **メール**: Devise の確認メールとパスワード再設定メールは使用しない
 
 ## 3. データモデル
 
@@ -251,7 +251,7 @@ User → /subscriptions/new
 |---|---|---|---|
 | development | なし | テストキー | letter_opener |
 | test | なし | – | – |
-| production | あり（`BASIC_AUTH_*`） | 本番キー | SMTP（要設定） |
+| production | あり（`BASIC_AUTH_*`） | 本番キー | – |
 
 ## 10. 既知の課題 / 改善余地
 

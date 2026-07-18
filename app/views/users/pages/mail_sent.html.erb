@@ -4,9 +4,6 @@
   <% if @action == 'confirmation' %>
     <p><strong><%= @email %></strong> 宛に確認メールを送信しました。</p>
     <p>メール内のリンクをクリックして、アカウントの認証を完了してください。</p>
-  <% elsif @action == 'reset_password' %>
-    <p><strong><%= @email %></strong> 宛にパスワードリセット手順を送信しました。</p>
-    <p>メール内のリンクをクリックして、パスワードの再設定を行ってください。</p>
   <% elsif @action == 'unlock' %>
     <p><strong><%= @email %></strong> 宛にアカウントロック解除手順を送信しました。</p>
     <p>メール内のリンクをクリックして、アカウントのロックを解除してください。</p>

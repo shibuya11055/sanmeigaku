@@ -32,12 +32,6 @@
         <div class="form-group">
           <%= form.label :email, "メールアドレス", class: "form-label required" %>
           <%= form.email_field :email, class: "form-control", placeholder: "例：example@email.com", required: true %>
-          <% if @user.pending_reconfirmation? %>
-            <div class="confirmation-notice">
-              <i class="fas fa-info-circle"></i>
-              現在、<%= @user.unconfirmed_email %> での確認待ちです
-            </div>
-          <% end %>
         </div>
       </div>
 

@@ -16,8 +16,6 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',
-    passwords: 'users/passwords',
-    confirmations: 'users/confirmations',
     unlocks: 'users/unlocks',
     sessions: 'users/sessions'
   }
@@ -58,7 +56,7 @@ Rails.application.routes.draw do
 
   # 開発環境でのメール確認用
   if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
   end
 
   # Stripe Webhook受信用のルート

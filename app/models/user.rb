@@ -2,28 +2,20 @@
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
-#  backup_codes           :text
-#  confirmation_sent_at   :datetime
-#  confirmation_token     :string
-#  confirmed_at           :datetime
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  fullname               :string
-#  otp_enabled            :boolean          default(FALSE), not null
-#  otp_secret             :string
-#  remember_created_at    :datetime
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string
-#  unconfirmed_email      :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  id                  :bigint           not null, primary key
+#  backup_codes        :text
+#  email               :string           default(""), not null
+#  encrypted_password  :string           default(""), not null
+#  fullname            :string
+#  otp_enabled         :boolean          default(FALSE), not null
+#  otp_secret          :string
+#  remember_created_at :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #
 # Indexes
 #
-#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
-#  index_users_on_email                 (email) UNIQUE
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_email  (email) UNIQUE
 #
 require 'rotp'
 require 'securerandom'
@@ -31,9 +23,9 @@ require 'cgi'
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :lockable, :timeoutable, :trackable and :omniauthable
+  # :confirmable, :lockable, :recoverable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+         :rememberable, :validatable
 
   # アソシエーション
   has_many :clients, dependent: :destroy
@@ -90,7 +82,7 @@ class User < ApplicationRecord
     return nil unless otp_secret.present?
 
     # ROTPライブラリのバグを回避するため、手動でURI生成
-    issuer = "Unilo"
+    issuer = 'Unilo'
     account_name = email
 
     "otpauth://totp/#{CGI.escape("#{issuer}:#{account_name}")}?secret=#{otp_secret}&issuer=#{CGI.escape(issuer)}"
@@ -120,7 +112,7 @@ class User < ApplicationRecord
   def has_any_unjoinable_subscription?
     # 有効・未完了・トライアル中、または「キャンセル済み かつ end_date > 現在」
     subscriptions.where(
-      "(status IN (?) OR (status = ? AND end_date > ?))",
+      '(status IN (?) OR (status = ? AND end_date > ?))',
       [Subscription.statuses[:active], Subscription.statuses[:incomplete], Subscription.statuses[:trialing]],
       Subscription.statuses[:canceled],
       Time.current
